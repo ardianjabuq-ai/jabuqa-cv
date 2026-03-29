@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JABUQA CV Generator — AI-Powered Professional CVs</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090910;
+  --surface: #0f0f1a;
+  --surface2: #16162a;
+  --surface3: #1e1e35;
+  --cyan: #14fff4;
+  --cyan-dim: rgba(20,255,244,0.08);
+  --cyan-border: rgba(20,255,244,0.15);
+  --gold: #f0b429;
+  --white: #eeeef8;
+  --muted: #5a5a8a;
+  --muted2: #3a3a5a;
+  --green: #00e676;
+  --red: #ff4444;
+  --border: rgba(255,255,255,0.06);
+  --radius: 12px;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(20,255,244,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20,255,244,0.018) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.app { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+
+/* HEADER */
+header {
+  padding: 28px 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 15px; letter-spacing: 0.3em; text-transform: uppercase; }
+.logo span { color: var(--cyan); }
+.logo small { display: block; font-family: var(--font-mono); font-weight: 300; font-size: 9px; letter-spacing: 0.25em; color: var(--muted); margin-top: 3px; }
+.lang-selector { display: flex; gap: 6px; }
+.lang-btn { padding: 5px 11px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--border); border-radius: 20px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+.lang-btn:hover, .lang-btn.active { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+
+/* HERO */
+.hero { text-align: center; margin-bottom: 44px; }
+.hero-tag { display: inline-block; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-border); padding: 5px 14px; border-radius: 20px; margin-bottom: 16px; }
+.hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 5vw, 44px); line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em; }
+.hero h1 em { font-style: normal; color: var(--cyan); }
+.hero p { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; max-width: 460px; margin: 0 auto; }
+
+/* STEPS */
+.steps { display: flex; align-items: center; margin-bottom: 32px; overflow-x: auto; padding-bottom: 4px; }
+.step { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--muted2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); transition: all 0.3s; }
+.step.active .step-num { border-color: var(--cyan); background: var(--cyan); color: var(--bg); font-weight: 700; }
+.step.done .step-num { border-color: var(--green); background: var(--green); color: var(--bg); }
+.step-label { font-size: 10px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+.step.active .step-label { color: var(--white); }
+.step-line { flex: 1; height: 1px; background: var(--muted2); margin: 0 12px; min-width: 24px; }
+
+/* PANELS */
+.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+/* FORM */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+@media(max-width:580px){ .form-grid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.span2 { grid-column: span 2; }
+@media(max-width:580px){ .field.span2 { grid-column: span 1; } }
+label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+input, textarea, select { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--white); font-family: var(--font-mono); font-size: 13px; padding: 11px 13px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; -webkit-appearance: none; }
+input:focus, textarea:focus, select:focus { border-color: var(--cyan-border); box-shadow: 0 0 0 3px rgba(20,255,244,0.04); }
+input::placeholder, textarea::placeholder { color: var(--muted); }
+textarea { resize: vertical; min-height: 85px; line-height: 1.6; }
+select { cursor: pointer; }
+select option { background: var(--surface2); }
+
+/* CARDS */
+.section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 14px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.section-title { font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; display: flex; align-items: center; gap: 9px; }
+.btn-add { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-border); border-radius: 20px; padding: 5px 13px; cursor: pointer; font-family: var(--font-mono); transition: all 0.2s; }
+.btn-add:hover { background: rgba(20,255,244,0.14); }
+.entry { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 10px; position: relative; }
+.btn-remove { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1; transition: color 0.2s; }
+.btn-remove:hover { color: var(--red); }
+
+/* LANG OUTPUT */
+.lang-output-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+@media(max-width:480px){ .lang-output-grid { grid-template-columns: 1fr; } }
+.lang-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: all 0.2s; text-align: center; }
+.lang-card:hover, .lang-card.selected { border-color: var(--cyan); background: var(--cyan-dim); }
+.lang-card .flag { font-size: 26px; margin-bottom: 8px; }
+.lang-card .lang-name { font-family: var(--font-display); font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.lang-card.selected .lang-name { color: var(--cyan); }
+.lang-card .lang-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; }
+
+/* PLAN */
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+@media(max-width:480px){ .plan-grid { grid-template-columns: 1fr; } }
+.plan-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; cursor: pointer; transition: all 0.2s; position: relative; }
+.plan-card:hover, .plan-card.selected { border-color: var(--cyan); }
+.plan-card.selected { background: var(--cyan-dim); }
+.plan-card.popular::before { content: 'POPULAR'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--cyan); color: var(--bg); font-size: 8px; letter-spacing: 0.18em; padding: 3px 10px; border-radius: 10px; font-weight: 700; }
+.plan-name { font-family: var(--font-display); font-weight: 800; font-size: 15px; margin-bottom: 6px; }
+.plan-price { font-size: 30px; font-weight: 700; color: var(--cyan); margin-bottom: 12px; }
+.plan-price span { font-size: 12px; color: var(--muted); }
+.plan-features { list-style: none; }
+.plan-features li { font-size: 11px; color: var(--muted); padding: 3px 0; display: flex; align-items: center; gap: 7px; }
+.plan-features li::before { content: '✓'; color: var(--cyan); font-weight: 700; }
+
+/* PAYMENT */
+.payment-box { background: var(--surface); border: 1px solid var(--cyan-border); border-radius: var(--radius); padding: 24px; text-align: center; margin-bottom: 16px; }
+.payment-amount { font-family: var(--font-display); font-size: 46px; font-weight: 800; color: var(--cyan); margin-bottom: 4px; }
+.payment-desc { font-size: 11px; color: var(--muted); margin-bottom: 20px; letter-spacing: 0.1em; }
+.payment-methods { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.pay-method { padding: 7px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 11px; color: var(--muted); background: var(--surface2); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
+.pay-method:hover, .pay-method.selected { border-color: var(--cyan); color: var(--white); }
+
+/* BUTTONS */
+.btn-primary { width: 100%; padding: 15px; background: var(--cyan); color: var(--bg); border: none; border-radius: var(--radius); font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 28px rgba(20,255,244,0.18); }
+.btn-primary:hover { box-shadow: 0 0 48px rgba(20,255,244,0.38); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-secondary { padding: 11px 26px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; }
+.btn-secondary:hover { color: var(--white); border-color: var(--muted); }
+.nav-row { display: flex; gap: 12px; justify-content: space-between; margin-top: 22px; }
+
+/* RESULT */
+.result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; margin-bottom: 16px; min-height: 180px; }
+.result-box pre { white-space: pre-wrap; font-family: var(--font-mono); font-size: 12px; line-height: 1.85; color: var(--white); }
+.result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.result-actions { display: flex; gap: 8px; }
+.btn-action { padding: 6px 14px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 20px; cursor: pointer; font-family: var(--font-mono); transition: all 0.2s; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); }
+.btn-action:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* LOADING */
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 18px; }
+.spinner { width: 44px; height: 44px; border: 2px solid var(--surface3); border-top-color: var(--cyan); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 11px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; animation: blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* API KEY */
+.api-key-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.api-key-row input { flex: 1; font-size: 11px; }
+.btn-save-key { padding: 11px 16px; background: var(--cyan-dim); border: 1px solid var(--cyan-border); border-radius: 8px; color: var(--cyan); font-size: 11px; cursor: pointer; font-family: var(--font-mono); white-space: nowrap; transition: all 0.2s; }
+.btn-save-key:hover { background: rgba(20,255,244,0.14); }
+.key-status { font-size: 10px; letter-spacing: 0.12em; margin-bottom: 0; display: flex; align-items: center; gap: 6px; }
+.key-status.ok { color: var(--green); }
+.key-status.missing { color: var(--muted); }
+
+/* TOAST */
+#toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--cyan-border); color: var(--cyan); padding: 9px 22px; border-radius: 24px; font-size: 11px; letter-spacing: 0.12em; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s; white-space: nowrap; }
+#toast.show { opacity: 1; }
+
+footer { text-align: center; padding: 28px 0 0; border-top: 1px solid var(--border); margin-top: 36px; }
+footer p { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; }
+footer span { color: var(--cyan); }
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<div class="app">
+
+  <header>
+    <div class="logo">
+      <span>JABUQA</span> CV
+      <small>AI-POWERED CV GENERATOR</small>
+    </div>
+    <div class="lang-selector">
+      <button class="lang-btn active" onclick="setUILang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setUILang('de',this)">DE</button>
+      <button class="lang-btn" onclick="setUILang('fr',this)">FR</button>
+      <button class="lang-btn" onclick="setUILang('it',this)">IT</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-tag" id="hero-tag">AI-Powered · ATS-Optimized · European Standard</div>
+    <h1 id="hero-title">Your Professional CV<br><em>Generated in 60 Seconds</em></h1>
+    <p id="hero-sub">Enter your details. Choose your language. Get a job-ready CV for the European market — instantly.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step active" id="step-1"><div class="step-num">1</div><div class="step-label" id="sl-1">Details</div></div>
+    <div class="step-line"></div>
+    <div class="step" id="step-2"><div class="step-num">2</div><div class="step-label" id="sl-2">Language</div></div>
+    <div class="step-line"></div>
+    <div class="step" id="step-3"><div class="step-num">3</div><div class="step-label" id="sl-3">Plan</div></div>
+    <div class="step-line"></div>
+    <div class="step" id="step-4"><div class="step-num">4</div><div class="step-label" id="sl-4">Generate</div></div>
+  </div>
+
+  <!-- PANEL 1 -->
+  <div class="panel active" id="panel-1">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">🔑 <span id="t-apikey">API Configuration</span></div>
+      </div>
+      <div class="api-key-row">
+        <input type="password" id="api-key-input" placeholder="sk-ant-api03-...">
+        <button class="btn-save-key" onclick="saveApiKey()" id="t-savekey">Save Key</button>
+      </div>
+      <div class="key-status missing" id="key-status">⚠ API Key not set</div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">👤 <span id="t-personal">Personal Information</span></div>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label id="l-fname">First Name</label><input type="text" id="firstName" placeholder="Anna"></div>
+        <div class="field"><label id="l-lname">Last Name</label><input type="text" id="lastName" placeholder="Müller"></div>
+        <div class="field"><label id="l-email">Email</label><input type="email" id="email" placeholder="anna@email.com"></div>
+        <div class="field"><label id="l-phone">Phone</label><input type="tel" id="phone" placeholder="+41 79 123 45 67"></div>
+        <div class="field"><label id="l-city">City</label><input type="text" id="city" placeholder="Zürich"></div>
+        <div class="field"><label id="l-country">Country</label><input type="text" id="country" placeholder="Switzerland"></div>
+        <div class="field span2"><label id="l-linkedin">LinkedIn / Portfolio</label><input type="text" id="linkedin" placeholder="linkedin.com/in/anna-mueller"></div>
+        <div class="field span2"><label id="l-summary">Professional Summary</label><textarea id="summary" placeholder="Experienced professional with 5+ years..."></textarea></div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">💼 <span id="t-exp">Work Experience</span></div>
+        <button class="btn-add" onclick="addExperience()" id="t-addexp">+ Add</button>
+      </div>
+      <div id="experience-list"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">🎓 <span id="t-edu">Education</span></div>
+        <button class="btn-add" onclick="addEducation()" id="t-addedu">+ Add</button>
+      </div>
+      <div id="education-list"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">⚡ <span id="t-skills">Skills & Languages</span></div>
+      </div>
+      <div class="form-grid">
+        <div class="field span2"><label id="l-skills">Skills (comma separated)</label><input type="text" id="skills" placeholder="Project Management, Excel, Salesforce, Adobe CC"></div>
+        <div class="field span2"><label id="l-langs">Languages</label><input type="text" id="languages" placeholder="German (Native), English (C1), French (B2)"></div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <div></div>
+      <button class="btn-primary" onclick="goToStep(2)" style="width:auto;padding:13px 36px" id="t-next1">Continue →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2 -->
+  <div class="panel" id="panel-2">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">🌍 <span id="t-chooselang">Choose CV Language</span></div>
+      </div>
+      <div class="lang-output-grid">
+        <div class="lang-card selected" onclick="selectOutputLang('de',this)"><div class="flag">🇩🇪</div><div class="lang-name">Deutsch</div><div class="lang-sub">Germany · Austria · Switzerland</div></div>
+        <div class="lang-card" onclick="selectOutputLang('en',this)"><div class="flag">🇬🇧</div><div class="lang-name">English</div><div class="lang-sub">UK · Global · International</div></div>
+        <div class="lang-card" onclick="selectOutputLang('fr',this)"><div class="flag">🇫🇷</div><div class="lang-name">Français</div><div class="lang-sub">France · Switzerland · Belgium</div></div>
+        <div class="lang-card" onclick="selectOutputLang('it',this)"><div class="flag">🇮🇹</div><div class="lang-name">Italiano</div><div class="lang-sub">Italy · Switzerland · Ticino</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
+      <button class="btn-primary" onclick="goToStep(3)" style="width:auto;padding:13px 36px" id="t-next2">Continue →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 3 -->
+  <div class="panel" id="panel-3">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-title">💎 <span id="t-chooseplan">Choose Your Plan</span></div>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-card" onclick="selectPlan('basic',this)">
+          <div class="plan-name">BASIC</div>
+          <div class="plan-price">€8 <span>one-time</span></div>
+          <ul class="plan-features">
+            <li>1 CV in chosen language</li>
+            <li>ATS-Optimized format</li>
+            <li>Download as TXT</li>
+            <li>European standard</li>
+          </ul>
+        </div>
+        <div class="plan-card popular selected" onclick="selectPlan('pro',this)">
+          <div class="plan-name">PRO</div>
+          <div class="plan-price">€19 <span>one-time</span></div>
+          <ul class="plan-features">
+            <li>CV in ALL 4 languages</li>
+            <li>ATS-Optimized format</li>
+            <li>Cover letter included</li>
+            <li>LinkedIn summary</li>
+          </ul>
+        </div>
+      </div>
+      <div class="payment-box">
+        <div class="payment-amount" id="payment-amount">€19</div>
+        <div class="payment-desc" id="payment-desc">PRO Plan — All 4 Languages + Cover Letter</div>
+        <div class="payment-methods">
+          <div class="pay-method selected" onclick="selectPayment(this)">💳 Card</div>
+          <div class="pay-method" onclick="selectPayment(this)">🏦 Bank Transfer</div>
+          <div class="pay-method" onclick="selectPayment(this)">📱 TWINT</div>
+          <div class="pay-method" onclick="selectPayment(this)">🅿️ PayPal</div>
+        </div>
+        <p style="font-size:10px;color:var(--muted);letter-spacing:0.09em" id="t-payinfo">Payment processed securely. CV generated immediately after confirmation.</p>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
+      <button class="btn-primary" onclick="goToStep(4)" style="width:auto;padding:13px 36px" id="t-generate">Generate My CV →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 4 -->
+  <div class="panel" id="panel-4">
+    <div class="result-box" id="result-box">
+      <div class="loading" id="loading-state">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loading-text">Generating your CV...</div>
+      </div>
+      <div id="cv-result" style="display:none">
+        <div class="result-header">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:13px" id="t-ready">✅ Your CV is Ready</div>
+          <div class="result-actions">
+            <button class="btn-action" onclick="copyCV()" id="t-copy">Copy</button>
+            <button class="btn-action" onclick="downloadCV()" id="t-download">Download</button>
+          </div>
+        </div>
+        <pre id="cv-content"></pre>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" onclick="goToStep(1)" id="t-new">← New CV</button>
+      <button class="btn-primary" onclick="startGeneration()" style="width:auto;padding:13px 36px" id="t-regen">Regenerate</button>
+    </div>
+  </div>
+
+  <footer><p>© 2025 <span>JABUQA</span> CV Generator — AI-Powered Professional CVs for the European Market</p></footer>
+</div>
+
+<script>
+const state = { currentStep:1, outputLang:'de', plan:'pro', apiKey:'', cvContent:'' };
+
+const i18n = {
+  en:{ heroTag:'AI-Powered · ATS-Optimized · European Standard', heroTitle:'Your Professional CV<br><em>Generated in 60 Seconds</em>', heroSub:'Enter your details. Choose your language. Get a job-ready CV instantly.', sl1:'Details', sl2:'Language', sl3:'Plan', sl4:'Generate', tApikey:'API Configuration', tSavekey:'Save Key', tPersonal:'Personal Information', tExp:'Work Experience', tAddexp:'+ Add', tEdu:'Education', tAddedu:'+ Add', tSkills:'Skills & Languages', lFname:'First Name', lLname:'Last Name', lEmail:'Email', lPhone:'Phone', lCity:'City', lCountry:'Country', lLinkedin:'LinkedIn / Portfolio', lSummary:'Professional Summary', lSkills:'Skills (comma separated)', lLangs:'Languages', tNext1:'Continue →', tNext2:'Continue →', tChooseLang:'Choose CV Language', tChoosePlan:'Choose Your Plan', tGenerate:'Generate My CV →', tReady:'✅ Your CV is Ready', tCopy:'Copy', tDownload:'Download', tNew:'← New CV', tRegen:'Regenerate', tPayinfo:'Payment processed securely. CV generated immediately.', loadingText:'Generating your professional CV...' },
+  de:{ heroTag:'KI-gestützt · ATS-Optimiert · Europäischer Standard', heroTitle:'Ihr professioneller Lebenslauf<br><em>In 60 Sekunden erstellt</em>', heroSub:'Daten eingeben. Sprache wählen. Sofort einen jobfertigen Lebenslauf erhalten.', sl1:'Daten', sl2:'Sprache', sl3:'Plan', sl4:'Erstellen', tApikey:'API Konfiguration', tSavekey:'Speichern', tPersonal:'Persönliche Daten', tExp:'Berufserfahrung', tAddexp:'+ Hinzufügen', tEdu:'Ausbildung', tAddedu:'+ Hinzufügen', tSkills:'Fähigkeiten & Sprachen', lFname:'Vorname', lLname:'Nachname', lEmail:'E-Mail', lPhone:'Telefon', lCity:'Stadt', lCountry:'Land', lLinkedin:'LinkedIn / Portfolio', lSummary:'Berufliches Profil', lSkills:'Fähigkeiten (kommagetrennt)', lLangs:'Sprachkenntnisse', tNext1:'Weiter →', tNext2:'Weiter →', tChooseLang:'CV-Sprache wählen', tChoosePlan:'Plan auswählen', tGenerate:'Lebenslauf erstellen →', tReady:'✅ Ihr Lebenslauf ist fertig', tCopy:'Kopieren', tDownload:'Herunterladen', tNew:'← Neu', tRegen:'Neu generieren', tPayinfo:'Sichere Zahlung. CV wird sofort generiert.', loadingText:'Ihr Lebenslauf wird erstellt...' },
+  fr:{ heroTag:'Propulsé par IA · Optimisé ATS · Standard Européen', heroTitle:'Votre CV Professionnel<br><em>Généré en 60 Secondes</em>', heroSub:'Entrez vos données. Choisissez la langue. Obtenez un CV prêt à postuler.', sl1:'Données', sl2:'Langue', sl3:'Plan', sl4:'Générer', tApikey:'Configuration API', tSavekey:'Sauvegarder', tPersonal:'Informations Personnelles', tExp:'Expérience', tAddexp:'+ Ajouter', tEdu:'Formation', tAddedu:'+ Ajouter', tSkills:'Compétences & Langues', lFname:'Prénom', lLname:'Nom', lEmail:'Email', lPhone:'Téléphone', lCity:'Ville', lCountry:'Pays', lLinkedin:'LinkedIn / Portfolio', lSummary:'Profil Professionnel', lSkills:'Compétences (séparées par virgule)', lLangs:'Langues', tNext1:'Continuer →', tNext2:'Continuer →', tChooseLang:'Langue du CV', tChoosePlan:'Choisir votre plan', tGenerate:'Générer mon CV →', tReady:'✅ Votre CV est prêt', tCopy:'Copier', tDownload:'Télécharger', tNew:'← Nouveau', tRegen:'Régénérer', tPayinfo:'Paiement sécurisé. CV généré immédiatement.', loadingText:'Génération de votre CV...' },
+  it:{ heroTag:'Basato su IA · Ottimizzato ATS · Standard Europeo', heroTitle:'Il Tuo CV Professionale<br><em>Generato in 60 Secondi</em>', heroSub:'Inserisci i dati. Scegli la lingua. Ottieni subito un CV perfetto.', sl1:'Dati', sl2:'Lingua', sl3:'Piano', sl4:'Genera', tApikey:'Configurazione API', tSavekey:'Salva', tPersonal:'Informazioni Personali', tExp:'Esperienza', tAddexp:'+ Aggiungi', tEdu:'Formazione', tAddedu:'+ Aggiungi', tSkills:'Competenze & Lingue', lFname:'Nome', lLname:'Cognome', lEmail:'Email', lPhone:'Telefono', lCity:'Città', lCountry:'Paese', lLinkedin:'LinkedIn / Portfolio', lSummary:'Profilo Professionale', lSkills:'Competenze (separate da virgola)', lLangs:'Lingue', tNext1:'Continua →', tNext2:'Continua →', tChooseLang:'Lingua del CV', tChoosePlan:'Scegli il piano', tGenerate:'Genera il mio CV →', tReady:'✅ Il tuo CV è pronto', tCopy:'Copia', tDownload:'Scarica', tNew:'← Nuovo', tRegen:'Rigenera', tPayinfo:'Pagamento sicuro. CV generato immediatamente.', loadingText:'Generazione del tuo CV...' }
+};
+
+let uiLang = 'en';
+
+function setUILang(lang, btn) {
+  uiLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const t = i18n[lang];
+  const s = (id, v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
+  s('hero-tag',t.heroTag); s('hero-title',t.heroTitle); s('hero-sub',t.heroSub);
+  s('sl-1',t.sl1); s('sl-2',t.sl2); s('sl-3',t.sl3); s('sl-4',t.sl4);
+  s('t-apikey',t.tApikey); s('t-savekey',t.tSavekey);
+  s('t-personal',t.tPersonal); s('t-exp',t.tExp); s('t-addexp',t.tAddexp);
+  s('t-edu',t.tEdu); s('t-addedu',t.tAddedu); s('t-skills',t.tSkills);
+  s('l-fname',t.lFname); s('l-lname',t.lLname); s('l-email',t.lEmail);
+  s('l-phone',t.lPhone); s('l-city',t.lCity); s('l-country',t.lCountry);
+  s('l-linkedin',t.lLinkedin); s('l-summary',t.lSummary);
+  s('l-skills',t.lSkills); s('l-langs',t.lLangs);
+  s('t-next1',t.tNext1); s('t-next2',t.tNext2);
+  s('t-chooselang',t.tChooseLang); s('t-chooseplan',t.tChoosePlan);
+  s('t-generate',t.tGenerate);
+  s('t-ready',t.tReady); s('t-copy',t.tCopy); s('t-download',t.tDownload);
+  s('t-new',t.tNew); s('t-regen',t.tRegen); s('t-payinfo',t.tPayinfo);
+  s('loading-text',t.loadingText);
+}
+
+function saveApiKey() {
+  const v = document.getElementById('api-key-input').value.trim();
+  if(!v){ showToast('Enter your API key'); return; }
+  state.apiKey = v;
+  document.getElementById('api-key-input').value = '●'.repeat(24);
+  document.getElementById('key-status').className = 'key-status ok';
+  document.getElementById('key-status').textContent = '✓ API Key saved successfully';
+  showToast('API Key saved ✓');
+}
+
+let expCount = 0;
+function addExperience() {
+  expCount++;
+  const id = `exp-${expCount}`;
+  const div = document.createElement('div');
+  div.className = 'entry'; div.id = id;
+  div.innerHTML = `<button class="btn-remove" onclick="removeEntry('${id}')">×</button>
+    <div class="form-grid">
+      <div class="field"><label>Job Title</label><input type="text" placeholder="Marketing Manager" id="exp-title-${expCount}"></div>
+      <div class="field"><label>Company</label><input type="text" placeholder="Google AG" id="exp-company-${expCount}"></div>
+      <div class="field"><label>Start</label><input type="text" placeholder="Jan 2020" id="exp-start-${expCount}"></div>
+      <div class="field"><label>End</label><input type="text" placeholder="Present" id="exp-end-${expCount}"></div>
+      <div class="field span2"><label>Achievements & Responsibilities</label><textarea placeholder="Led a team of 8, increased revenue by 35%..." id="exp-desc-${expCount}"></textarea></div>
+    </div>`;
+  document.getElementById('experience-list').appendChild(div);
+}
+
+let eduCount = 0;
+function addEducation() {
+  eduCount++;
+  const id = `edu-${eduCount}`;
+  const div = document.createElement('div');
+  div.className = 'entry'; div.id = id;
+  div.innerHTML = `<button class="btn-remove" onclick="removeEntry('${id}')">×</button>
+    <div class="form-grid">
+      <div class="field"><label>Degree / Certificate</label><input type="text" placeholder="Bachelor of Business" id="edu-degree-${eduCount}"></div>
+      <div class="field"><label>Institution</label><input type="text" placeholder="Universität Zürich" id="edu-inst-${eduCount}"></div>
+      <div class="field"><label>Year</label><input type="text" placeholder="2018" id="edu-year-${eduCount}"></div>
+      <div class="field"><label>Grade / Note</label><input type="text" placeholder="5.5 / 6.0" id="edu-grade-${eduCount}"></div>
+    </div>`;
+  document.getElementById('education-list').appendChild(div);
+}
+
+function removeEntry(id){ const el=document.getElementById(id); if(el) el.remove(); }
+
+function selectOutputLang(lang, el) {
+  state.outputLang = lang;
+  document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function selectPlan(plan, el) {
+  state.plan = plan;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('payment-amount').textContent = plan==='basic'?'€8':'€19';
+  document.getElementById('payment-desc').textContent = plan==='basic'?'Basic Plan — 1 Language':'PRO Plan — All 4 Languages + Cover Letter';
+}
+
+function selectPayment(el) {
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function goToStep(n) {
+  if(n===4){ startGeneration(); return; }
+  state.currentStep = n;
+  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i+1===n));
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById(`step-${i}`);
+    s.classList.remove('active','done');
+    if(i<n) s.classList.add('done');
+    else if(i===n) s.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function collectData() {
+  const experiences=[], educations=[];
+  for(let i=1;i<=expCount;i++){
+    const t=document.getElementById(`exp-title-${i}`);
+    if(t&&t.value) experiences.push({ title:t.value, company:document.getElementById(`exp-company-${i}`)?.value||'', start:document.getElementById(`exp-start-${i}`)?.value||'', end:document.getElementById(`exp-end-${i}`)?.value||'', desc:document.getElementById(`exp-desc-${i}`)?.value||'' });
+  }
+  for(let i=1;i<=eduCount;i++){
+    const d=document.getElementById(`edu-degree-${i}`);
+    if(d&&d.value) educations.push({ degree:d.value, inst:document.getElementById(`edu-inst-${i}`)?.value||'', year:document.getElementById(`edu-year-${i}`)?.value||'', grade:document.getElementById(`edu-grade-${i}`)?.value||'' });
+  }
+  return {
+    firstName:document.getElementById('firstName').value,
+    lastName:document.getElementById('lastName').value,
+    email:document.getElementById('email').value,
+    phone:document.getElementById('phone').value,
+    city:document.getElementById('city').value,
+    country:document.getElementById('country').value,
+    linkedin:document.getElementById('linkedin').value,
+    summary:document.getElementById('summary').value,
+    skills:document.getElementById('skills').value,
+    languages:document.getElementById('languages').value,
+    experiences, educations
+  };
+}
+
+async function startGeneration() {
+  if(!state.apiKey){ showToast('⚠ Please save your API key first'); goToStep(1); return; }
+  state.currentStep = 4;
+  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i===3));
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById(`step-${i}`);
+    s.classList.remove('active','done');
+    if(i<4) s.classList.add('done'); else s.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('loading-state').style.display='flex';
+  document.getElementById('cv-result').style.display='none';
+
+  const langNames={de:'German',en:'English',fr:'French',it:'Italian'};
+  const data = collectData();
+  const expText = data.experiences.map(e=>`- ${e.title} at ${e.company} (${e.start}–${e.end}): ${e.desc}`).join('\n') || 'Not provided';
+  const eduText = data.educations.map(e=>`- ${e.degree} — ${e.inst}, ${e.year}${e.grade?', Grade: '+e.grade:''}`).join('\n') || 'Not provided';
+
+  const prompt = `You are an expert European CV writer. Create a professional, ATS-optimized CV in ${langNames[state.outputLang]}.
+
+CANDIDATE:
+Name: ${data.firstName} ${data.lastName}
+Contact: ${data.email} | ${data.phone} | ${data.city}, ${data.country}
+LinkedIn: ${data.linkedin}
+Summary: ${data.summary}
+
+EXPERIENCE:
+${expText}
+
+EDUCATION:
+${eduText}
+
+SKILLS: ${data.skills}
+LANGUAGES: ${data.languages}
+
+INSTRUCTIONS:
+- Write ENTIRELY in ${langNames[state.outputLang]} language
+- Professional European format, clean sections
+- ATS-optimized with relevant keywords
+- Results-focused, compelling language
+- Use ══════════════ as section dividers
+${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a LinkedIn summary (3 lines)':''}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:'You are an expert CV writer for European job markets. Respond only in the requested language.',
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const result = await res.json();
+    if(result.error) throw new Error(result.error.message);
+    const cvText = result.content?.[0]?.text || 'Error generating CV.';
+    state.cvContent = cvText;
+    document.getElementById('cv-content').textContent = cvText;
+    document.getElementById('loading-state').style.display='none';
+    document.getElementById('cv-result').style.display='block';
+    showToast('CV generated ✓');
+  } catch(err) {
+    document.getElementById('loading-state').style.display='none';
+    document.getElementById('cv-result').style.display='block';
+    document.getElementById('cv-content').textContent = '⚠ Error: '+err.message+'\n\nCheck your API key and try again.';
+  }
+}
+
+function copyCV(){ navigator.clipboard.writeText(state.cvContent).then(()=>showToast('Copied ✓')); }
+function downloadCV(){
+  const blob=new Blob([state.cvContent],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`CV_${document.getElementById('firstName').value||'JABUQA'}_${state.outputLang.toUpperCase()}.txt`;
+  a.click();
+  showToast('Downloaded ✓');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// Init
+addExperience();
+addEducation();
+</script>
+</body>
+</html>
