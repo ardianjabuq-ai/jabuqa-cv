@@ -603,7 +603,7 @@ function collectData() {
     const d=document.getElementById(`edu-degree-${i}`);
     if(d&&d.value) educations.push({ degree:d.value, inst:document.getElementById(`edu-inst-${i}`)?.value||'', year:document.getElementById(`edu-year-${i}`)?.value||'', grade:document.getElementById(`edu-grade-${i}`)?.value||'' });
   }
-  return {
+  const result = {
     firstName:document.getElementById('firstName').value,
     lastName:document.getElementById('lastName').value,
     email:document.getElementById('email').value,
@@ -618,6 +618,8 @@ function collectData() {
     signatureImage:state.signatureImage,
     experiences, educations
   };
+  console.log('DEBUG collectData data:', result);
+  return result;
 }
 
 const cvLabels = {
@@ -917,19 +919,29 @@ INSTRUCTIONS:
 - Use ══════════════ as section dividers
 ${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a LinkedIn summary (3 lines)':''}`;
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
   try {
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-goog-api-key':state.apiKey
-      },
-      body:JSON.stringify({
-        systemInstruction:{parts:[{text:'You are an expert CV writer for European job markets. Respond only in the requested language.'}]},
-        contents:[{parts:[{text:prompt}]}],
-        generationConfig:{maxOutputTokens:1000}
-      })
-    });
+    let res;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-goog-api-key':state.apiKey
+        },
+        body:JSON.stringify({
+          systemInstruction:{parts:[{text:'You are an expert CV writer for European job markets. Respond only in the requested language.'}]},
+          contents:[{parts:[{text:prompt}]}],
+          generationConfig:{maxOutputTokens:1000}
+        }),
+        signal: controller.signal
+      });
+      if (res.status !== 503) break;
+      await new Promise(r => setTimeout(r, 5000));
+    }
+    clearTimeout(timeoutId);
     const responseText = await res.text();
     let result = {};
     try { result = responseText ? JSON.parse(responseText) : {}; }
@@ -941,14 +953,18 @@ ${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a Li
       throw apiError;
     }
     const cvText = result.candidates?.[0]?.content?.parts?.map(part=>part.text||'').join('') || '';
+    console.log('DEBUG cvText from Gemini:', cvText);
     if(!cvText.trim()) throw new Error('The model returned an empty CV. Please try again.');
     state.cvContent = cvText;
     state.cvModel = buildCVModel(data, cvText);
+    console.log('DEBUG state.cvModel after buildCVModel:', state.cvModel);
     const aiSections = parseGeneratedCV(cvText);
+    console.log('DEBUG aiSections from parseGeneratedCV:', aiSections);
     state.cvModel.extras = Object.entries(aiSections).map(([key, section]) => ({
       title: section.title || key,
       text: section.lines.join('\n')
     }));
+    console.log('DEBUG model passed to renderCVDocument:', state.cvModel);
     renderCVDocument(state.cvModel);
     document.getElementById('loading-state').style.display='none';
     document.getElementById('cv-error').style.display='none';
@@ -956,6 +972,7 @@ ${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a Li
     document.getElementById('cv-result').style.display='block';
     showToast('CV generated ✓');
   } catch(err) {
+    clearTimeout(timeoutId);
     state.cvContent='';
     state.cvModel=null;
     document.getElementById('cv-content').replaceChildren();
@@ -963,7 +980,11 @@ ${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a Li
     document.getElementById('cv-result').style.display='block';
     document.querySelector('#cv-result .result-actions').hidden=true;
     const errorBox=document.getElementById('cv-error');
-    errorBox.textContent = err.status ? 'Gemini API error (HTTP '+err.status+'): '+err.message : 'Gemini request failed: '+err.message;
+    if (err.name === 'AbortError') {
+      errorBox.textContent = 'Request timed out after 60 seconds. Please check your connection and try again.';
+    } else {
+      errorBox.textContent = err.status ? 'Gemini API error (HTTP '+err.status+'): '+err.message : 'Gemini request failed: '+err.message;
+    }
     errorBox.style.display='block';
   }
 }
