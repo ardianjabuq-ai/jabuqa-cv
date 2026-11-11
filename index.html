@@ -110,7 +110,26 @@ select option { background: var(--surface); }
 .btn-remove-upload { padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; background: #fff; color: var(--muted); font: inherit; cursor: pointer; }
 .btn-remove-upload:hover { color: var(--red); border-color: #e5b7b5; }
 .cv-preview-wrap { overflow:auto; padding:24px; border:1px solid #e3e0d8; border-radius:8px; background:#ebe9e2; }
-.cv-document { box-sizing:border-box; width:210mm; min-height:297mm; max-width:100%; margin:0 auto; padding:18mm 19mm 20mm; border-top:2.5mm solid #be2a30; background:#fff; color:#252825; box-shadow:0 4px 20px rgba(32,35,34,.10); font-family:'DM Sans','Helvetica Neue',Arial,sans-serif; font-size:11px; line-height:1.55; }
+.cv-document { box-sizing:border-box; width:210mm; min-height:297mm; max-width:100%; margin:0 auto; padding:18mm 20mm 20mm 20mm; border-top:2.5mm solid #be2a30; background:#fff; color:#252825; box-shadow:0 4px 20px rgba(32,35,34,.10); font-family:'DM Sans','Helvetica Neue',Arial,sans-serif; font-size:11px; line-height:1.55; display:grid; grid-template-columns: 38mm 1fr; gap: 0 10mm; }
+.cv-column-left { background:#faf9f6; padding:0 4mm 0 0; min-width:38mm; }
+.cv-column-right { min-width:0; }
+.cv-photo-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
+.cv-contact-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
+.cv-languages-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
+.cv-skills-wrap { grid-column: 1 / 2; }
+.cv-profile-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
+.cv-experience-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
+.cv-education-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
+.cv-extras-wrap { grid-column: 2 / 3; }
+@media(max-width: 640px) {
+  .cv-preview-wrap{padding:8px;}
+  .cv-document{width:100%;min-height:0;padding:26px 20px;border-top-width:7px; display:block;}
+  .cv-document h1{font-size:25px;}
+  .cv-document-header{gap:12px;}
+  .cv-profile-photo{width:24mm;height:30mm;flex-basis:24mm;}
+  .cv-entry-head{align-items:flex-start;flex-direction:column;gap:1px;}
+  .cv-column-left{background:none;padding:0;}
+}
 .cv-document-header { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding-bottom:15px; margin-bottom:17px; border-bottom:1px solid #dcdcd6; }
 .cv-identity { min-width:0; flex:1; }
 .cv-document-brand { margin-bottom:8px; color:#be2a30; font-size:8px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
@@ -199,6 +218,88 @@ footer span { color: var(--cyan); font-weight: 700; }
 }
 @media(prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+/* ============================================================
+   PRINT STYLES — Swiss A4 CV standard (Faza e Dytë)
+   ============================================================ */
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 20mm 20mm 20mm;
+  }
+  html, body {
+    background: #fff !important;
+    color: #202322 !important;
+    orphans: 2;
+    widows: 2;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Hide all screen-only UI, keep only the CV document */
+  .app > header,
+  .hero,
+  .steps,
+  .panel,
+  footer,
+  #toast,
+  .btn-action,
+  .result-header,
+  .result-actions,
+  .loading { display: none !important; }
+
+  .cv-preview-wrap {
+    display: block !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .cv-document {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    color: #202322 !important;
+    font-size: 10.5px !important;
+    line-height: 1.5 !important;
+    display: grid !important;
+    grid-template-columns: 36mm 1fr !important;
+    gap: 0 8mm !important;
+    page-break-inside: auto;
+  }
+
+  .cv-column-left { background: #faf9f6 !important; padding: 0 !important; min-width: 36mm !important; }
+  .cv-column-right { min-width: 0 !important; }
+
+  /* Force dark text on print */
+  .cv-document, .cv-document * {
+    color: #202322 !important;
+    print-color-adjust: exact !important;
+  }
+  .cv-document-brand, .cv-section-title, .cv-entry h3, .cv-document h1 { color: #be2a30 !important; }
+  .cv-document a { color: inherit !important; text-decoration: none !important; }
+
+  /* Keep sections and entries intact — no mid-line splits */
+  .cv-section, .cv-entry, .cv-entry-head, .cv-profile-copy, .cv-contact-wrap, .cv-photo-wrap {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Prevent section headings from being orphaned at page bottom */
+  .cv-section-title { page-break-after: avoid !important; break-after: avoid !important; }
+  .cv-entry { page-break-before: auto !important; break-before: auto !important; margin-bottom: 4mm !important; }
+
+  .cv-profile-photo { print-color-adjust: exact !important; }
+  .cv-skill-list li { border-color: #dcdcd6 !important; background: #fff !important; }
 }
 </style>
 </head>
@@ -401,7 +502,7 @@ footer span { color: var(--cyan); font-weight: 700; }
     </div>
   </div>
 
-  <footer><p>© 2025 <span>JABUQA</span> CV Generator — AI-Powered Professional CVs for the European Market</p></footer>
+  <footer><p>© 2026 <span>JABUQA</span> CV Generator — AI-Powered Professional CVs for the European Market</p></footer>
 </div>
 
 
@@ -786,76 +887,102 @@ function appendCVSection(root, title){
 function renderCVDocument(model){
   const root=document.getElementById('cv-content');
   root.replaceChildren();
+
+  const colLeft=document.createElement('div'); colLeft.className='cv-column-left';
+  const colRight=document.createElement('div'); colRight.className='cv-column-right';
+
+  if(model.photo?.dataUrl){
+    const wrap=document.createElement('div'); wrap.className='cv-photo-wrap';
+    const photo=document.createElement('img'); photo.className='cv-profile-photo'; photo.src=model.photo.dataUrl; photo.alt='Profile photo'; wrap.appendChild(photo); colLeft.appendChild(wrap);
+  }
+  if(model.contact.length){
+    const wrap=document.createElement('div'); wrap.className='cv-contact-wrap';
+    const contact=document.createElement('div'); contact.className='cv-contact';
+    model.contact.forEach(item=>{
+      const wrapper=document.createElement('span');
+      const label=document.createElement('b'); label.textContent=item.label+': '; wrapper.appendChild(label);
+      if(item.href){const link=document.createElement('a'); link.href=item.href; link.textContent=item.value; link.rel='noreferrer'; wrapper.appendChild(link);}
+      else{const value=document.createElement('span'); value.textContent=item.value; wrapper.appendChild(value);}
+      contact.appendChild(wrapper);
+    });
+    wrap.appendChild(contact); colLeft.appendChild(wrap);
+  }
+
   const header=document.createElement('header');
   header.className='cv-document-header';
   const identity=document.createElement('div');
   identity.className='cv-identity';
-  const brand=document.createElement('div');
-  brand.className='cv-document-brand';
-  brand.textContent='JABUQA CV';
+  const brand=document.createElement('div'); brand.className='cv-document-brand'; brand.textContent='JABUQA CV';
   identity.appendChild(brand);
-  const name=document.createElement('h1');
-  name.textContent=model.name;
-  identity.appendChild(name);
+  const name=document.createElement('h1'); name.textContent=model.name; identity.appendChild(name);
   if(model.title){const title=document.createElement('div');title.className='cv-professional-title';title.textContent=model.title;identity.appendChild(title);}
-  if(model.contact.length){
-    const contact=document.createElement('div');contact.className='cv-contact';
-    model.contact.forEach(item=>{
-      const wrapper=document.createElement('span');
-      const label=document.createElement('b');label.textContent=item.label+': ';wrapper.appendChild(label);
-      if(item.href){const link=document.createElement('a');link.href=item.href;link.textContent=item.value;link.rel='noreferrer';wrapper.appendChild(link);}
-      else{const value=document.createElement('span');value.textContent=item.value;wrapper.appendChild(value);}
-      contact.appendChild(wrapper);
-    });
-    identity.appendChild(contact);
-  }
   header.appendChild(identity);
-  if(model.photo?.dataUrl){const photo=document.createElement('img');photo.className='cv-profile-photo';photo.src=model.photo.dataUrl;photo.alt='Uploaded profile photo';header.appendChild(photo);}
-  root.appendChild(header);
+  colRight.appendChild(header);
 
-  if(model.profile){const section=appendCVSection(root,model.labels.profile);const p=document.createElement('p');p.className='cv-profile-copy';p.textContent=model.profile;section.appendChild(p);}
+  if(model.profile){
+    const wrap=document.createElement('div'); wrap.className='cv-profile-wrap';
+    const section=appendCVSection(wrap,model.labels.profile);
+    const p=document.createElement('p'); p.className='cv-profile-copy'; p.textContent=model.profile; section.appendChild(p);
+    wrap.appendChild(section); colRight.appendChild(wrap);
+  }
   if(model.experiences.length){
-    const section=appendCVSection(root,model.labels.experience);
+    const wrap=document.createElement('div'); wrap.className='cv-experience-wrap';
+    const section=appendCVSection(wrap,model.labels.experience);
     model.experiences.forEach(item=>{
-      const entry=document.createElement('article');entry.className='cv-entry';
-      const head=document.createElement('div');head.className='cv-entry-head';
-      const title=document.createElement('h3');title.textContent=item.title||item.company;head.appendChild(title);
-      const dates=[item.start,item.end].filter(Boolean).join(' – ');if(dates){const time=document.createElement('time');time.textContent=dates;head.appendChild(time);}
+      const entry=document.createElement('article'); entry.className='cv-entry';
+      const head=document.createElement('div'); head.className='cv-entry-head';
+      const title=document.createElement('h3'); title.textContent=item.title||item.company; head.appendChild(title);
+      const dates=[item.start,item.end].filter(Boolean).join(' – '); if(dates){const time=document.createElement('time'); time.textContent=dates; head.appendChild(time);}
       entry.appendChild(head);
-      if(item.company){const meta=document.createElement('div');meta.className='cv-entry-meta';meta.textContent=item.company;entry.appendChild(meta);}
-      if(item.bullets.length){const list=document.createElement('ul');list.className='cv-bullets';item.bullets.forEach(text=>{const li=document.createElement('li');li.textContent=text;list.appendChild(li);});entry.appendChild(list);}
+      if(item.company){const meta=document.createElement('div'); meta.className='cv-entry-meta'; meta.textContent=item.company; entry.appendChild(meta);}
+      if(item.bullets.length){const list=document.createElement('ul'); list.className='cv-bullets'; item.bullets.forEach(text=>{const li=document.createElement('li'); li.textContent=text; list.appendChild(li);}); entry.appendChild(list);}
       section.appendChild(entry);
     });
+    wrap.appendChild(section); colRight.appendChild(wrap);
   }
   if(model.educations.length){
-    const section=appendCVSection(root,model.labels.education);
+    const wrap=document.createElement('div'); wrap.className='cv-education-wrap';
+    const section=appendCVSection(wrap,model.labels.education);
     model.educations.forEach(item=>{
-      const entry=document.createElement('article');entry.className='cv-entry';
-      const head=document.createElement('div');head.className='cv-entry-head';
-      const degree=document.createElement('h3');degree.textContent=item.degree||item.institution;head.appendChild(degree);
-      if(item.year){const year=document.createElement('time');year.textContent=item.year;head.appendChild(year);}
+      const entry=document.createElement('article'); entry.className='cv-entry';
+      const head=document.createElement('div'); head.className='cv-entry-head';
+      const degree=document.createElement('h3'); degree.textContent=item.degree||item.institution; head.appendChild(degree);
+      if(item.year){const year=document.createElement('time'); year.textContent=item.year; head.appendChild(year);}
       entry.appendChild(head);
       const meta=[item.institution,item.grade&&model.labels.grade+': '+item.grade].filter(Boolean).join(' · ');
-      if(meta){const info=document.createElement('div');info.className='cv-entry-meta';info.textContent=meta;entry.appendChild(info);}
+      if(meta){const info=document.createElement('div'); info.className='cv-entry-meta'; info.textContent=meta; entry.appendChild(info);}
       section.appendChild(entry);
     });
+    wrap.appendChild(section); colRight.appendChild(wrap);
   }
-  model.skillGroups.forEach(group=>{
-    const section=appendCVSection(root,group.title||model.labels.skills);
-    const list=document.createElement('ul');list.className='cv-skill-list';
-    group.items.forEach(value=>{const item=document.createElement('li');item.textContent=value;list.appendChild(item);});
-    section.appendChild(list);
-  });
   if(model.languages.length){
-    const section=appendCVSection(root,model.labels.languages);
-    const list=document.createElement('ul');list.className='cv-skill-list';
-    model.languages.forEach(value=>{const item=document.createElement('li');item.textContent=value;list.appendChild(item);});
-    section.appendChild(list);
+    const wrap=document.createElement('div'); wrap.className='cv-languages-wrap';
+    const section=appendCVSection(wrap,model.labels.languages);
+    const list=document.createElement('ul'); list.className='cv-skill-list';
+    model.languages.forEach(value=>{const item=document.createElement('li'); item.textContent=value; list.appendChild(item);});
+    section.appendChild(list); wrap.appendChild(section); colLeft.appendChild(wrap);
   }
-  model.extras.forEach(extra=>{
-    const section=appendCVSection(root,extra.title);
-    extra.text.split(/\n+/).map(cleanCVLine).filter(Boolean).forEach(text=>{const p=document.createElement('p');p.textContent=text;section.appendChild(p);});
-  });
+  if(model.skillGroups.length){
+    const wrap=document.createElement('div'); wrap.className='cv-skills-wrap';
+    model.skillGroups.forEach(group=>{
+      const section=appendCVSection(wrap,group.title||model.labels.skills);
+      const list=document.createElement('ul'); list.className='cv-skill-list';
+      group.items.forEach(value=>{const item=document.createElement('li'); item.textContent=value; list.appendChild(item);});
+      section.appendChild(list);
+    });
+    colLeft.appendChild(wrap);
+  }
+  if(model.extras.length){
+    const wrap=document.createElement('div'); wrap.className='cv-extras-wrap';
+    model.extras.forEach(extra=>{
+      const section=appendCVSection(wrap,extra.title);
+      extra.text.split(/\n+/).map(cleanCVLine).filter(Boolean).forEach(text=>{const p=document.createElement('p'); p.textContent=text; section.appendChild(p);});
+    });
+    colRight.appendChild(wrap);
+  }
+
+  root.appendChild(colLeft);
+  root.appendChild(colRight);
 }
 
 function formatCVPlainText(model){
