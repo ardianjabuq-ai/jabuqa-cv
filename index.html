@@ -1,1217 +1,506 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JABUQA CV Generator — AI-Powered Professional CVs</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #f5f4f0;
-  --surface: #ffffff;
-  --surface2: #faf9f6;
-  --surface3: #e9e7e1;
-  --cyan: #c42d32;
-  --cyan-dim: #fbefed;
-  --cyan-border: #e7b9b6;
-  --gold: #ad7a2c;
-  --white: #202322;
-  --muted: #737671;
-  --muted2: #c9c9c2;
-  --green: #347454;
-  --red: #b4232d;
-  --border: #e5e3dc;
-  --radius: 10px;
-  --font-display: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--white); font-family: var(--font-mono); min-height: 100vh; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-body::before { content: none; }
-.app { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 0 32px 72px; }
-header { padding: 25px 0 22px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); margin-bottom: 58px; }
-.logo { font-family: var(--font-display); font-weight: 800; font-size: 15px; letter-spacing: .19em; text-transform: uppercase; }
-.logo span { color: var(--cyan); }
-.logo small { display: block; font-family: var(--font-mono); font-weight: 600; font-size: 9px; letter-spacing: .16em; color: var(--muted); margin-top: 3px; }
-.lang-selector { display: flex; gap: 3px; padding: 4px; background: #eeede8; border-radius: 8px; }
-.lang-btn { min-width: 38px; padding: 7px 9px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; transition: color .15s, background .15s, border-color .15s; }
-.lang-btn:hover, .lang-btn.active { border-color: var(--border); color: var(--white); background: var(--surface); }
-.hero { text-align: left; margin-bottom: 38px; max-width: 680px; }
-.hero-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); border-left: 3px solid var(--cyan); padding: 2px 0 2px 10px; margin-bottom: 18px; }
-.hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 5.5vw, 58px); line-height: 1.08; margin-bottom: 16px; letter-spacing: -.045em; }
-.hero h1 em { font-style: normal; color: var(--cyan); }
-.hero p { font-size: 15px; color: var(--muted); max-width: 520px; line-height: 1.7; }
-.steps { display: flex; align-items: center; margin-bottom: 24px; padding: 15px 18px; overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
-.step { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
-.step-num { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--muted2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--muted); background: var(--surface); transition: color .15s, border-color .15s, background .15s; }
-.step.active .step-num { border-color: var(--cyan); background: var(--cyan); color: #fff; }
-.step.done .step-num { border-color: var(--green); background: var(--green); color: #fff; }
-.step-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; color: var(--muted); text-transform: uppercase; }
-.step.active .step-label { color: var(--white); }
-.step-line { flex: 1; height: 1px; background: var(--border); margin: 0 16px; min-width: 18px; }
-.panel { display: none; }
-.panel.active { display: block; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; margin-bottom: 8px; }
-.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-.field.span2 { grid-column: span 2; }
-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #555953; }
-input, textarea, select { background: var(--surface); border: 1px solid #d9d9d2; border-radius: 7px; color: var(--white); font-family: var(--font-mono); font-size: 14px; padding: 12px 13px; outline: none; transition: border-color .15s, box-shadow .15s; width: 100%; -webkit-appearance: none; }
-input:focus, textarea:focus, select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(196,45,50,.09); }
-input::placeholder, textarea::placeholder { color: #a0a19b; }
-textarea { resize: vertical; min-height: 104px; line-height: 1.65; }
-select { cursor: pointer; }
-select option { background: var(--surface); }
-.section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(32,35,34,.025); }
-.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.section-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: -.015em; display: flex; align-items: center; gap: 10px; }
-.btn-add { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--cyan); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 7px 12px; cursor: pointer; font-family: var(--font-mono); transition: all .15s; }
-.btn-add:hover { border-color: var(--cyan-border); background: var(--cyan-dim); }
-.entry { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 18px; margin-bottom: 12px; position: relative; }
-.btn-remove { position: absolute; top: 10px; right: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--muted); width: 28px; height: 28px; font-size: 17px; cursor: pointer; line-height: 1; transition: color .15s, border-color .15s; }
-.btn-remove:hover { color: var(--red); border-color: #e5b7b5; }
-.lang-output-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 4px; }
-.lang-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; cursor: pointer; transition: border-color .15s, background .15s; text-align: left; }
-.lang-card:hover, .lang-card.selected { border-color: var(--cyan); background: #fffaf9; }
-.lang-card .flag { font-size: 23px; margin-bottom: 8px; }
-.lang-card .lang-name { font-family: var(--font-display); font-weight: 700; font-size: 15px; margin-bottom: 2px; }
-.lang-card.selected .lang-name { color: var(--cyan); }
-.lang-card .lang-sub { font-size: 11px; color: var(--muted); letter-spacing: .01em; }
-.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
-.plan-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; cursor: pointer; transition: border-color .15s, background .15s; position: relative; }
-.plan-card:hover, .plan-card.selected { border-color: var(--cyan); }
-.plan-card.selected { background: #fffaf9; }
-.plan-card.popular::before { content: 'POPULAR'; position: absolute; top: -10px; right: 18px; background: var(--cyan); color: #fff; font-size: 9px; letter-spacing: .1em; padding: 4px 9px; border-radius: 4px; font-weight: 700; }
-.plan-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; margin-bottom: 5px; }
-.plan-price { font-size: 32px; font-weight: 700; color: var(--cyan); margin-bottom: 12px; letter-spacing: -.04em; }
-.plan-price span { font-size: 12px; color: var(--muted); letter-spacing: 0; }
-.plan-features { list-style: none; }
-.plan-features li { font-size: 12px; color: var(--muted); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
-.plan-features li::before { content: '?'; color: var(--green); font-weight: 700; }
-.payment-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; text-align: center; margin-bottom: 16px; }
-.payment-amount { font-family: var(--font-display); font-size: 46px; font-weight: 700; color: var(--white); margin-bottom: 4px; letter-spacing: -.04em; }
-.payment-desc { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-.payment-methods { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
-.pay-method { padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: var(--muted); background: var(--surface); cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 5px; }
-.pay-method:hover, .pay-method.selected { border-color: var(--cyan); color: var(--white); background: #fffaf9; }
-.btn-primary { width: 100%; padding: 14px 22px; background: var(--cyan); color: #fff; border: 1px solid var(--cyan); border-radius: 7px; font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: .04em; cursor: pointer; transition: background .15s, border-color .15s; box-shadow: none; }
-.btn-primary:hover { background: #a92329; border-color: #a92329; }
-.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
-.btn-secondary { padding: 12px 20px; background: var(--surface); color: var(--white); border: 1px solid var(--border); border-radius: 7px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
-.btn-secondary:hover { border-color: #a8aaa3; background: var(--surface2); }
-.nav-row { display: flex; gap: 12px; justify-content: space-between; margin-top: 24px; }
-.upload-grid { margin-bottom: 0; }
-.field-help { color: var(--muted); font-size: 11px; line-height: 1.5; }
-.upload-preview[hidden] { display: none; }
-.upload-preview { display: flex; align-items: center; gap: 10px; min-width: 0; margin-top: 3px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface2); color: var(--muted); font-size: 11px; }
-.upload-preview img { width: 42px; height: 42px; object-fit: cover; border-radius: 5px; background: #efeee9; }
-#signature-preview img { width: 76px; height: 38px; object-fit: contain; }
-.upload-preview span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-.btn-remove-upload { padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; background: #fff; color: var(--muted); font: inherit; cursor: pointer; }
-.btn-remove-upload:hover { color: var(--red); border-color: #e5b7b5; }
-.cv-preview-wrap { overflow:auto; padding:24px; border:1px solid #e3e0d8; border-radius:8px; background:#ebe9e2; }
-.cv-document { box-sizing:border-box; width:210mm; min-height:297mm; max-width:100%; margin:0 auto; padding:18mm 20mm 20mm 20mm; border-top:2.5mm solid #be2a30; background:#fff; color:#252825; box-shadow:0 4px 20px rgba(32,35,34,.10); font-family:'DM Sans','Helvetica Neue',Arial,sans-serif; font-size:11px; line-height:1.55; display:grid; grid-template-columns: 38mm 1fr; gap: 0 10mm; }
-.cv-column-left { background:#faf9f6; padding:0 4mm 0 0; min-width:38mm; }
-.cv-column-right { min-width:0; }
-.cv-photo-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
-.cv-contact-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
-.cv-languages-wrap { grid-column: 1 / 2; margin-bottom: 6mm; }
-.cv-skills-wrap { grid-column: 1 / 2; }
-.cv-profile-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
-.cv-experience-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
-.cv-education-wrap { grid-column: 2 / 3; margin-bottom: 5mm; }
-.cv-extras-wrap { grid-column: 2 / 3; }
-@media(max-width: 640px) {
-  .cv-preview-wrap{padding:8px;}
-  .cv-document{width:100%;min-height:0;padding:26px 20px;border-top-width:7px; display:block;}
-  .cv-document h1{font-size:25px;}
-  .cv-document-header{gap:12px;}
-  .cv-profile-photo{width:24mm;height:30mm;flex-basis:24mm;}
-  .cv-entry-head{align-items:flex-start;flex-direction:column;gap:1px;}
-  .cv-column-left{background:none;padding:0;}
-}
-.cv-document-header { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding-bottom:15px; margin-bottom:17px; border-bottom:1px solid #dcdcd6; }
-.cv-identity { min-width:0; flex:1; }
-.cv-document-brand { margin-bottom:8px; color:#be2a30; font-size:8px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
-.cv-document h1 { margin:0 0 5px; color:#202322; font-size:31px; font-weight:700; letter-spacing:-.045em; line-height:1.08; overflow-wrap:anywhere; }
-.cv-professional-title { margin:0 0 9px; color:#be2a30; font-size:15px; font-weight:500; line-height:1.35; }
-.cv-contact { display:flex; flex-wrap:wrap; gap:5px 13px; color:#646963; font-size:9px; }
-.cv-contact span { overflow-wrap:anywhere; }
-.cv-contact b { color:#424742; font-weight:700; }
-.cv-contact a { color:inherit; text-decoration:none; }
-.cv-contact a:hover { text-decoration:underline; }
-.cv-profile-photo { width:30mm; height:37mm; flex:0 0 30mm; object-fit:cover; border-radius:2px; }
-.cv-section { margin:0 0 15px; break-inside:avoid; }
-.cv-section-title { display:flex; align-items:center; gap:8px; margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid #dcdcd6; color:#be2a30; font-size:10px; font-weight:800; letter-spacing:.09em; line-height:1.3; text-transform:uppercase; }
-.cv-section-title::before { width:2.5px; height:12px; flex:0 0 2.5px; background:#be2a30; content:''; }
-.cv-section p { margin:0; color:#404540; white-space:pre-line; overflow-wrap:anywhere; }
-.cv-profile-copy { max-width:150mm; }
-.cv-entry { padding:0 0 9px 11px; margin:0 0 9px; border-left:1px solid #e2ded8; break-inside:avoid; }
-.cv-entry:last-child { margin-bottom:0; padding-bottom:0; }
-.cv-entry-head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
-.cv-entry h3 { margin:0; color:#252825; font-size:12px; font-weight:700; line-height:1.35; }
-.cv-entry time { flex:0 0 auto; color:#777b75; font-size:9px; }
-.cv-entry-meta { margin-top:2px; color:#666b65; font-size:10px; }
-.cv-bullets { padding:4px 0 0 15px; margin:0; color:#404540; }
-.cv-bullets li { padding-left:2px; margin:0 0 2px; }
-.cv-bullets li::marker { color:#be2a30; }
-.cv-skill-list { display:flex; flex-wrap:wrap; gap:5px; padding:0; margin:0; list-style:none; }
-.cv-skill-list li { padding:3px 8px; border:1px solid #e3e1da; border-radius:3px; color:#404540; font-size:9px; }
-@media(max-width:640px){
-  .cv-preview-wrap{padding:8px;}
-  .cv-document{width:100%;min-height:0;padding:26px 20px;border-top-width:7px;}
-  .cv-document h1{font-size:25px;}
-  .cv-document-header{gap:12px;}
-  .cv-profile-photo{width:24mm;height:30mm;flex-basis:24mm;}
-  .cv-entry-head{align-items:flex-start;flex-direction:column;gap:1px;}
-}
-.result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; margin-bottom: 16px; min-height: 180px; }
-.result-box pre { white-space: pre-wrap; font-family: var(--font-mono); font-size: 13px; line-height: 1.8; color: var(--white); }
-.result-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-.result-actions { display: flex; gap: 8px; }
-.btn-action { padding: 7px 12px; font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); transition: all .15s; border: 1px solid var(--border); background: var(--surface); color: var(--muted); }
-.btn-action:hover { border-color: var(--cyan-border); color: var(--cyan); }
-.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 18px; }
-.spinner { width: 38px; height: 38px; border: 2px solid var(--surface3); border-top-color: var(--cyan); border-radius: 50%; animation: spin .9s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-.api-key-row { display: flex; gap: 10px; margin-bottom: 10px; }
-.api-key-row input { flex: 1; font-size: 13px; }
-.btn-save-key { padding: 11px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; color: var(--white); font-size: 12px; font-weight: 700; cursor: pointer; font-family: var(--font-mono); white-space: nowrap; transition: all .15s; }
-.btn-save-key:hover { border-color: var(--cyan-border); color: var(--cyan); background: var(--cyan-dim); }
-.key-status { font-size: 11px; letter-spacing: .01em; display: flex; align-items: center; gap: 6px; }
-.key-status.ok { color: var(--green); }
-.key-status.missing { color: var(--muted); }
-#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #202322; border: 1px solid #202322; color: #fff; padding: 10px 18px; border-radius: 7px; font-size: 12px; z-index: 999; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; }
-#toast.show { opacity: 1; }
-footer { text-align: center; padding: 24px 0 0; border-top: 1px solid var(--border); margin-top: 44px; }
-footer p { font-size: 11px; color: var(--muted); letter-spacing: .02em; }
-footer span { color: var(--cyan); font-weight: 700; }
-:focus-visible { outline: 3px solid rgba(196,45,50,.25); outline-offset: 2px; }
-@media(max-width: 640px) {
-  .app { padding: 0 18px 48px; }
-  header { margin-bottom: 40px; padding: 20px 0 17px; }
-  .hero { margin-bottom: 28px; }
-  .hero h1 { font-size: clamp(32px, 9vw, 46px); }
-  .hero p { font-size: 14px; }
-  .steps { padding: 12px 10px; margin-bottom: 16px; }
-  .step { gap: 6px; }
-  .step-num { width: 27px; height: 27px; }
-  .step-label { font-size: 9px; letter-spacing: .03em; }
-  .step-line { margin: 0 8px; min-width: 10px; }
-  .section-card { padding: 18px; }
-}
-@media(max-width: 480px) {
-  .app { padding-left: 14px; padding-right: 14px; }
-  .form-grid, .lang-output-grid, .plan-grid { grid-template-columns: 1fr; }
-  .field.span2 { grid-column: span 1; }
-  .api-key-row { flex-direction: column; }
-  .api-key-row .btn-save-key { width: 100%; }
-  .section-title { font-size: 15px; }
-  .step-label { max-width: 48px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .step-line { margin: 0 5px; min-width: 6px; }
-  .result-box { padding: 18px; }
-  .result-header { align-items: flex-start; }
-  .result-actions { flex-wrap: wrap; justify-content: flex-end; }
-  .nav-row { gap: 8px; }
-  .nav-row .btn-primary, .nav-row .btn-secondary { padding-left: 14px !important; padding-right: 14px !important; }
-}
-@media(prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-}
-/* ============================================================
-   PRINT STYLES — Swiss A4 CV standard (Faza e Dytë)
-   ============================================================ */
-@media print {
-  @page {
-    size: A4;
-    margin: 18mm 20mm 20mm 20mm;
-  }
-  html, body {
-    background: #fff !important;
-    color: #202322 !important;
-    orphans: 2;
-    widows: 2;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  /* Hide all screen-only UI, keep only the CV document */
-  .app > header,
-  .hero,
-  .steps,
-  .panel,
-  footer,
-  #toast,
-  .btn-action,
-  .result-header,
-  .result-actions,
-  .loading { display: none !important; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWISS CV STUDIO — Executive Architecture 2026-2027</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #f4f5f7;
+            --bg-panel: #ffffff;
+            --border-subtle: #e2e8f0;
+            --swiss-red: #d52b1e;
+            --swiss-red-hover: #b32216;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+        }
 
-  .cv-preview-wrap {
-    display: block !important;
-    overflow: visible !important;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background: none !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
 
-  .cv-document {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-top: none !important;
-    background: #fff !important;
-    box-shadow: none !important;
-    color: #202322 !important;
-    font-size: 10.5px !important;
-    line-height: 1.5 !important;
-    display: grid !important;
-    grid-template-columns: 36mm 1fr !important;
-    gap: 0 8mm !important;
-    page-break-inside: auto;
-  }
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  .cv-column-left { background: #faf9f6 !important; padding: 0 !important; min-width: 36mm !important; }
-  .cv-column-right { min-width: 0 !important; }
+        .topbar {
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-  /* Force dark text on print */
-  .cv-document, .cv-document * {
-    color: #202322 !important;
-    print-color-adjust: exact !important;
-  }
-  .cv-document-brand, .cv-section-title, .cv-entry h3, .cv-document h1 { color: #be2a30 !important; }
-  .cv-document a { color: inherit !important; text-decoration: none !important; }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-  /* Keep sections and entries intact — no mid-line splits */
-  .cv-section, .cv-entry, .cv-entry-head, .cv-profile-copy, .cv-contact-wrap, .cv-photo-wrap {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
+        .brand-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--swiss-red);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
 
-  /* Prevent section headings from being orphaned at page bottom */
-  .cv-section-title { page-break-after: avoid !important; break-after: avoid !important; }
-  .cv-entry { page-break-before: auto !important; break-before: auto !important; margin-bottom: 4mm !important; }
+        .brand-text-group { display: flex; flex-direction: column; }
+        .brand-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+        .brand-sub { font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; }
 
-  .cv-profile-photo { print-color-adjust: exact !important; }
-  .cv-skill-list li { border-color: #dcdcd6 !important; background: #fff !important; }
-}
-</style>
+        .lang-switcher {
+            display: flex;
+            background: #f1f5f9;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .lang-btn.active { background: var(--swiss-red); color: #fff; }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            flex: 1;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .editor-pane {
+            padding: 28px 36px;
+            border-right: 1px solid var(--border-subtle);
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .preview-pane {
+            background: #e2e8f0;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .block-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--swiss-red);
+            display: inline-block;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .span-2 { grid-column: span 2; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+
+        label { font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); }
+
+        input, select, textarea {
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 9px 11px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--swiss-red);
+            box-shadow: 0 0 0 2px rgba(213, 43, 30, 0.1);
+        }
+
+        textarea { resize: vertical; min-height: 75px; }
+
+        .niche-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .niche-item {
+            background: #fdfdfd;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 8px 6px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .niche-item.active { border-color: var(--swiss-red); background: #fff5f5; }
+        .niche-item-title { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); }
+
+        .repeater-card {
+            background: #fdfdfd;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .btn-small {
+            background: #f1f5f9;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-small:hover { background: #e2e8f0; }
+        .btn-remove { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #dc2626; font-size: 0.72rem; cursor: pointer; }
+
+        .btn-generate {
+            width: 100%;
+            background: var(--swiss-red);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+        }
+        .btn-generate:hover { background: var(--swiss-red-hover); }
+
+        .preview-toolbar {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .preview-status { font-size: 0.76rem; color: var(--text-secondary); font-weight: 500; }
+
+        /* ELITE EXECUTIVE A4 SHEET (2-Column Grid Layout) */
+        .a4-sheet {
+            width: 100%;
+            max-width: 680px;
+            min-height: 960px;
+            background: #ffffff;
+            color: #111827;
+            padding: 40px;
+            border-radius: 2px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            font-size: 0.84rem;
+            line-height: 1.5;
+        }
+
+        .a4-top-header {
+            border-bottom: 3px solid var(--swiss-red);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .a4-name { font-size: 1.6rem; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
+        .a4-title-role { font-size: 0.88rem; font-weight: 600; color: var(--swiss-red); text-transform: uppercase; margin-top: 2px; }
+
+        .a4-grid-layout {
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            gap: 24px;
+        }
+
+        .a4-sidebar {
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding-right: 16px;
+        }
+
+        .a4-sidebar-section { margin-bottom: 18px; }
+        .a4-sidebar-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #111827;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+        .a4-sidebar-content { font-size: 0.78rem; color: #334155; line-height: 1.4; }
+
+        .a4-main-content h3 {
+            color: var(--swiss-red);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 3px;
+            margin-top: 14px;
+            margin-bottom: 8px;
+        }
+        .a4-main-content p { margin-bottom: 6px; }
+        .a4-main-content ul { padding-left: 14px; margin-bottom: 8px; }
+        .a4-main-content li { margin-bottom: 3px; }
+    </style>
 </head>
 <body>
-<div id="toast"></div>
-<div class="app">
 
-  <header>
-    <div class="logo">
-      <span>JABUQA</span> CV
-      <small>AI-POWERED CV GENERATOR</small>
-    </div>
-    <div class="lang-selector">
-      <button class="lang-btn active" onclick="setUILang('en',this)">EN</button>
-      <button class="lang-btn" onclick="setUILang('de',this)">DE</button>
-      <button class="lang-btn" onclick="setUILang('fr',this)">FR</button>
-      <button class="lang-btn" onclick="setUILang('it',this)">IT</button>
-    </div>
-  </header>
-
-  <div class="hero">
-    <div class="hero-tag" id="hero-tag">AI-Powered · ATS-Optimized · European Standard</div>
-    <h1 id="hero-title">Your Professional CV<br><em>Generated in 60 Seconds</em></h1>
-    <p id="hero-sub">Enter your details. Choose your language. Get a job-ready CV for the European market — instantly.</p>
-  </div>
-
-  <div class="steps">
-    <div class="step active" id="step-1"><div class="step-num">1</div><div class="step-label" id="sl-1">Details</div></div>
-    <div class="step-line"></div>
-    <div class="step" id="step-2"><div class="step-num">2</div><div class="step-label" id="sl-2">Language</div></div>
-    <div class="step-line"></div>
-    <div class="step" id="step-3"><div class="step-num">3</div><div class="step-label" id="sl-3">Plan</div></div>
-    <div class="step-line"></div>
-    <div class="step" id="step-4"><div class="step-num">4</div><div class="step-label" id="sl-4">Generate</div></div>
-  </div>
-
-  <!-- PANEL 1 -->
-  <div class="panel active" id="panel-1">
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">🔑 <span id="t-apikey">API Configuration</span></div>
-      </div>
-      <div class="api-key-row">
-        <input type="password" id="api-key-input" placeholder="sk-ant-api03-...">
-        <button class="btn-save-key" onclick="saveApiKey()" id="t-savekey">Save Key</button>
-      </div>
-      <div class="key-status missing" id="key-status">⚠ API Key not set</div>
-    </div>
-
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">👤 <span id="t-personal">Personal Information</span></div>
-      </div>
-      <div class="form-grid upload-grid">
-        <div class="field span2">
-          <label id="l-photo" for="profile-photo-input">Profile photo (optional)</label>
-          <input type="file" id="profile-photo-input" accept="image/jpeg,image/png" onchange="loadOptionalImage(event,'profilePhoto')">
-          <small class="field-help" id="h-photo">Upload your own photo. You can skip this.</small>
-          <div class="upload-preview" id="profile-photo-preview" hidden><img id="profile-photo-preview-img" alt="Profile photo preview"><span id="profile-photo-filename"></span><button type="button" class="btn-remove-upload" id="remove-photo" onclick="removeOptionalImage('profilePhoto')">Remove</button></div>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">+</div>
+            <div class="brand-text-group">
+                <div class="brand-name">SWISS CV STUDIO</div>
+                <div class="brand-sub">Executive Edition (2026–2027)</div>
+            </div>
         </div>
-        <div class="field span2">
-          <label id="l-signature" for="signature-input">Signature image (optional)</label>
-          <input type="file" id="signature-input" accept="image/jpeg,image/png" onchange="loadOptionalImage(event,'signatureImage')">
-          <small class="field-help" id="h-signature">Upload your own signature image. You can skip this.</small>
-          <div class="upload-preview" id="signature-preview" hidden><img id="signature-preview-img" alt="Signature preview"><span id="signature-filename"></span><button type="button" class="btn-remove-upload" id="remove-signature" onclick="removeOptionalImage('signatureImage')">Remove</button></div>
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLanguage('German', this)">DE</button>
+            <button class="lang-btn" onclick="setLanguage('French', this)">FR</button>
+            <button class="lang-btn" onclick="setLanguage('Italian', this)">IT</button>
+            <button class="lang-btn" onclick="setLanguage('English', this)">EN</button>
         </div>
-      </div>
-      <div class="form-grid">
-        <div class="field"><label id="l-fname">First Name</label><input type="text" id="firstName" placeholder="Anna"></div>
-        <div class="field"><label id="l-lname">Last Name</label><input type="text" id="lastName" placeholder="Müller"></div>
-        <div class="field"><label id="l-email">Email</label><input type="email" id="email" placeholder="anna@email.com"></div>
-        <div class="field"><label id="l-phone">Phone</label><input type="tel" id="phone" placeholder="+41 79 123 45 67"></div>
-        <div class="field"><label id="l-city">City</label><input type="text" id="city" placeholder="Zürich"></div>
-        <div class="field"><label id="l-country">Country</label><input type="text" id="country" placeholder="Switzerland"></div>
-        <div class="field span2"><label id="l-linkedin">LinkedIn / Portfolio</label><input type="text" id="linkedin" placeholder="linkedin.com/in/anna-mueller"></div>
-        <div class="field span2"><label id="l-summary">Professional Summary</label><textarea id="summary" placeholder="Experienced professional with 5+ years..."></textarea></div>
-      </div>
-    </div>
+    </header>
 
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">💼 <span id="t-exp">Work Experience</span></div>
-        <button class="btn-add" onclick="addExperience()" id="t-addexp">+ Add</button>
-      </div>
-      <div id="experience-list"></div>
-    </div>
+    <main class="workspace">
+        <section class="editor-pane">
+            <div class="block">
+                <div class="block-title">1. Sektor & Karrierelevel (2026-2027)</div>
+                <div class="niche-row">
+                    <div class="niche-item active" onclick="selectNiche('logistics', this)"><div class="niche-item-title">Logistik / Bau</div></div>
+                    <div class="niche-item" onclick="selectNiche('gastro', this)"><div class="niche-item-title">Gastro</div></div>
+                    <div class="niche-item" onclick="selectNiche('admin', this)"><div class="niche-item-title">Admin / KV</div></div>
+                    <div class="niche-item" onclick="selectNiche('it', this)"><div class="niche-item-title">IT & Tech</div></div>
+                    <div class="niche-item" onclick="selectNiche('banking', this)"><div class="niche-item-title">Finance / Bank</div></div>
+                </div>
+            </div>
 
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">🎓 <span id="t-edu">Education</span></div>
-        <button class="btn-add" onclick="addEducation()" id="t-addedu">+ Add</button>
-      </div>
-      <div id="education-list"></div>
-    </div>
+            <div class="block">
+                <div class="block-title">2. Personalien & Schweizer Bewilligung</div>
+                <div class="grid-2">
+                    <div class="field"><label>Vorname</label><input type="text" id="firstName" placeholder="Ardi" oninput="syncHeader()"></div>
+                    <div class="field"><label>Nachname</label><input type="text" id="lastName" placeholder="Jabuqa" oninput="syncHeader()"></div>
+                    <div class="field"><label>E-Mail</label><input type="email" id="email" placeholder="ardi@bluewin.ch" oninput="syncHeader()"></div>
+                    <div class="field"><label>Telefon</label><input type="tel" id="phone" placeholder="+41 79 123 45 67" oninput="syncHeader()"></div>
+                    <div class="field"><label>PLZ / Ort</label><input type="text" id="city" placeholder="8636 Wald ZH" oninput="syncHeader()"></div>
+                    <div class="field">
+                        <label>Aufenthaltsstatus (Bewilligung)</label>
+                        <select id="permit" onchange="syncHeader()">
+                            <option value="Schweizer Bürger/in">Schweizer Bürger/in</option>
+                            <option value="Niederlassungsbewilligung C">Bewilligung C</option>
+                            <option value="Aufenthaltsbewilligung B">Bewilligung B</option>
+                            <option value="Grenzgängerbewilligung G">Grenzgängerbewilligung G</option>
+                            <option value="Schutzstatus S">Schutzstatus S</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">⚡ <span id="t-skills">Skills & Languages</span></div>
-      </div>
-      <div class="form-grid">
-        <div class="field span2"><label id="l-skills">Skills (comma separated)</label><input type="text" id="skills" placeholder="Project Management, Excel, Salesforce, Adobe CC"></div>
-        <div class="field span2"><label id="l-langs">Languages</label><input type="text" id="languages" placeholder="German (Native), English (C1), French (B2)"></div>
-      </div>
-    </div>
+            <div class="block">
+                <div class="block-title">3. Profil & Fokus 2026-2027</div>
+                <div class="grid-2">
+                    <div class="field span-2"><label>Kurzprofil</label><textarea id="summary" placeholder="Hochmotivierte Fachperson mit Fokus auf Effizienz und Qualität im Jahr 2026..."></textarea></div>
+                    <div class="field"><label>Kernkompetenzen / Lizenzen</label><input type="text" id="skills" placeholder="SAP, MS Office, Prozessoptimierung"></div>
+                    <div class="field"><label>Sprachen</label><input type="text" id="languages" placeholder="Deutsch (Muttersprache), Englisch (B2)"></div>
+                </div>
+            </div>
 
-    <div class="nav-row">
-      <div></div>
-      <button class="btn-primary" onclick="goToStep(2)" style="width:auto;padding:13px 36px" id="t-next1">Continue →</button>
-    </div>
-  </div>
+            <div class="block">
+                <div class="block-title">4. Berufserfahrung</div>
+                <div id="experience-list"></div>
+                <button type="button" class="btn-small" onclick="addExperience()">+ Position hinzufügen</button>
+            </div>
 
-  <!-- PANEL 2 -->
-  <div class="panel" id="panel-2">
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">🌍 <span id="t-chooselang">Choose CV Language</span></div>
-      </div>
-      <div class="lang-output-grid">
-        <div class="lang-card selected" onclick="selectOutputLang('de',this)"><div class="flag">🇩🇪</div><div class="lang-name">Deutsch</div><div class="lang-sub">Germany · Austria · Switzerland</div></div>
-        <div class="lang-card" onclick="selectOutputLang('en',this)"><div class="flag">🇬🇧</div><div class="lang-name">English</div><div class="lang-sub">UK · Global · International</div></div>
-        <div class="lang-card" onclick="selectOutputLang('fr',this)"><div class="flag">🇫🇷</div><div class="lang-name">Français</div><div class="lang-sub">France · Switzerland · Belgium</div></div>
-        <div class="lang-card" onclick="selectOutputLang('it',this)"><div class="flag">🇮🇹</div><div class="lang-name">Italiano</div><div class="lang-sub">Italy · Switzerland · Ticino</div></div>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn-secondary" onclick="goToStep(1)">← Back</button>
-      <button class="btn-primary" onclick="goToStep(3)" style="width:auto;padding:13px 36px" id="t-next2">Continue →</button>
-    </div>
-  </div>
+            <div class="block">
+                <div class="block-title">5. Ausbildung</div>
+                <div id="education-list"></div>
+                <button type="button" class="btn-small" onclick="addEducation()">+ Ausbildung hinzufügen</button>
+            </div>
 
-  <!-- PANEL 3 -->
-  <div class="panel" id="panel-3">
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-title">💎 <span id="t-chooseplan">Choose Your Plan</span></div>
-      </div>
-      <div class="plan-grid">
-        <div class="plan-card" onclick="selectPlan('basic',this)">
-          <div class="plan-name">BASIC</div>
-          <div class="plan-price">€8 <span>one-time</span></div>
-          <ul class="plan-features">
-            <li>1 CV in chosen language</li>
-            <li>ATS-Optimized format</li>
-            <li>Download as TXT</li>
-            <li>European standard</li>
-          </ul>
-        </div>
-        <div class="plan-card popular selected" onclick="selectPlan('pro',this)">
-          <div class="plan-name">PRO</div>
-          <div class="plan-price">€19 <span>one-time</span></div>
-          <ul class="plan-features">
-            <li>CV in ALL 4 languages</li>
-            <li>ATS-Optimized format</li>
-            <li>Cover letter included</li>
-            <li>LinkedIn summary</li>
-          </ul>
-        </div>
-      </div>
-      <div class="payment-box">
-        <div class="payment-amount" id="payment-amount">€19</div>
-        <div class="payment-desc" id="payment-desc">PRO Plan — All 4 Languages + Cover Letter</div>
-        <div class="payment-methods">
-          <div class="pay-method selected" onclick="selectPayment(this)">💳 Card</div>
-          <div class="pay-method" onclick="selectPayment(this)">🏦 Bank Transfer</div>
-          <div class="pay-method" onclick="selectPayment(this)">📱 TWINT</div>
-          <div class="pay-method" onclick="selectPayment(this)">🅿️ PayPal</div>
-        </div>
-        <p style="font-size:10px;color:var(--muted);letter-spacing:0.09em" id="t-payinfo">Payment processed securely. CV generated immediately after confirmation.</p>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn-secondary" onclick="goToStep(2)">← Back</button>
-      <button class="btn-primary" onclick="goToStep(4)" style="width:auto;padding:13px 36px" id="t-generate">Generate My CV →</button>
-    </div>
-  </div>
+            <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
+        </section>
 
-  <!-- PANEL 4 -->
-  <div class="panel" id="panel-4">
-    <div class="result-box" id="result-box">
-      <div class="loading" id="loading-state">
-        <div class="spinner"></div>
-        <div class="loading-text" id="loading-text">Generating your CV...</div>
-      </div>
-      <div id="cv-result" style="display:none">
-        <div class="result-header">
-          <div style="font-family:var(--font-display);font-weight:700;font-size:13px" id="t-ready">✅ Your CV is Ready</div>
-          <div class="result-actions">
-            <button class="btn-action" onclick="copyCV()" id="t-copy">Copy</button>
-            <button class="btn-action" onclick="downloadCV()" id="t-download">Download</button>
-            <button class="btn-action" onclick="downloadPDF()" type="button" title="Download a formatted PDF copy">PDF</button>
-          </div>
-        </div>
-        <div class="cv-preview-wrap"><article id="cv-content" class="cv-document" aria-live="polite"></article></div>
-        <div id="cv-error" class="cv-error" role="alert" style="display:none"></div>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn-secondary" onclick="goToStep(1)" id="t-new">← New CV</button>
-      <button class="btn-primary" onclick="startGeneration()" style="width:auto;padding:13px 36px" id="t-regen">Regenerate</button>
-    </div>
-  </div>
+        <aside class="preview-pane">
+            <div class="preview-toolbar">
+                <span class="preview-status" id="status-text">Vorschau (Executive 2026-2027)</span>
+                <button type="button" class="btn-small" onclick="window.print()">PDF Drucken</button>
+            </div>
+            
+            <!-- ELITE TWO-COLUMN A4 SHEET -->
+            <div class="a4-sheet" id="a4-document">
+                <div class="a4-top-header">
+                    <div>
+                        <div class="a4-name" id="doc-name">Ardi Jabuqa</div>
+                        <div class="a4-title-role" id="doc-role">Senior Professional / Expert</div>
+                    </div>
+                </div>
 
-  <footer><p>© 2026 <span>JABUQA</span> CV Generator — AI-Powered Professional CVs for the European Market</p></footer>
-</div>
+                <div class="a4-grid-layout">
+                    <!-- SIDEBAR (Left Column) -->
+                    <div class="a4-sidebar">
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Kontakt</div>
+                            <div class="a4-sidebar-content" id="doc-contact">
+                                8636 Wald ZH<br>
+                                +41 79 123 45 67<br>
+                                ardi@bluewin.ch
+                            </div>
+                        </div>
 
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Status & Rechtliches</div>
+                            <div class="a4-sidebar-content" id="doc-permit">
+                                Schweizer Bürger/in
+                            </div>
+                        </div>
 
-<script>
-const state = { currentStep:1, outputLang:'de', plan:'pro', apiKey:'', cvContent:'', cvModel:null, profilePhoto:null, signatureImage:null };
-let jsPDFLoadPromise = null;
-function loadJsPDF(){
-  if(window.jspdf?.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
-  if(jsPDFLoadPromise) return jsPDFLoadPromise;
-  const sources=[
-    'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',
-    'https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js'
-  ];
-  jsPDFLoadPromise=(async()=>{
-    let lastError;
-    for(const src of sources){
-      try{
-        await new Promise((resolve,reject)=>{
-          const script=document.createElement('script');
-          script.src=src;
-          script.onload=resolve;
-          script.onerror=()=>reject(new Error('Failed to load '+src));
-          document.head.appendChild(script);
-        });
-        if(window.jspdf?.jsPDF) return window.jspdf.jsPDF;
-        throw new Error('The jsPDF script loaded without exposing its jsPDF constructor.');
-      }catch(error){ lastError=error; }
-    }
-    throw new Error(lastError?.message || 'jsPDF could not be loaded.');
-  })().finally(()=>{ jsPDFLoadPromise=null; });
-  return jsPDFLoadPromise;
-}
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Sprachen</div>
+                            <div class="a4-sidebar-content" id="doc-lang-view">
+                                Deutsch (Muttersprache)<br>Englisch (B2)
+                            </div>
+                        </div>
 
-const i18n = {
-  en:{ heroTag:'AI-Powered · ATS-Optimized · European Standard', heroTitle:'Your Professional CV<br><em>Generated in 60 Seconds</em>', heroSub:'Enter your details. Choose your language. Get a job-ready CV instantly.', sl1:'Details', sl2:'Language', sl3:'Plan', sl4:'Generate', tApikey:'API Configuration', tSavekey:'Save Key', tPersonal:'Personal Information', tExp:'Work Experience', tAddexp:'+ Add', tEdu:'Education', tAddedu:'+ Add', tSkills:'Skills & Languages', lFname:'First Name', lLname:'Last Name', lEmail:'Email', lPhone:'Phone', lCity:'City', lCountry:'Country', lLinkedin:'LinkedIn / Portfolio', lSummary:'Professional Summary', lSkills:'Skills (comma separated)', lLangs:'Languages', tNext1:'Continue →', tNext2:'Continue →', tChooseLang:'Choose CV Language', tChoosePlan:'Choose Your Plan', tGenerate:'Generate My CV →', tReady:'✅ Your CV is Ready', tCopy:'Copy', tDownload:'Download', tNew:'← New CV', tRegen:'Regenerate', tPayinfo:'Payment processed securely. CV generated immediately.', loadingText:'Generating your professional CV...', tPhoto:'Profile photo (optional)', tPhotoHelp:'Upload your own photo. You can skip this.', tRemovePhoto:'Remove', tSignature:'Signature image (optional)', tSignatureHelp:'Upload your own signature. You can skip this.', tRemoveSignature:'Remove', tUploadInvalid:'Choose a PNG or JPEG image.', tUploadTooLarge:'Image must be 4 MB or smaller.' },
-  de:{ heroTag:'KI-gestützt · ATS-Optimiert · Europäischer Standard', heroTitle:'Ihr professioneller Lebenslauf<br><em>In 60 Sekunden erstellt</em>', heroSub:'Daten eingeben. Sprache wählen. Sofort einen jobfertigen Lebenslauf erhalten.', sl1:'Daten', sl2:'Sprache', sl3:'Plan', sl4:'Erstellen', tApikey:'API Konfiguration', tSavekey:'Speichern', tPersonal:'Persönliche Daten', tExp:'Berufserfahrung', tAddexp:'+ Hinzufügen', tEdu:'Ausbildung', tAddedu:'+ Hinzufügen', tSkills:'Fähigkeiten & Sprachen', lFname:'Vorname', lLname:'Nachname', lEmail:'E-Mail', lPhone:'Telefon', lCity:'Stadt', lCountry:'Land', lLinkedin:'LinkedIn / Portfolio', lSummary:'Berufliches Profil', lSkills:'Fähigkeiten (kommagetrennt)', lLangs:'Sprachkenntnisse', tNext1:'Weiter →', tNext2:'Weiter →', tChooseLang:'CV-Sprache wählen', tChoosePlan:'Plan auswählen', tGenerate:'Lebenslauf erstellen →', tReady:'✅ Ihr Lebenslauf ist fertig', tCopy:'Kopieren', tDownload:'Herunterladen', tNew:'← Neu', tRegen:'Neu generieren', tPayinfo:'Sichere Zahlung. CV wird sofort generiert.', loadingText:'Ihr Lebenslauf wird erstellt...', tPhoto:'Profilfoto (optional)', tPhotoHelp:'Eigenes Foto hochladen oder u\u00fcberspringen.', tRemovePhoto:'Entfernen', tSignature:'Unterschrift (optional)', tSignatureHelp:'Eigene Unterschrift hochladen oder u\u00fcberspringen.', tRemoveSignature:'Entfernen', tUploadInvalid:'Bitte ein PNG- oder JPEG-Bild w\u00e4hlen.', tUploadTooLarge:'Das Bild darf h\u00f6chstens 4 MB gro\u00df sein.' },
-  fr:{ heroTag:'Propulsé par IA · Optimisé ATS · Standard Européen', heroTitle:'Votre CV Professionnel<br><em>Généré en 60 Secondes</em>', heroSub:'Entrez vos données. Choisissez la langue. Obtenez un CV prêt à postuler.', sl1:'Données', sl2:'Langue', sl3:'Plan', sl4:'Générer', tApikey:'Configuration API', tSavekey:'Sauvegarder', tPersonal:'Informations Personnelles', tExp:'Expérience', tAddexp:'+ Ajouter', tEdu:'Formation', tAddedu:'+ Ajouter', tSkills:'Compétences & Langues', lFname:'Prénom', lLname:'Nom', lEmail:'Email', lPhone:'Téléphone', lCity:'Ville', lCountry:'Pays', lLinkedin:'LinkedIn / Portfolio', lSummary:'Profil Professionnel', lSkills:'Compétences (séparées par virgule)', lLangs:'Langues', tNext1:'Continuer →', tNext2:'Continuer →', tChooseLang:'Langue du CV', tChoosePlan:'Choisir votre plan', tGenerate:'Générer mon CV →', tReady:'✅ Votre CV est prêt', tCopy:'Copier', tDownload:'Télécharger', tNew:'← Nouveau', tRegen:'Régénérer', tPayinfo:'Paiement sécurisé. CV généré immédiatement.', loadingText:'Génération de votre CV...', tPhoto:'Photo de profil (facultative)', tPhotoHelp:'Ajoutez votre photo ou ignorez cette option.', tRemovePhoto:'Supprimer', tSignature:'Image de signature (facultative)', tSignatureHelp:'Ajoutez votre signature ou ignorez cette option.', tRemoveSignature:'Supprimer', tUploadInvalid:'Choisissez une image PNG ou JPEG.', tUploadTooLarge:'Image de 4 Mo maximum.' },
-  it:{ heroTag:'Basato su IA · Ottimizzato ATS · Standard Europeo', heroTitle:'Il Tuo CV Professionale<br><em>Generato in 60 Secondi</em>', heroSub:'Inserisci i dati. Scegli la lingua. Ottieni subito un CV perfetto.', sl1:'Dati', sl2:'Lingua', sl3:'Piano', sl4:'Genera', tApikey:'Configurazione API', tSavekey:'Salva', tPersonal:'Informazioni Personali', tExp:'Esperienza', tAddexp:'+ Aggiungi', tEdu:'Formazione', tAddedu:'+ Aggiungi', tSkills:'Competenze & Lingue', lFname:'Nome', lLname:'Cognome', lEmail:'Email', lPhone:'Telefono', lCity:'Città', lCountry:'Paese', lLinkedin:'LinkedIn / Portfolio', lSummary:'Profilo Professionale', lSkills:'Competenze (separate da virgola)', lLangs:'Lingue', tNext1:'Continua →', tNext2:'Continua →', tChooseLang:'Lingua del CV', tChoosePlan:'Scegli il piano', tGenerate:'Genera il mio CV →', tReady:'✅ Il tuo CV è pronto', tCopy:'Copia', tDownload:'Scarica', tNew:'← Nuovo', tRegen:'Rigenera', tPayinfo:'Pagamento sicuro. CV generato immediatamente.', loadingText:'Generazione del tuo CV...', tPhoto:'Foto profilo (facoltativa)', tPhotoHelp:'Carica una tua foto oppure salta questa opzione.', tRemovePhoto:'Rimuovi', tSignature:'Immagine della firma (facoltativa)', tSignatureHelp:'Carica la tua firma oppure salta questa opzione.', tRemoveSignature:'Rimuovi', tUploadInvalid:'Scegli un\u2019immagine PNG o JPEG.', tUploadTooLarge:'Immagine di 4 MB al massimo.' }
-};
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Expertise</div>
+                            <div class="a4-sidebar-content" id="doc-skills-view">
+                                Prozessoptimierung<br>SAP / ERP<br>Projektmanagement
+                            </div>
+                        </div>
+                    </div>
 
-let uiLang = 'en';
+                    <!-- MAIN CONTENT (Right Column) -->
+                    <div class="a4-main-content" id="doc-body">
+                        <h3>Profil</h3>
+                        <p>Engagierte und lösungsorientierte Fachperson mit fundierter Erfahrung im Schweizer Arbeitsmarkt. Bereit für anspruchsvolle Aufgaben im Jahr 2026-2027.</p>
+                        
+                        <h3>Berufserfahrung</h3>
+                        <p><strong>Senior Mitarbeiter / Fachverantwortlicher</strong><br><em>Firma AG, Zürich (2024 – Heute)</em><br>• Leitung von operativen Abläufen und Prozessoptimierung.<br>• Erfolgreiche Einführung digitaler Standards.</p>
 
-function setUILang(lang, btn) {
-  uiLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  const t = i18n[lang];
-  const s = (id, v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
-  s('hero-tag',t.heroTag); s('hero-title',t.heroTitle); s('hero-sub',t.heroSub);
-  s('sl-1',t.sl1); s('sl-2',t.sl2); s('sl-3',t.sl3); s('sl-4',t.sl4);
-  s('t-apikey',t.tApikey); s('t-savekey',t.tSavekey);
-  s('t-personal',t.tPersonal); s('t-exp',t.tExp); s('t-addexp',t.tAddexp);
-  s('t-edu',t.tEdu); s('t-addedu',t.tAddedu); s('t-skills',t.tSkills);
-  s('l-fname',t.lFname); s('l-lname',t.lLname); s('l-email',t.lEmail);
-  s('l-phone',t.lPhone); s('l-city',t.lCity); s('l-country',t.lCountry);
-  s('l-linkedin',t.lLinkedin); s('l-summary',t.lSummary);
-  s('l-skills',t.lSkills); s('l-langs',t.lLangs);
-  s('t-next1',t.tNext1); s('t-next2',t.tNext2);
-  s('t-chooselang',t.tChooseLang); s('t-chooseplan',t.tChoosePlan);
-  s('t-generate',t.tGenerate);
-  s('t-ready',t.tReady); s('t-copy',t.tCopy); s('t-download',t.tDownload);
-  s('t-new',t.tNew); s('t-regen',t.tRegen); s('t-payinfo',t.tPayinfo);
-  s('loading-text',t.loadingText);
-  s('l-photo',t.tPhoto); s('h-photo',t.tPhotoHelp); s('remove-photo',t.tRemovePhoto);
-  s('l-signature',t.tSignature); s('h-signature',t.tSignatureHelp); s('remove-signature',t.tRemoveSignature);
-}
+                        <h3>Ausbildung</h3>
+                        <p><strong>Höhere Fachbildung / EFZ</strong><br><em>Bildungszentrum Zürich (2020 – 2023)</em></p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
 
-function saveApiKey() {
-  const v = document.getElementById('api-key-input').value.trim();
-  if(!v){ showToast('Enter your API key'); return; }
-  state.apiKey = v;
-  document.getElementById('api-key-input').value = '●'.repeat(24);
-  document.getElementById('key-status').className = 'key-status ok';
-  document.getElementById('key-status').textContent = '✓ API Key saved successfully';
-  showToast('API Key saved ✓');
-}
+    <script>
+        let selectedLang = 'German', selectedNiche = 'logistics', expCount = 0, eduCount = 0;
+        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); }
+        function selectNiche(n, el) { selectedNiche = n; document.querySelectorAll('.niche-item').forEach(x => x.classList.remove('active')); el.classList.add('active'); }
+        
+        function addExperience() {
+            expCount++;
+            const div = document.createElement('div');
+            div.className = 'repeater-card'; div.id = 'exp-' + expCount;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Position</label><input type="text" class="exp-title" placeholder="z.B. Projektleiter"></div><div class="field"><label>Firma & Ort</label><input type="text" class="exp-company" placeholder="z.B. Swiss Corp, Zürich"></div><div class="field"><label>Zeitraum</label><input type="text" class="exp-period" placeholder="2026 – 2027"></div><div class="field"><label>Aufgaben</label><input type="text" class="exp-desc" placeholder="Strategische Planung, Teamführung"></div></div>`;
+            document.getElementById('experience-list').appendChild(div);
+        }
 
-function loadOptionalImage(event, key){
-  const input = event.target;
-  const file = input.files && input.files[0];
-  const config = key === 'profilePhoto'
-    ? { preview:'profile-photo-preview', image:'profile-photo-preview-img', filename:'profile-photo-filename' }
-    : key === 'signatureImage'
-      ? { preview:'signature-preview', image:'signature-preview-img', filename:'signature-filename' }
-      : null;
-  if(!file || !config) return;
-  const messages = i18n[uiLang];
-  if(!['image/jpeg','image/png'].includes(file.type)){
-    input.value = '';
-    showToast(messages.tUploadInvalid);
-    return;
-  }
-  if(file.size > 4 * 1024 * 1024){
-    input.value = '';
-    showToast(messages.tUploadTooLarge);
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = () => {
-    const image = new Image();
-    image.onload = () => {
-      state[key] = { dataUrl:String(reader.result), width:image.naturalWidth, height:image.naturalHeight, type:file.type };
-      document.getElementById(config.image).src = String(reader.result);
-      document.getElementById(config.filename).textContent = file.name;
-      document.getElementById(config.preview).hidden = false;
-    };
-    image.onerror = () => { input.value = ''; showToast(messages.tUploadInvalid); };
-    image.src = String(reader.result);
-  };
-  reader.onerror = () => { input.value = ''; showToast(messages.tUploadInvalid); };
-  reader.readAsDataURL(file);
-}
+        function addEducation() {
+            eduCount++;
+            const div = document.createElement('div');
+            div.className = 'repeater-card'; div.id = 'edu-' + eduCount;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Abschluss</label><input type="text" class="edu-degree" placeholder="z.B. CAS / Eidg. Diplom"></div><div class="field"><label>Schule</label><input type="text" class="edu-inst" placeholder="z.B. ETH / Höhere Fachschule"></div><div class="field span-2"><label>Jahr</label><input type="text" class="edu-year" placeholder="2025 – 2026"></div></div>`;
+            document.getElementById('education-list').appendChild(div);
+        }
 
-function removeOptionalImage(key){
-  const config = key === 'profilePhoto'
-    ? { input:'profile-photo-input', preview:'profile-photo-preview' }
-    : key === 'signatureImage'
-      ? { input:'signature-input', preview:'signature-preview' }
-      : null;
-  if(!config) return;
-  state[key] = null;
-  document.getElementById(config.input).value = '';
-  document.getElementById(config.preview).hidden = true;
-}
-let expCount = 0;
-function addExperience() {
-  expCount++;
-  const id = `exp-${expCount}`;
-  const div = document.createElement('div');
-  div.className = 'entry'; div.id = id;
-  div.innerHTML = `<button class="btn-remove" onclick="removeEntry('${id}')">×</button>
-    <div class="form-grid">
-      <div class="field"><label>Job Title</label><input type="text" placeholder="Marketing Manager" id="exp-title-${expCount}"></div>
-      <div class="field"><label>Company</label><input type="text" placeholder="Google AG" id="exp-company-${expCount}"></div>
-      <div class="field"><label>Start</label><input type="text" placeholder="Jan 2020" id="exp-start-${expCount}"></div>
-      <div class="field"><label>End</label><input type="text" placeholder="Present" id="exp-end-${expCount}"></div>
-      <div class="field span2"><label>Achievements & Responsibilities</label><textarea placeholder="Led a team of 8, increased revenue by 35%..." id="exp-desc-${expCount}"></textarea></div>
-    </div>`;
-  document.getElementById('experience-list').appendChild(div);
-}
+        function syncHeader() {
+            const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value;
+            document.getElementById('doc-name').textContent = (fn || ln) ? `${fn} ${ln}` : 'Ardi Jabuqa';
+            
+            const city = document.getElementById('city').value || '8636 Wald ZH';
+            const phone = document.getElementById('phone').value || '+41 79 123 45 67';
+            const email = document.getElementById('email').value || 'ardi@bluewin.ch';
+            document.getElementById('doc-contact').innerHTML = `${city}<br>${phone}<br>${email}`;
+            document.getElementById('doc-permit').textContent = document.getElementById('permit').value;
+            
+            const sk = document.getElementById('skills').value;
+            if (sk) document.getElementById('doc-skills-view').innerHTML = sk.split(',').join('<br>');
+            
+            const lg = document.getElementById('languages').value;
+            if (lg) document.getElementById('doc-lang-view').innerHTML = lg.split(',').join('<br>');
+        }
 
-let eduCount = 0;
-function addEducation() {
-  eduCount++;
-  const id = `edu-${eduCount}`;
-  const div = document.createElement('div');
-  div.className = 'entry'; div.id = id;
-  div.innerHTML = `<button class="btn-remove" onclick="removeEntry('${id}')">×</button>
-    <div class="form-grid">
-      <div class="field"><label>Degree / Certificate</label><input type="text" placeholder="Bachelor of Business" id="edu-degree-${eduCount}"></div>
-      <div class="field"><label>Institution</label><input type="text" placeholder="Universität Zürich" id="edu-inst-${eduCount}"></div>
-      <div class="field"><label>Year</label><input type="text" placeholder="2018" id="edu-year-${eduCount}"></div>
-      <div class="field"><label>Grade / Note</label><input type="text" placeholder="5.5 / 6.0" id="edu-grade-${eduCount}"></div>
-    </div>`;
-  document.getElementById('education-list').appendChild(div);
-}
-
-function removeEntry(id){ const el=document.getElementById(id); if(el) el.remove(); }
-
-function selectOutputLang(lang, el) {
-  state.outputLang = lang;
-  document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function selectPlan(plan, el) {
-  state.plan = plan;
-  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('payment-amount').textContent = plan==='basic'?'€8':'€19';
-  document.getElementById('payment-desc').textContent = plan==='basic'?'Basic Plan — 1 Language':'PRO Plan — All 4 Languages + Cover Letter';
-}
-
-function selectPayment(el) {
-  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function goToStep(n) {
-  if(n===4){ startGeneration(); return; }
-  state.currentStep = n;
-  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i+1===n));
-  for(let i=1;i<=4;i++){
-    const s=document.getElementById(`step-${i}`);
-    s.classList.remove('active','done');
-    if(i<n) s.classList.add('done');
-    else if(i===n) s.classList.add('active');
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function collectData() {
-  const experiences=[], educations=[];
-  for(let i=1;i<=expCount;i++){
-    const t=document.getElementById(`exp-title-${i}`);
-    if(t&&t.value) experiences.push({ title:t.value, company:document.getElementById(`exp-company-${i}`)?.value||'', start:document.getElementById(`exp-start-${i}`)?.value||'', end:document.getElementById(`exp-end-${i}`)?.value||'', desc:document.getElementById(`exp-desc-${i}`)?.value||'' });
-  }
-  for(let i=1;i<=eduCount;i++){
-    const d=document.getElementById(`edu-degree-${i}`);
-    if(d&&d.value) educations.push({ degree:d.value, inst:document.getElementById(`edu-inst-${i}`)?.value||'', year:document.getElementById(`edu-year-${i}`)?.value||'', grade:document.getElementById(`edu-grade-${i}`)?.value||'' });
-  }
-  const result = {
-    firstName:document.getElementById('firstName').value,
-    lastName:document.getElementById('lastName').value,
-    email:document.getElementById('email').value,
-    phone:document.getElementById('phone').value,
-    city:document.getElementById('city').value,
-    country:document.getElementById('country').value,
-    linkedin:document.getElementById('linkedin').value,
-    summary:document.getElementById('summary').value,
-    skills:document.getElementById('skills').value,
-    languages:document.getElementById('languages').value,
-    profilePhoto:state.profilePhoto,
-    signatureImage:state.signatureImage,
-    experiences, educations
-  };
-  console.log('DEBUG collectData data:', result);
-  return result;
-}
-
-const cvLabels = {
-  en:{ profile:'Professional Profile', experience:'Work Experience', education:'Education', skills:'Skills', languages:'Languages', certifications:'Certifications', projects:'Projects', awards:'Awards', volunteering:'Volunteering', publications:'Publications', interests:'Interests', coverLetter:'Cover Letter', linkedinSummary:'LinkedIn Summary', signature:'Signature', cvTitle:'Curriculum Vitae', phone:'Phone', email:'Email', location:'Location', grade:'Grade' },
-  de:{ profile:'Berufliches Profil', experience:'Berufserfahrung', education:'Ausbildung', skills:'Kenntnisse', languages:'Sprachen', certifications:'Zertifikate', projects:'Projekte', awards:'Auszeichnungen', volunteering:'Ehrenamt', publications:'Publikationen', interests:'Interessen', coverLetter:'Anschreiben', linkedinSummary:'LinkedIn-Zusammenfassung', signature:'Unterschrift', cvTitle:'Lebenslauf', phone:'Telefon', email:'E-Mail', location:'Ort', grade:'Note' },
-  fr:{ profile:'Profil professionnel', experience:'Exp\u00e9rience professionnelle', education:'Formation', skills:'Comp\u00e9tences', languages:'Langues', certifications:'Certifications', projects:'Projets', awards:'Distinctions', volunteering:'B\u00e9n\u00e9volat', publications:'Publications', interests:'Centres d\u2019int\u00e9r\u00eat', coverLetter:'Lettre de motivation', linkedinSummary:'R\u00e9sum\u00e9 LinkedIn', signature:'Signature', cvTitle:'Curriculum Vitae', phone:'T\u00e9l\u00e9phone', email:'E-mail', location:'Lieu', grade:'Mention' },
-  it:{ profile:'Profil professionale', experience:'Esperienza professionale', education:'Formazione', skills:'Competenze', languages:'Lingue', certifications:'Certificazioni', projects:'Progetti', awards:'Riconoscimenti', volunteering:'Volontariato', publications:'Pubblicazioni', interests:'Interessi', coverLetter:'Lettera di presentazione', linkedinSummary:'Riepilogo LinkedIn', signature:'Firma', cvTitle:'Curriculum Vitae', phone:'Telefono', email:'E-mail', location:'Luogo', grade:'Voto' }
-};
-
-const cvSectionAliases = {
-  profile:['professional profile','professional summary','profile','profil','profilo','summary','career profile','berufliches profil','kurzprofil','profil professionnel','profil personnel','profilo professionale','profilo personale'],
-  experience:['work experience','professional experience','experience','employment history','career history','berufserfahrung','experience professionnelle','esperienza professionale','esperienza lavorativa','esperienza'],
-  education:['education','academic background','training','ausbildung','bildung','formation','istruzione','formazione'],
-  skills:['skills','key skills','core competencies','competencies','fahigkeiten','kenntnisse','kompetenzen','competences','competenze'],
-  languages:['languages','language skills','sprachkenntnisse','sprachen','langues','lingue'],
-  certifications:['certifications','certificates','zertifikate','certificats','certificazioni'],
-  projects:['projects','projekte','projets','progetti'],
-  awards:['awards','honors','achievements','auszeichnungen','preise','distinctions','riconoscimenti'],
-  volunteering:['volunteering','volunteer experience','ehrenamt','benevolat','volontariato'],
-  publications:['publications','veroffentlichungen','publikationen','pubblicazioni'],
-  interests:['interests','hobbies','interessen','centres d interet','loisirs','interessi'],
-  coverLetter:['cover letter','anschreiben','lettre de motivation','lettera di presentazione'],
-  linkedinSummary:['linkedin summary','linkedin profile','linkedin-zusammenfassung','linkedin zusammenfassung','resume linkedin','sommario linkedin','riepilogo linkedin']
-};
-
-function normalizeCVHeading(value){
-  return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
-}
-
-function classifyCVHeading(value){
-  const normalized = normalizeCVHeading(value).replace(/\s*:\s*$/,'').trim();
-  return Object.keys(cvSectionAliases).find(type => cvSectionAliases[type].some(alias => normalizeCVHeading(alias) === normalized)) || null;
-}
-
-function cleanCVLine(value){
-  return String(value || '').replace(/!\[([^\]]*)\]\([^)]+\)/g,'$1')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'$1 ($2)')
-    .replace(/^\s*#{1,6}\s*/,'').replace(/^\s*>\s?/,'')
-    .replace(/\*\*(.*?)\*\*/g,'$1').replace(/__(.*?)__/g,'$1')
-    .replace(/\*([^*]+)\*/g,'$1').replace(/_([^_]+)_/g,'$1')
-    .replace(/`([^`]+)`/g,'$1').replace(/\u2550+/g,'').replace(/\*{1,2}/g,'')
-    .replace(/^[\s\u2022*+-]+/,'').replace(/\s+/g,' ').trim();
-}
-
-function parseGeneratedCV(rawText){
-  const sections = {};
-  let currentType = null;
-  let currentTitle = '';
-  const lines = String(rawText || '').replace(/```[a-z]*\s*/gi,'').replace(/```/g,'').split(/\r?\n/);
-  lines.forEach(rawLine => {
-    const original = rawLine.trim();
-    if(!original || /^[\s=\u2550\u2014_-]{3,}$/.test(original)) return;
-    const explicitHeading = /^#{1,6}\s+/.test(original) || /^\*\*[^*]+\*\*\s*:?$/.test(original);
-    let line = cleanCVLine(original);
-    if(!line) return;
-    const inlineLabel = line.match(/^([^:]{2,55}):\s*(.*)$/);
-    if(inlineLabel){
-      const inlineType = classifyCVHeading(inlineLabel[1]);
-      if(inlineType){
-        currentType = inlineType;
-        currentTitle = inlineLabel[1].trim();
-        if(!sections[currentType]) sections[currentType] = {title:currentTitle,lines:[]};
-        if(inlineLabel[2]) sections[currentType].lines.push(cleanCVLine(inlineLabel[2]));
-        return;
-      }
-    }
-    const type = classifyCVHeading(line.replace(/:$/,''));
-    const letters = line.replace(/[^\p{L}]/gu,'');
-    const looksLikeHeading = explicitHeading || !!type || (line.length < 70 && letters.length > 2 && letters === letters.toLocaleUpperCase());
-    if(looksLikeHeading){
-      currentType = type;
-      currentTitle = line.replace(/:$/,'').trim();
-      if(currentType && !sections[currentType]) sections[currentType] = {title:currentTitle,lines:[]};
-      return;
-    }
-    if(currentType) sections[currentType].lines.push(line);
-  });
-  return sections;
-}
-
-function splitCVValues(value){
-  return cleanCVLine(String(value || '')).split(/[,;\n]+/).map(item=>cleanCVLine(item)).filter(Boolean);
-}
-
-function makeCVBullets(value){
-  return String(value || '').split(/\r?\n/).map(cleanCVLine).filter(Boolean);
-}
-
-function normalizeLinkedIn(value){
-  const raw=cleanCVLine(value);
-  if(!raw) return null;
-  const linkedin=raw.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/(.*)/i);
-  if(linkedin){
-    const path='/'+linkedin[1].replace(/^\/+|\/+$/g,'').replace(/\/{2,}/g,'/');
-    return {label:'LinkedIn',value:'linkedin.com'+path,href:'https://www.linkedin.com'+encodeURI(path)};
-  }
-  const urlMatch=raw.match(/^(?:https?:\/\/)?(?:www\.)?[\w.-]+\.[a-z]{2,}(?:\/[^\s]*)?$/i);
-  if(urlMatch){
-    const href=/^https?:\/\//i.test(raw)?raw:'https://'+raw;
-    return {label:'LinkedIn / Portfolio',value:raw.replace(/^https?:\/\//i,'').replace(/^www\./i,''),href};
-  }
-  return {label:'LinkedIn / Portfolio',value:raw,href:null};
-}
-
-function buildSkillGroups(value){
-  const lines=String(value||'').split(/\r?\n/).map(cleanCVLine).filter(Boolean);
-  const groups=[];
-  lines.forEach(line=>{
-    const named=line.match(/^([^:]{2,40}):\s*(.+)$/);
-    if(named){
-      groups.push({title:cleanCVLine(named[1]),items:splitCVValues(named[2])});
-    }else{
-      groups.push({title:'',items:splitCVValues(line)});
-    }
-  });
-  return groups.filter(group=>group.items.length);
-}
-
-function buildCVModel(data){
-  // Document facts come from candidate-entered fields so the CV cannot add unsupported details.
-  const labels=cvLabels[state.outputLang]||cvLabels.en;
-  const experiences=(data.experiences||[]).map(item=>({
-    title:cleanCVLine(item.title),
-    company:cleanCVLine(item.company),
-    start:cleanCVLine(item.start),
-    end:cleanCVLine(item.end),
-    bullets:makeCVBullets(item.desc).slice(0,5)
-  })).filter(item=>item.title||item.company||item.start||item.end||item.bullets.length);
-  const educations=(data.educations||[]).map(item=>({
-    degree:cleanCVLine(item.degree),
-    institution:cleanCVLine(item.inst),
-    year:cleanCVLine(item.year),
-    grade:cleanCVLine(item.grade)
-  })).filter(item=>item.degree||item.institution||item.year||item.grade);
-  const title=experiences[0]?.title||'';
-  const profile=cleanCVLine(data.summary)||'';
-  const contact=[
-    data.phone&&{label:labels.phone,value:cleanCVLine(data.phone)},
-    data.email&&{label:labels.email,value:cleanCVLine(data.email),href:'mailto:'+cleanCVLine(data.email)},
-    [data.city,data.country].filter(Boolean).map(cleanCVLine).join(', ')&&{label:labels.location,value:[data.city,data.country].filter(Boolean).map(cleanCVLine).join(', ')},
-    normalizeLinkedIn(data.linkedin)
-  ].filter(Boolean);
-  return {
-    name:cleanCVLine([data.firstName,data.lastName].filter(Boolean).join(' '))||labels.cvTitle,
-    title,contact,profile,experiences,educations,
-    skillGroups:buildSkillGroups(data.skills),
-    languages:splitCVValues(data.languages),
-    extras:[],
-    photo:data.profilePhoto||null,
-    labels
-  };
-}
-function appendCVSection(root, title){
-  const section = document.createElement('section');
-  section.className = 'cv-section';
-  const heading = document.createElement('h2');
-  heading.className = 'cv-section-title';
-  heading.textContent = title;
-  section.appendChild(heading);
-  root.appendChild(section);
-  return section;
-}
-
-function renderCVDocument(model){
-  const root=document.getElementById('cv-content');
-  root.replaceChildren();
-
-  const colLeft=document.createElement('div'); colLeft.className='cv-column-left';
-  const colRight=document.createElement('div'); colRight.className='cv-column-right';
-
-  if(model.photo?.dataUrl){
-    const wrap=document.createElement('div'); wrap.className='cv-photo-wrap';
-    const photo=document.createElement('img'); photo.className='cv-profile-photo'; photo.src=model.photo.dataUrl; photo.alt='Profile photo'; wrap.appendChild(photo); colLeft.appendChild(wrap);
-  }
-  if(model.contact.length){
-    const wrap=document.createElement('div'); wrap.className='cv-contact-wrap';
-    const contact=document.createElement('div'); contact.className='cv-contact';
-    model.contact.forEach(item=>{
-      const wrapper=document.createElement('span');
-      const label=document.createElement('b'); label.textContent=item.label+': '; wrapper.appendChild(label);
-      if(item.href){const link=document.createElement('a'); link.href=item.href; link.textContent=item.value; link.rel='noreferrer'; wrapper.appendChild(link);}
-      else{const value=document.createElement('span'); value.textContent=item.value; wrapper.appendChild(value);}
-      contact.appendChild(wrapper);
-    });
-    wrap.appendChild(contact); colLeft.appendChild(wrap);
-  }
-
-  const header=document.createElement('header');
-  header.className='cv-document-header';
-  const identity=document.createElement('div');
-  identity.className='cv-identity';
-  const brand=document.createElement('div'); brand.className='cv-document-brand'; brand.textContent='JABUQA CV';
-  identity.appendChild(brand);
-  const name=document.createElement('h1'); name.textContent=model.name; identity.appendChild(name);
-  if(model.title){const title=document.createElement('div');title.className='cv-professional-title';title.textContent=model.title;identity.appendChild(title);}
-  header.appendChild(identity);
-  colRight.appendChild(header);
-
-  if(model.profile){
-    const wrap=document.createElement('div'); wrap.className='cv-profile-wrap';
-    const section=appendCVSection(wrap,model.labels.profile);
-    const p=document.createElement('p'); p.className='cv-profile-copy'; p.textContent=model.profile; section.appendChild(p);
-    wrap.appendChild(section); colRight.appendChild(wrap);
-  }
-  if(model.experiences.length){
-    const wrap=document.createElement('div'); wrap.className='cv-experience-wrap';
-    const section=appendCVSection(wrap,model.labels.experience);
-    model.experiences.forEach(item=>{
-      const entry=document.createElement('article'); entry.className='cv-entry';
-      const head=document.createElement('div'); head.className='cv-entry-head';
-      const title=document.createElement('h3'); title.textContent=item.title||item.company; head.appendChild(title);
-      const dates=[item.start,item.end].filter(Boolean).join(' – '); if(dates){const time=document.createElement('time'); time.textContent=dates; head.appendChild(time);}
-      entry.appendChild(head);
-      if(item.company){const meta=document.createElement('div'); meta.className='cv-entry-meta'; meta.textContent=item.company; entry.appendChild(meta);}
-      if(item.bullets.length){const list=document.createElement('ul'); list.className='cv-bullets'; item.bullets.forEach(text=>{const li=document.createElement('li'); li.textContent=text; list.appendChild(li);}); entry.appendChild(list);}
-      section.appendChild(entry);
-    });
-    wrap.appendChild(section); colRight.appendChild(wrap);
-  }
-  if(model.educations.length){
-    const wrap=document.createElement('div'); wrap.className='cv-education-wrap';
-    const section=appendCVSection(wrap,model.labels.education);
-    model.educations.forEach(item=>{
-      const entry=document.createElement('article'); entry.className='cv-entry';
-      const head=document.createElement('div'); head.className='cv-entry-head';
-      const degree=document.createElement('h3'); degree.textContent=item.degree||item.institution; head.appendChild(degree);
-      if(item.year){const year=document.createElement('time'); year.textContent=item.year; head.appendChild(year);}
-      entry.appendChild(head);
-      const meta=[item.institution,item.grade&&model.labels.grade+': '+item.grade].filter(Boolean).join(' · ');
-      if(meta){const info=document.createElement('div'); info.className='cv-entry-meta'; info.textContent=meta; entry.appendChild(info);}
-      section.appendChild(entry);
-    });
-    wrap.appendChild(section); colRight.appendChild(wrap);
-  }
-  if(model.languages.length){
-    const wrap=document.createElement('div'); wrap.className='cv-languages-wrap';
-    const section=appendCVSection(wrap,model.labels.languages);
-    const list=document.createElement('ul'); list.className='cv-skill-list';
-    model.languages.forEach(value=>{const item=document.createElement('li'); item.textContent=value; list.appendChild(item);});
-    section.appendChild(list); wrap.appendChild(section); colLeft.appendChild(wrap);
-  }
-  if(model.skillGroups.length){
-    const wrap=document.createElement('div'); wrap.className='cv-skills-wrap';
-    model.skillGroups.forEach(group=>{
-      const section=appendCVSection(wrap,group.title||model.labels.skills);
-      const list=document.createElement('ul'); list.className='cv-skill-list';
-      group.items.forEach(value=>{const item=document.createElement('li'); item.textContent=value; list.appendChild(item);});
-      section.appendChild(list);
-    });
-    colLeft.appendChild(wrap);
-  }
-  if(model.extras.length){
-    const wrap=document.createElement('div'); wrap.className='cv-extras-wrap';
-    model.extras.forEach(extra=>{
-      const section=appendCVSection(wrap,extra.title);
-      extra.text.split(/\n+/).map(cleanCVLine).filter(Boolean).forEach(text=>{const p=document.createElement('p'); p.textContent=text; section.appendChild(p);});
-    });
-    colRight.appendChild(wrap);
-  }
-
-  root.appendChild(colLeft);
-  root.appendChild(colRight);
-}
-
-function formatCVPlainText(model){
-  if(!model)return '';
-  const lines=[model.name,model.title,...model.contact.map(item=>item.label+': '+item.value),''];
-  const add=(title,body)=>{if(body){lines.push(title,body,'');}};
-  add(model.labels.profile,model.profile);
-  if(model.experiences.length){lines.push(model.labels.experience);model.experiences.forEach(item=>{lines.push(item.title,[item.company,[item.start,item.end].filter(Boolean).join(' – ')].filter(Boolean).join(' | '));item.bullets.forEach(text=>lines.push('- '+text));lines.push('');});}
-  if(model.educations.length){lines.push(model.labels.education);model.educations.forEach(item=>{lines.push(item.degree,[item.institution,item.year,item.grade&&model.labels.grade+': '+item.grade].filter(Boolean).join(' | '),'');});}
-  model.skillGroups.forEach(group=>add(group.title||model.labels.skills,group.items.join(', ')));
-  add(model.labels.languages,model.languages.join(', '));
-  model.extras.forEach(extra=>add(extra.title,extra.text));
-  return lines.filter(value=>value!==null&&value!==undefined).join('\n').trim();
-}
-async function startGeneration() {
-  if(!state.apiKey){ showToast('⚠ Please save your API key first'); goToStep(1); return; }
-  state.currentStep = 4;
-  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i===3));
-  for(let i=1;i<=4;i++){
-    const s=document.getElementById(`step-${i}`);
-    s.classList.remove('active','done');
-    if(i<4) s.classList.add('done'); else s.classList.add('active');
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-  document.getElementById('loading-state').style.display='flex';
-  document.getElementById('cv-result').style.display='none';
-  state.cvContent='';
-  state.cvModel=null;
-  document.getElementById('cv-content').replaceChildren();
-  document.getElementById('cv-error').style.display='none';
-  document.getElementById('cv-error').textContent='';
-  document.querySelector('#cv-result .result-actions').hidden=true;
-
-  const langNames={de:'German',en:'English',fr:'French',it:'Italian'};
-  const data = collectData();
-  const expText = data.experiences.map(e=>`- ${e.title} at ${e.company} (${e.start}–${e.end}): ${e.desc}`).join('\n') || 'Not provided';
-  const eduText = data.educations.map(e=>`- ${e.degree} — ${e.inst}, ${e.year}${e.grade?', Grade: '+e.grade:''}`).join('\n') || 'Not provided';
-
-  const prompt = `You are an expert European CV writer. Create a professional, ATS-optimized CV in ${langNames[state.outputLang]}.
-
-CANDIDATE:
-Name: ${data.firstName} ${data.lastName}
-Contact: ${data.email} | ${data.phone} | ${data.city}, ${data.country}
-LinkedIn: ${data.linkedin}
-Summary: ${data.summary}
-
-EXPERIENCE:
-${expText}
-
-EDUCATION:
-${eduText}
-
-SKILLS: ${data.skills}
-LANGUAGES: ${data.languages}
-
-INSTRUCTIONS:
-- Write ENTIRELY in ${langNames[state.outputLang]} language
-- Professional European format, clean sections
-- ATS-optimized with relevant keywords
-- Results-focused, compelling language
-- Use ══════════════ as section dividers
-${state.plan==='pro'?'- After the CV, add: (1) a cover letter template, (2) a LinkedIn summary (3 lines)':''}`;
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 60000);
-
-  try {
-    let res;
-    for (let attempt = 0; attempt < 3; attempt++) {
-      res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'x-goog-api-key':state.apiKey
-        },
-        body:JSON.stringify({
-          systemInstruction:{parts:[{text:'You are an expert CV writer for European job markets. Respond only in the requested language.'}]},
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{maxOutputTokens:1000}
-        }),
-        signal: controller.signal
-      });
-      if (res.status !== 503) break;
-      await new Promise(r => setTimeout(r, 5000));
-    }
-    clearTimeout(timeoutId);
-    const responseText = await res.text();
-    let result = {};
-    try { result = responseText ? JSON.parse(responseText) : {}; }
-    catch { result = {}; }
-    if(!res.ok || result.error){
-      const message = result.error?.message || result.message || responseText.trim() || res.statusText || 'No error details returned.';
-      const apiError = new Error(message);
-      apiError.status = res.status;
-      throw apiError;
-    }
-    const cvText = result.candidates?.[0]?.content?.parts?.map(part=>part.text||'').join('') || '';
-    console.log('DEBUG cvText from Gemini:', cvText);
-    if(!cvText.trim()) throw new Error('The model returned an empty CV. Please try again.');
-    state.cvContent = cvText;
-    state.cvModel = buildCVModel(data, cvText);
-    console.log('DEBUG state.cvModel after buildCVModel:', state.cvModel);
-    const aiSections = parseGeneratedCV(cvText);
-    console.log('DEBUG aiSections from parseGeneratedCV:', aiSections);
-    state.cvModel.extras = Object.entries(aiSections).map(([key, section]) => ({
-      title: section.title || key,
-      text: section.lines.join('\n')
-    }));
-    console.log('DEBUG model passed to renderCVDocument:', state.cvModel);
-    renderCVDocument(state.cvModel);
-    document.getElementById('loading-state').style.display='none';
-    document.getElementById('cv-error').style.display='none';
-    document.querySelector('#cv-result .result-actions').hidden=false;
-    document.getElementById('cv-result').style.display='block';
-    showToast('CV generated ✓');
-  } catch(err) {
-    clearTimeout(timeoutId);
-    state.cvContent='';
-    state.cvModel=null;
-    document.getElementById('cv-content').replaceChildren();
-    document.getElementById('loading-state').style.display='none';
-    document.getElementById('cv-result').style.display='block';
-    document.querySelector('#cv-result .result-actions').hidden=true;
-    const errorBox=document.getElementById('cv-error');
-    if (err.name === 'AbortError') {
-      errorBox.textContent = 'Request timed out after 60 seconds. Please check your connection and try again.';
-    } else {
-      errorBox.textContent = err.status ? 'Gemini API error (HTTP '+err.status+'): '+err.message : 'Gemini request failed: '+err.message;
-    }
-    errorBox.style.display='block';
-  }
-}
-
-function copyCV(){
-  const text=state.cvModel ? formatCVPlainText(state.cvModel) : String(state.cvContent).split(/\r?\n/).map(cleanCVLine).filter(Boolean).join('\n');
-  navigator.clipboard.writeText(text).then(()=>showToast('Copied'));
-}
-function downloadCV(){
-  const text=state.cvModel ? formatCVPlainText(state.cvModel) : String(state.cvContent).split(/\r?\n/).map(cleanCVLine).filter(Boolean).join('\n');
-  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`CV_${document.getElementById('firstName').value||'JABUQA'}_${state.outputLang.toUpperCase()}.txt`;
-  a.click();
-  showToast('Downloaded');
-}
-async function downloadPDF(){
-  const model=state.cvModel;
-  if(!model){showToast('Generate your CV before exporting');return;}
-  try{
-    const JsPDF=await loadJsPDF();
-    const doc=new JsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-    const pageWidth=doc.internal.pageSize.getWidth(),pageHeight=doc.internal.pageSize.getHeight();
-    const margin=19,contentWidth=pageWidth-margin*2,bottom=pageHeight-19;
-    let y=19;
-    doc.setFillColor(190,42,48);doc.rect(0,0,pageWidth,3,'F');
-    doc.setTextColor(190,42,48);doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.text('JABUQA CV',margin,y);
-    doc.setTextColor(112,116,112);doc.setFont('helvetica','normal');doc.text('CURRICULUM VITAE',pageWidth-margin,y,{align:'right'});y+=12;
-    const photoBox=model.photo?.dataUrl?{x:pageWidth-margin-31,y:y-1,w:31,h:38}:null;
-    const identityWidth=photoBox?contentWidth-39:contentWidth;
-    doc.setTextColor(32,35,34);doc.setFont('helvetica','bold');doc.setFontSize(24);
-    const nameLines=doc.splitTextToSize(model.name,identityWidth);doc.text(nameLines,margin,y);y+=nameLines.length*9+1;
-    if(model.title){doc.setTextColor(190,42,48);doc.setFont('helvetica','normal');doc.setFontSize(12);const titleLines=doc.splitTextToSize(model.title,identityWidth);doc.text(titleLines,margin,y);y+=titleLines.length*5.5+2;}
-    doc.setTextColor(92,98,93);doc.setFont('helvetica','normal');doc.setFontSize(8.5);
-    model.contact.forEach(item=>{
-      const value=item.label+': '+item.value;
-      doc.splitTextToSize(value,identityWidth).forEach(line=>{doc.text(line,margin,y);y+=4.2;});
-    });
-    if(photoBox){
-      const image=model.photo,scale=Math.min(photoBox.w/image.width,photoBox.h/image.height),width=image.width*scale,height=image.height*scale;
-      doc.addImage(image.dataUrl,image.type==='image/png'?'PNG':'JPEG',photoBox.x+(photoBox.w-width)/2,photoBox.y+(photoBox.h-height)/2,width,height);
-    }
-    y=Math.max(y,photoBox?photoBox.y+photoBox.h:y)+5;
-    doc.setDrawColor(218,218,211);doc.setLineWidth(.35);doc.line(margin,y,pageWidth-margin,y);y+=6;
-    function startPage(){doc.addPage();y=19;doc.setFillColor(190,42,48);doc.rect(0,0,pageWidth,2,'F');doc.setTextColor(120,124,120);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text(model.name,margin,y);y+=10;}
-    function ensureSpace(height){if(y+height>bottom)startPage();}
-    function writeText(text,options={}){
-      const size=options.size||9.5,leading=options.leading||4.6,indent=options.indent||0;
-      const lines=doc.splitTextToSize(String(text),contentWidth-indent-(options.bullet?4:0));
-      lines.forEach((line,index)=>{ensureSpace(leading);doc.setFont('helvetica',options.bold?'bold':'normal');doc.setFontSize(size);const color=options.color||[55,59,56];doc.setTextColor(...color);if(options.bullet&&index===0){doc.setFillColor(190,42,48);doc.circle(margin+indent+1,y-1,.6,'F');}doc.text(line,margin+indent+(options.bullet?4:0),y);y+=leading;});
-      y+=options.after===undefined?1.5:options.after;
-    }
-    function sectionHeading(title){
-      ensureSpace(13);y+=3;doc.setFillColor(190,42,48);doc.rect(margin,y-3.1,1.2,5,'F');doc.setFont('helvetica','bold');doc.setFontSize(10.5);doc.setTextColor(190,42,48);
-      const lines=doc.splitTextToSize(title,contentWidth-4);doc.text(lines,margin+4,y);y+=lines.length*5+2;doc.setDrawColor(221,220,214);doc.setLineWidth(.25);doc.line(margin,y,pageWidth-margin,y);y+=5;
-    }
-    function drawEntry(title,meta,dates,bullets){
-      ensureSpace(12);writeText(title,{size:10.5,bold:true,color:[37,40,37],leading:5,after:.4});
-      const subline=[meta,dates].filter(Boolean).join(' | ');if(subline)writeText(subline,{size:8.5,color:[100,105,100],leading:4.2,after:1});
-      (bullets||[]).forEach(text=>writeText(text,{size:9,leading:4.4,indent:2,bullet:true,after:1}));y+=2;
-    }
-    if(model.profile){sectionHeading(model.labels.profile);writeText(model.profile,{size:9.2,leading:4.5,after:2});}
-    if(model.experiences.length){sectionHeading(model.labels.experience);model.experiences.forEach(item=>drawEntry(item.title||item.company,item.company,[item.start,item.end].filter(Boolean).join(' – '),item.bullets));}
-    if(model.educations.length){sectionHeading(model.labels.education);model.educations.forEach(item=>drawEntry(item.degree||item.institution,[item.institution,item.grade&&model.labels.grade+': '+item.grade].filter(Boolean).join(' · '),item.year,[]));}
-    model.skillGroups.forEach(group=>{sectionHeading(group.title||model.labels.skills);writeText(group.items.join('  |  '),{size:9,leading:4.5,after:2});});
-    if(model.languages.length){sectionHeading(model.labels.languages);writeText(model.languages.join('  |  '),{size:9,leading:4.5,after:2});}
-    model.extras.forEach(extra=>{sectionHeading(extra.title);extra.text.split(/\n+/).map(cleanCVLine).filter(Boolean).forEach(text=>writeText(text,{size:9,leading:4.5,after:2}));});
-    const pageCount=doc.internal.getNumberOfPages();
-    for(let page=1;page<=pageCount;page++){doc.setPage(page);doc.setDrawColor(224,224,218);doc.setLineWidth(.25);doc.line(margin,pageHeight-13,pageWidth-margin,pageHeight-13);doc.setTextColor(130,134,130);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text('JABUQA CV',margin,pageHeight-8);doc.text(`${String(page).padStart(2,'0')} / ${String(pageCount).padStart(2,'0')}`,pageWidth-margin,pageHeight-8,{align:'right'});}
-    const safeName=model.name.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'_').replace(/^_+|_+$/g,'')||'CV';
-    doc.save(`CV_${safeName}_${state.outputLang.toUpperCase()}.pdf`);showToast('PDF downloaded');
-  }catch(error){console.error('PDF export failed:',error);showToast('PDF export failed: '+(error?.message||'Unknown error'));}
-}
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
-}
-
-document.addEventListener('keydown', event=>{
-  const field=event.target;
-  if(event.key!=='Enter' || event.defaultPrevented || event.shiftKey || !(field instanceof HTMLInputElement)) return;
-  if(['button','submit','reset','checkbox','radio','hidden'].includes(field.type)) return;
-  const panel=field.closest('.panel');
-  if(!panel) return;
-  event.preventDefault();
-  if(field.id==='api-key-input'){
-    document.getElementById('t-savekey').focus();
-    return;
-  }
-  const fields=Array.from(panel.querySelectorAll('input, textarea, select')).filter(item=>!item.disabled && item.type!=='hidden' && item.offsetParent!==null);
-  const next=fields[fields.indexOf(field)+1];
-  if(next){next.focus();return;}
-  const continueButton=panel.querySelector('.nav-row .btn-primary');
-  if(continueButton) continueButton.focus();
-});
-// Init
-addExperience();
-addEducation();
-</script>
+        async function generateCV() {
+            syncHeader();
+            const btn = document.getElementById('generate-btn'), body = document.getElementById('doc-body');
+            btn.disabled = true; btn.textContent = 'Generiere Executive Dokument (2026-2027)...';
+            try {
+                const res = await fetch('/api/generate-cv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        outputLang: selectedLang, niche: selectedNiche,
+                        firstName: document.getElementById('firstName').value,
+                        lastName: document.getElementById('lastName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        city: document.getElementById('city').value,
+                        permit: document.getElementById('permit').value,
+                        summary: document.getElementById('summary').value,
+                        skills: document.getElementById('skills').value,
+                        languages: document.getElementById('languages').value,
+                        experiences: Array.from(document.querySelectorAll('#experience-list .repeater-card')).map(c => ({
+                            title: c.querySelector('.exp-title').value,
+                            company: c.querySelector('.exp-company').value,
+                            period: c.querySelector('.exp-period').value,
+                            description: c.querySelector('.exp-desc').value
+                        })),
+                        educations: Array.from(document.querySelectorAll('#education-list .repeater-card')).map(c => ({
+                            degree: c.querySelector('.edu-degree').value,
+                            institution: c.querySelector('.edu-inst').value,
+                            year: c.querySelector('.edu-year').value
+                        }))
+                    })
+                });
+                const json = await res.json();
+                if (json.success) {
+                    body.innerHTML = json.cvText.replace(/^### (.*$)/gim, '<h3>$1</h3>').replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>').replace(/^- (.*$)/gim, '<li>$1</li>').replace(/\n/gim, '<br>');
+                } else {
+                    body.innerHTML = `<p style="color:red;">Fehler: ${json.error}</p>`;
+                }
+            } catch (err) { body.innerHTML = `<p style="color:red;">Netzwerkfehler</p>`; }
+            finally { btn.disabled = false; btn.textContent = 'Schweizer Lebenslauf generieren'; }
+        }
+        addExperience(); addEducation();
+    </script>
 </body>
 </html>
