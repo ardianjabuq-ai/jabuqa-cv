@@ -240,19 +240,24 @@
         .a4-name { font-size: 1.6rem; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
         .a4-title-role { font-size: 0.88rem; font-weight: 600; color: var(--swiss-red); text-transform: uppercase; margin-top: 2px; }
 
+        /* CV photo (optional) */
+        #doc-photo { float: right; }
+        #btn-remove-photo { margin-top: 8px; }
+
         .a4-grid-layout {
             display: grid;
-            grid-template-columns: 210px 1fr;
+            grid-template-columns: 27% 1fr;
             gap: 24px;
         }
 
         .a4-sidebar {
-            background: #f8fafc;
+            background: #f7f8fa;
             border-right: 1px solid #e2e8f0;
-            padding-right: 16px;
+            padding-left: 3mm;
+            padding-right: 12px;
         }
 
-        .a4-sidebar-section { margin-bottom: 18px; }
+        .a4-sidebar-section { margin-bottom: 14px; }
         .a4-sidebar-title {
             font-size: 0.75rem;
             font-weight: 700;
@@ -263,7 +268,7 @@
             padding-bottom: 4px;
             margin-bottom: 8px;
         }
-        .a4-sidebar-content { font-size: 0.78rem; color: #334155; line-height: 1.4; }
+        .a4-sidebar-content { font-size: 0.78rem; color: #334155; line-height: 1.4; overflow-wrap: anywhere; word-break: normal; }
 
         .a4-main-content h3 {
             color: var(--swiss-red);
@@ -278,6 +283,52 @@
         .a4-main-content p { margin-bottom: 6px; }
         .a4-main-content ul { padding-left: 14px; margin-bottom: 8px; }
         .a4-main-content li { margin-bottom: 3px; }
+
+        /* ===== PRINT LAYOUT (only .a4-sheet is printed) ===== */
+        @media print {
+            /* Hide the application chrome; print only the CV sheet */
+            .topbar,
+            .editor-pane,
+            .preview-toolbar,
+            .btn-generate,
+            .btn-small,
+            .lang-switcher { display: none !important; }
+
+            /* Flatten wrapper containers so nothing clips or squeezes the CV */
+            body { margin: 0; padding: 0; overflow: visible; width: auto; height: auto; min-height: auto; background: #fff; }
+            .workspace { display: block; grid: none; max-width: none; width: auto; height: auto; min-height: auto; overflow: visible; border: none; margin: 0; padding: 0; }
+            .preview-pane { display: block; position: static; float: none; width: auto; height: auto; min-height: auto; max-height: none; overflow: visible; background: transparent; padding: 0; border: none; box-shadow: none; margin: 0; }
+
+            /* A4 sheet fills the printable width, flows across pages, no clipping */
+            .a4-sheet {
+                display: block !important;
+                width: 100% !important;
+                max-width: none !important;
+                min-height: auto !important;
+                height: auto !important;
+                padding: 16mm !important;
+                margin: 0 auto !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                background: #fff !important;
+                overflow: visible !important;
+                transform: none !important;
+                page-break-inside: auto;
+            }
+
+            /* Keep CV section structure intact but allow page breaks between blocks */
+            .a4-grid-layout { width: 100%; page-break-inside: auto; }
+            .a4-sidebar, .a4-main-content { page-break-inside: auto; }
+            .a4-top-header, .a4-sidebar-section, .a4-main-content h3, .a4-main-content p, .a4-main-content ul { page-break-inside: avoid; }
+
+            /* Print background colors/borders (Swiss red accents) */
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+            /* Photo: visible in print only when a photo is set; remove button hidden */
+            #doc-photo[src] { display: block !important; width: 30mm !important; height: 40mm !important; float: right !important; }
+            #doc-photo:not([src]) { display: none !important; }
+            #btn-remove-photo { display: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -329,6 +380,10 @@
                             <option value="Schutzstatus S">Schutzstatus S</option>
                         </select>
                     </div>
+                    <div class="field span-2">
+                        <label>Foto (optional, JPEG/PNG, max. 5 MB)</label>
+                        <input type="file" id="photoInput" accept="image/jpeg,image/png" onchange="handlePhotoChange(this)">
+                    </div>
                 </div>
             </div>
 
@@ -354,6 +409,13 @@
             </div>
 
             <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
+
+            <div id="consent-box" style="margin-top: 12px; padding: 10px; background: #fffbf0; border: 1px solid #d5a13e; border-radius: 4px; font-size: 0.75rem; color: #5a3d0b; display: none;">
+                <input type="checkbox" id="translation-consent" onchange="translationConsent = this.checked" style="margin-right: 8px; vertical-align: middle;">
+                <label for="translation-consent" style="vertical-align: middle; cursor: pointer;">
+                    Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
+                </label>
+            </div>
         </section>
 
         <aside class="preview-pane">
@@ -369,6 +431,7 @@
                         <div class="a4-name" id="doc-name">Ardi Jabuqa</div>
                         <div class="a4-title-role" id="doc-role">Senior Professional / Expert</div>
                     </div>
+                    <img id="doc-photo" src="" style="display: none; width: 30mm; height: 40mm; object-fit: cover; border: 1px solid #d52b1e; border-radius: 2px; margin-left: 12px;">
                 </div>
 
                 <div class="a4-grid-layout">
@@ -407,23 +470,99 @@
 
                     <!-- MAIN CONTENT (Right Column) -->
                     <div class="a4-main-content" id="doc-body">
-                        <h3>Profil</h3>
+                        <h3 id="doc-heading-profile">Profil</h3>
                         <p>Engagierte und lösungsorientierte Fachperson mit fundierter Erfahrung im Schweizer Arbeitsmarkt. Bereit für anspruchsvolle Aufgaben im Jahr 2026-2027.</p>
                         
-                        <h3>Berufserfahrung</h3>
+                        <h3 id="doc-heading-exp">Berufserfahrung</h3>
                         <p><strong>Senior Mitarbeiter / Fachverantwortlicher</strong><br><em>Firma AG, Zürich (2024 – Heute)</em><br>• Leitung von operativen Abläufen und Prozessoptimierung.<br>• Erfolgreiche Einführung digitaler Standards.</p>
 
-                        <h3>Ausbildung</h3>
+                        <h3 id="doc-heading-edu">Ausbildung</h3>
                         <p><strong>Höhere Fachbildung / EFZ</strong><br><em>Bildungszentrum Zürich (2020 – 2023)</em></p>
                     </div>
                 </div>
             </div>
+            <button type="button" id="btn-remove-photo" class="btn-small" onclick="removePhoto()" style="display: none; margin-top: 8px; align-self: flex-start;">Remove photo</button>
         </aside>
     </main>
 
     <script>
-        let selectedLang = 'German', selectedNiche = 'logistics', expCount = 0, eduCount = 0;
-        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); }
+        let selectedLang = 'German', selectedNiche = 'logistics', expCount = 0, eduCount = 0, photoDataUrl = '', translationConsent = false;
+
+        function isGermanLang(lang) {
+            if (!lang) return false;
+            const l = String(lang).toLowerCase().trim();
+            return l === 'de' || l === 'ger' || l === 'german' || l.includes('deutsch');
+        }
+
+        const cvLabels = {
+            'German': { contact: 'Kontakt', permit: 'Status & Rechtliches', languages: 'Sprachen', expertise: 'Expertise', role: 'Senior Professional / Expert', profile: 'Profil', exp: 'Berufserfahrung', edu: 'Ausbildung' },
+            'English': { contact: 'Contact', permit: 'Status & Legal', languages: 'Languages', expertise: 'Core Competencies', role: 'Senior Professional / Expert', profile: 'Profile', exp: 'Professional Experience', edu: 'Education' },
+            'French': { contact: 'Contact', permit: 'Statut & Légal', languages: 'Langues', expertise: 'Compétences Clés', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'Expérience Professionnelle', edu: 'Formation' },
+            'Italian': { contact: 'Contatto', permit: 'Stato & Legale', languages: 'Lingue', expertise: 'Competenze', role: 'Professionista Senior / Esperto', profile: 'Profilo', exp: 'Esperienza Professionale', edu: 'Istruzione' }
+        };
+        function applyLabels(lang) {
+            const t = cvLabels[lang] || cvLabels['German'];
+            const titles = document.querySelectorAll('.a4-sidebar-title');
+            if (titles.length >= 4) {
+                titles[0].textContent = t.contact;
+                titles[1].textContent = t.permit;
+                titles[2].textContent = t.languages;
+                titles[3].textContent = t.expertise;
+            }
+            const role = document.getElementById('doc-role');
+            if (role) role.textContent = t.role;
+            const hProfile = document.getElementById('doc-heading-profile');
+            if (hProfile) hProfile.textContent = t.profile;
+            const hExp = document.getElementById('doc-heading-exp');
+            if (hExp) hExp.textContent = t.exp;
+            const hEdu = document.getElementById('doc-heading-edu');
+            if (hEdu) hEdu.textContent = t.edu;
+        }
+
+        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
+
+        function handlePhotoChange(input) {
+            const file = input.files && input.files[0];
+            if (!file) { photoDataUrl = ''; updatePhoto(); return; }
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                alert('Bitte nur JPEG- oder PNG-Dateien wählen.');
+                input.value = '';
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Die Datei ist zu gross (maximal 5 MB).');
+                input.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoDataUrl = e.target.result;
+                updatePhoto();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updatePhoto() {
+            const img = document.getElementById('doc-photo');
+            const btn = document.getElementById('btn-remove-photo');
+            if (photoDataUrl) {
+                img.src = photoDataUrl;
+                img.style.display = 'block';
+                if (btn) btn.style.display = 'inline-block';
+            } else {
+                img.src = '';
+                img.style.display = 'none';
+                if (btn) btn.style.display = 'none';
+            }
+        }
+
+        function removePhoto() {
+            photoDataUrl = '';
+            const input = document.getElementById('photoInput');
+            if (input) input.value = '';
+            updatePhoto();
+        }
+
         function selectNiche(n, el) { selectedNiche = n; document.querySelectorAll('.niche-item').forEach(x => x.classList.remove('active')); el.classList.add('active'); }
         
         function addExperience() {
@@ -443,6 +582,7 @@
         }
 
         function syncHeader() {
+            applyLabels(selectedLang);
             const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value;
             document.getElementById('doc-name').textContent = (fn || ln) ? `${fn} ${ln}` : 'Ardi Jabuqa';
             
@@ -457,6 +597,7 @@
             
             const lg = document.getElementById('languages').value;
             if (lg) document.getElementById('doc-lang-view').innerHTML = lg.split(',').join('<br>');
+            updatePhoto();
         }
 
         async function generateCV() {
@@ -468,7 +609,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        outputLang: selectedLang, niche: selectedNiche,
+                        outputLang: selectedLang, niche: selectedNiche, consent: translationConsent,
                         firstName: document.getElementById('firstName').value,
                         lastName: document.getElementById('lastName').value,
                         email: document.getElementById('email').value,
@@ -491,16 +632,31 @@
                         }))
                     })
                 });
+                if (!res.ok) {
+                    const errTxt = await res.text();
+                    throw new Error('Serverfehler: ' + errTxt);
+                }
                 const json = await res.json();
                 if (json.success) {
-                    body.innerHTML = json.cvText.replace(/^### (.*$)/gim, '<h3>$1</h3>').replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>').replace(/^- (.*$)/gim, '<li>$1</li>').replace(/\n/gim, '<br>');
+                    body.innerHTML = json.html;
+                    // Update translated sidebar values without touching form inputs
+                    if (json.sidebar) {
+                        if (json.sidebar.languages) document.getElementById('doc-lang-view').innerHTML = json.sidebar.languages;
+                        if (json.sidebar.skills) document.getElementById('doc-skills-view').innerHTML = json.sidebar.skills;
+                    }
                 } else {
-                    body.innerHTML = `<p style="color:red;">Fehler: ${json.error}</p>`;
+                    throw new Error(json.error || 'Unbekannter Serverfehler');
                 }
-            } catch (err) { body.innerHTML = `<p style="color:red;">Netzwerkfehler</p>`; }
+            } catch (err) {
+                const errEl = document.createElement('div');
+                errEl.style.color = 'red';
+                errEl.style.padding = '10px';
+                errEl.textContent = 'Übersetzungsfehler: ' + err.message + ' — Bitte versuchen Sie es erneut.';
+                body.appendChild(errEl);
+            }
             finally { btn.disabled = false; btn.textContent = 'Schweizer Lebenslauf generieren'; }
         }
-        addExperience(); addEducation();
+        addExperience(); addEducation(); applyLabels(selectedLang); const cb = document.getElementById('consent-box'); if (cb) cb.style.display = isGermanLang(selectedLang) ? 'none' : 'block';
     </script>
 </body>
 </html>
