@@ -337,8 +337,8 @@
         <div class="brand">
             <div class="brand-mark">+</div>
             <div class="brand-text-group">
-                <div class="brand-name">SWISS CV STUDIO</div>
-                <div class="brand-sub">Executive Edition (2026–2027)</div>
+                <div class="brand-name" id="brand-name">SWISS CV STUDIO</div>
+                <div class="brand-sub" id="brand-sub">Executive Edition (2026–2027)</div>
             </div>
         </div>
         <div class="lang-switcher">
@@ -352,26 +352,26 @@
     <main class="workspace">
         <section class="editor-pane">
             <div class="block">
-                <div class="block-title">1. Sektor & Karrierelevel (2026-2027)</div>
+                <div class="block-title" id="block-title-1">1. Sektor & Karrierelevel (2026-2027)</div>
                 <div class="niche-row">
-                    <div class="niche-item active" onclick="selectNiche('logistics', this)"><div class="niche-item-title">Logistik / Bau</div></div>
-                    <div class="niche-item" onclick="selectNiche('gastro', this)"><div class="niche-item-title">Gastro</div></div>
-                    <div class="niche-item" onclick="selectNiche('admin', this)"><div class="niche-item-title">Admin / KV</div></div>
-                    <div class="niche-item" onclick="selectNiche('it', this)"><div class="niche-item-title">IT & Tech</div></div>
-                    <div class="niche-item" onclick="selectNiche('banking', this)"><div class="niche-item-title">Finance / Bank</div></div>
+                    <div class="niche-item active" onclick="selectNiche('logistics', this)"><div class="niche-item-title" id="niche-logistics">Logistik / Bau</div></div>
+                    <div class="niche-item" onclick="selectNiche('gastro', this)"><div class="niche-item-title" id="niche-gastro">Gastro</div></div>
+                    <div class="niche-item" onclick="selectNiche('admin', this)"><div class="niche-item-title" id="niche-admin">Admin / KV</div></div>
+                    <div class="niche-item" onclick="selectNiche('it', this)"><div class="niche-item-title" id="niche-it">IT & Tech</div></div>
+                    <div class="niche-item" onclick="selectNiche('banking', this)"><div class="niche-item-title" id="niche-banking">Finance / Bank</div></div>
                 </div>
             </div>
 
             <div class="block">
-                <div class="block-title">2. Personalien & Schweizer Bewilligung</div>
+                <div class="block-title" id="block-title-2">2. Personalien & Schweizer Bewilligung</div>
                 <div class="grid-2">
-                    <div class="field"><label>Vorname</label><input type="text" id="firstName" placeholder="Ardi" oninput="syncHeader()"></div>
-                    <div class="field"><label>Nachname</label><input type="text" id="lastName" placeholder="Jabuqa" oninput="syncHeader()"></div>
-                    <div class="field"><label>E-Mail</label><input type="email" id="email" placeholder="ardi@bluewin.ch" oninput="syncHeader()"></div>
-                    <div class="field"><label>Telefon</label><input type="tel" id="phone" placeholder="+41 79 123 45 67" oninput="syncHeader()"></div>
-                    <div class="field"><label>PLZ / Ort</label><input type="text" id="city" placeholder="8636 Wald ZH" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-firstName">Vorname</label><input type="text" id="firstName" placeholder="Vorname" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-lastName">Nachname</label><input type="text" id="lastName" placeholder="Nachname" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-email">E-Mail</label><input type="email" id="email" placeholder="E-Mail" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-phone">Telefon</label><input type="tel" id="phone" placeholder="Telefon" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-city">PLZ / Ort</label><input type="text" id="city" placeholder="PLZ / Ort" oninput="syncHeader()"></div>
                     <div class="field">
-                        <label>Aufenthaltsstatus (Bewilligung)</label>
+                        <label id="lbl-permit">Aufenthaltsstatus (Bewilligung)</label>
                         <select id="permit" onchange="syncHeader()">
                             <option value="Schweizer Bürger/in">Schweizer Bürger/in</option>
                             <option value="Niederlassungsbewilligung C">Bewilligung C</option>
@@ -381,38 +381,38 @@
                         </select>
                     </div>
                     <div class="field span-2">
-                        <label>Foto (optional, JPEG/PNG, max. 5 MB)</label>
+                        <label id="lbl-photo">Foto (optional, JPEG/PNG, max. 5 MB)</label>
                         <input type="file" id="photoInput" accept="image/jpeg,image/png" onchange="handlePhotoChange(this)">
                     </div>
                 </div>
             </div>
 
             <div class="block">
-                <div class="block-title">3. Profil & Fokus 2026-2027</div>
+                <div class="block-title" id="block-title-3">3. Profil & Fokus 2026-2027</div>
                 <div class="grid-2">
-                    <div class="field span-2"><label>Kurzprofil</label><textarea id="summary" placeholder="Hochmotivierte Fachperson mit Fokus auf Effizienz und Qualität im Jahr 2026..."></textarea></div>
-                    <div class="field"><label>Kernkompetenzen / Lizenzen</label><input type="text" id="skills" placeholder="SAP, MS Office, Prozessoptimierung"></div>
-                    <div class="field"><label>Sprachen</label><input type="text" id="languages" placeholder="Deutsch (Muttersprache), Englisch (B2)"></div>
+                    <div class="field span-2"><label id="lbl-summary">Kurzprofil</label><textarea id="summary" placeholder="Kurzprofil"></textarea></div>
+                    <div class="field"><label id="lbl-skills">Kernkompetenzen / Lizenzen</label><input type="text" id="skills" placeholder="Kernkompetenzen"></div>
+                    <div class="field"><label id="lbl-languages">Sprachen</label><input type="text" id="languages" placeholder="Sprachen"></div>
                 </div>
             </div>
 
             <div class="block">
-                <div class="block-title">4. Berufserfahrung</div>
+                <div class="block-title" id="block-title-4">4. Berufserfahrung</div>
                 <div id="experience-list"></div>
-                <button type="button" class="btn-small" onclick="addExperience()">+ Position hinzufügen</button>
+                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufügen</button>
             </div>
 
             <div class="block">
-                <div class="block-title">5. Ausbildung</div>
+                <div class="block-title" id="block-title-5">5. Ausbildung</div>
                 <div id="education-list"></div>
-                <button type="button" class="btn-small" onclick="addEducation()">+ Ausbildung hinzufügen</button>
+                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufügen</button>
             </div>
 
             <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
 
             <div id="consent-box" style="margin-top: 12px; padding: 10px; background: #fffbf0; border: 1px solid #d5a13e; border-radius: 4px; font-size: 0.75rem; color: #5a3d0b; display: none;">
                 <input type="checkbox" id="translation-consent" onchange="translationConsent = this.checked" style="margin-right: 8px; vertical-align: middle;">
-                <label for="translation-consent" style="vertical-align: middle; cursor: pointer;">
+                <label id="consent-label" for="translation-consent" style="vertical-align: middle; cursor: pointer;">
                     Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
                 </label>
             </div>
@@ -421,14 +421,14 @@
         <aside class="preview-pane">
             <div class="preview-toolbar">
                 <span class="preview-status" id="status-text">Vorschau (Executive 2026-2027)</span>
-                <button type="button" class="btn-small" onclick="window.print()">PDF Drucken</button>
+                <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
             </div>
             
             <!-- ELITE TWO-COLUMN A4 SHEET -->
             <div class="a4-sheet" id="a4-document">
                 <div class="a4-top-header">
                     <div>
-                        <div class="a4-name" id="doc-name">Ardi Jabuqa</div>
+                        <div class="a4-name" id="doc-name"></div>
                         <div class="a4-title-role" id="doc-role">Senior Professional / Expert</div>
                     </div>
                     <img id="doc-photo" src="" style="display: none; width: 30mm; height: 40mm; object-fit: cover; border: 1px solid #d52b1e; border-radius: 2px; margin-left: 12px;">
@@ -440,30 +440,26 @@
                         <div class="a4-sidebar-section">
                             <div class="a4-sidebar-title">Kontakt</div>
                             <div class="a4-sidebar-content" id="doc-contact">
-                                8636 Wald ZH<br>
-                                +41 79 123 45 67<br>
-                                ardi@bluewin.ch
                             </div>
                         </div>
 
                         <div class="a4-sidebar-section">
                             <div class="a4-sidebar-title">Status & Rechtliches</div>
                             <div class="a4-sidebar-content" id="doc-permit">
-                                Schweizer Bürger/in
                             </div>
                         </div>
 
                         <div class="a4-sidebar-section">
                             <div class="a4-sidebar-title">Sprachen</div>
                             <div class="a4-sidebar-content" id="doc-lang-view">
-                                Deutsch (Muttersprache)<br>Englisch (B2)
+                                
                             </div>
                         </div>
 
                         <div class="a4-sidebar-section">
                             <div class="a4-sidebar-title">Expertise</div>
                             <div class="a4-sidebar-content" id="doc-skills-view">
-                                Prozessoptimierung<br>SAP / ERP<br>Projektmanagement
+                                
                             </div>
                         </div>
                     </div>
@@ -471,13 +467,13 @@
                     <!-- MAIN CONTENT (Right Column) -->
                     <div class="a4-main-content" id="doc-body">
                         <h3 id="doc-heading-profile">Profil</h3>
-                        <p>Engagierte und lösungsorientierte Fachperson mit fundierter Erfahrung im Schweizer Arbeitsmarkt. Bereit für anspruchsvolle Aufgaben im Jahr 2026-2027.</p>
+                        
                         
                         <h3 id="doc-heading-exp">Berufserfahrung</h3>
-                        <p><strong>Senior Mitarbeiter / Fachverantwortlicher</strong><br><em>Firma AG, Zürich (2024 – Heute)</em><br>• Leitung von operativen Abläufen und Prozessoptimierung.<br>• Erfolgreiche Einführung digitaler Standards.</p>
+                        
 
                         <h3 id="doc-heading-edu">Ausbildung</h3>
-                        <p><strong>Höhere Fachbildung / EFZ</strong><br><em>Bildungszentrum Zürich (2020 – 2023)</em></p>
+                        
                     </div>
                 </div>
             </div>
@@ -494,6 +490,132 @@
             return l === 'de' || l === 'ger' || l === 'german' || l.includes('deutsch');
         }
 
+        const uiLabels = {
+            'German': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Executive Edition (2026–2027)',
+                section1: '1. Sektor & Karrierelevel (2026-2027)',
+                section2: '2. Personalien & Schweizer Bewilligung',
+                section3: '3. Profil & Fokus 2026-2027',
+                section4: '4. Berufserfahrung',
+                section5: '5. Ausbildung',
+                nicheLogistics: 'Logistik / Bau',
+                nicheGastro: 'Gastro',
+                nicheAdmin: 'Admin / KV',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Bank',
+                lblFirstName: 'Vorname',
+                lblLastName: 'Nachname',
+                lblEmail: 'E-Mail',
+                lblPhone: 'Telefon',
+                lblCity: 'PLZ / Ort',
+                lblPermit: 'Aufenthaltsstatus (Bewilligung)',
+                lblPhoto: 'Foto (optional, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Kurzprofil',
+                lblSkills: 'Kernkompetenzen / Lizenzen',
+                lblLanguages: 'Sprachen',
+                btnAddExp: '+ Position hinzufügen',
+                btnAddEdu: '+ Ausbildung hinzufügen',
+                btnGenerate: 'Schweizer Lebenslauf generieren',
+                btnPrint: 'PDF Drucken',
+                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
+                statusText: 'Vorschau (Executive 2026-2027)',
+                role: 'Senior Professional / Expert'
+            },
+            'English': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Executive Edition (2026–2027)',
+                section1: '1. Sector & Career Level (2026-2027)',
+                section2: '2. Personal Details & Swiss Permit',
+                section3: '3. Profile & Focus 2026-2027',
+                section4: '4. Professional Experience',
+                section5: '5. Education',
+                nicheLogistics: 'Logistics / Construction',
+                nicheGastro: 'Gastronomy',
+                nicheAdmin: 'Admin / Commercial',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Bank',
+                lblFirstName: 'First Name',
+                lblLastName: 'Last Name',
+                lblEmail: 'E-Mail',
+                lblPhone: 'Phone',
+                lblCity: 'ZIP / City',
+                lblPermit: 'Residence Status (Permit)',
+                lblPhoto: 'Photo (optional, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Short Profile',
+                lblSkills: 'Core Competencies / Licenses',
+                lblLanguages: 'Languages',
+                btnAddExp: '+ Add Position',
+                btnAddEdu: '+ Add Education',
+                btnGenerate: 'Generate Swiss CV',
+                btnPrint: 'Print PDF',
+                consentLabel: 'Yes, I agree that the CV text will be sent to Google Gemini for translation. API usage may incur charges.',
+                statusText: 'Preview (Executive 2026-2027)',
+                role: 'Senior Professional / Expert'
+            },
+            'French': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Édition Exécutive (2026–2027)',
+                section1: '1. Secteur & Niveau de carrière (2026-2027)',
+                section2: '2. Informations personnelles & Permis suisse',
+                section3: '3. Profil & Focus 2026-2027',
+                section4: '4. Expérience professionnelle',
+                section5: '5. Formation',
+                nicheLogistics: 'Logistique / Bâtiment',
+                nicheGastro: 'Restauration',
+                nicheAdmin: 'Administration / Commerce',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Banque',
+                lblFirstName: 'Prénom',
+                lblLastName: 'Nom',
+                lblEmail: 'E-mail',
+                lblPhone: 'Téléphone',
+                lblCity: 'NPA / Ville',
+                lblPermit: 'Statut de séjour (Permis)',
+                lblPhoto: 'Photo (facultatif, JPEG/PNG, max. 5 Mo)',
+                lblSummary: 'Profil court',
+                lblSkills: 'Compétences clés / Licences',
+                lblLanguages: 'Langues',
+                btnAddExp: '+ Ajouter un poste',
+                btnAddEdu: '+ Ajouter une formation',
+                btnGenerate: 'Générer CV suisse',
+                btnPrint: 'Imprimer PDF',
+                consentLabel: "Oui, j'accepte que le texte du CV soit envoyé à Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coûts.",
+                statusText: 'Aperçu (Executive 2026-2027)',
+                role: 'Collaborateur Senior / Responsable'
+            },
+            'Italian': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Edizione Esecutiva (2026–2027)',
+                section1: '1. Settore & Livello di carriera (2026-2027)',
+                section2: '2. Dati personali & Permesso svizzero',
+                section3: '3. Profilo & Focus 2026-2027',
+                section4: '4. Esperienza professionale',
+                section5: '5. Formazione',
+                nicheLogistics: 'Logistica / Edilizia',
+                nicheGastro: 'Ristorazione',
+                nicheAdmin: 'Amministrazione / Commercio',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finanza / Banca',
+                lblFirstName: 'Nome',
+                lblLastName: 'Cognome',
+                lblEmail: 'E-mail',
+                lblPhone: 'Telefono',
+                lblCity: 'CAP / Città',
+                lblPermit: 'Status soggiorno (Permesso)',
+                lblPhoto: 'Foto (facoltativo, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Profilo breve',
+                lblSkills: 'Competenze chiave / Licenze',
+                lblLanguages: 'Lingue',
+                btnAddExp: '+ Aggiungi posizione',
+                btnAddEdu: '+ Aggiungi formazione',
+                btnGenerate: 'Genera CV svizzero',
+                btnPrint: 'Stampa PDF',
+                consentLabel: "Sì, accetto che il testo del CV venga inviato a Google Gemini per la traduzione. L'utilizzo dell'API potrebbe comportare costi.",
+                statusText: 'Anteprima (Executive 2026-2027)',
+                role: 'Professionista Senior / Esperto'
+            }
+        };
         const cvLabels = {
             'German': { contact: 'Kontakt', permit: 'Status & Rechtliches', languages: 'Sprachen', expertise: 'Expertise', role: 'Senior Professional / Expert', profile: 'Profil', exp: 'Berufserfahrung', edu: 'Ausbildung' },
             'English': { contact: 'Contact', permit: 'Status & Legal', languages: 'Languages', expertise: 'Core Competencies', role: 'Senior Professional / Expert', profile: 'Profile', exp: 'Professional Experience', edu: 'Education' },
@@ -519,7 +641,39 @@
             if (hEdu) hEdu.textContent = t.edu;
         }
 
-        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
+        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); applyUILabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
+        function applyUILabels(lang) {
+            const t = uiLabels[lang] || uiLabels['German'];
+            const el = document.getElementById('brand-name'); if (el) el.textContent = t.brandName;
+            const el2 = document.getElementById('brand-sub'); if (el2) el2.textContent = t.brandSub;
+            const s1 = document.getElementById('block-title-1'); if (s1) s1.textContent = t.section1;
+            const s2 = document.getElementById('block-title-2'); if (s2) s2.textContent = t.section2;
+            const s3 = document.getElementById('block-title-3'); if (s3) s3.textContent = t.section3;
+            const s4 = document.getElementById('block-title-4'); if (s4) s4.textContent = t.section4;
+            const s5 = document.getElementById('block-title-5'); if (s5) s5.textContent = t.section5;
+            const n1 = document.getElementById('niche-logistics'); if (n1) n1.textContent = t.nicheLogistics;
+            const n2 = document.getElementById('niche-gastro'); if (n2) n2.textContent = t.nicheGastro;
+            const n3 = document.getElementById('niche-admin'); if (n3) n3.textContent = t.nicheAdmin;
+            const n4 = document.getElementById('niche-it'); if (n4) n4.textContent = t.nicheIT;
+            const n5 = document.getElementById('niche-banking'); if (n5) n5.textContent = t.nicheBanking;
+            const l1 = document.getElementById('lbl-firstName'); if (l1) l1.textContent = t.lblFirstName;
+            const l2 = document.getElementById('lbl-lastName'); if (l2) l2.textContent = t.lblLastName;
+            const l3 = document.getElementById('lbl-email'); if (l3) l3.textContent = t.lblEmail;
+            const l4 = document.getElementById('lbl-phone'); if (l4) l4.textContent = t.lblPhone;
+            const l5 = document.getElementById('lbl-city'); if (l5) l5.textContent = t.lblCity;
+            const l6 = document.getElementById('lbl-permit'); if (l6) l6.textContent = t.lblPermit;
+            const l7 = document.getElementById('lbl-photo'); if (l7) l7.textContent = t.lblPhoto;
+            const l8 = document.getElementById('lbl-summary'); if (l8) l8.textContent = t.lblSummary;
+            const l9 = document.getElementById('lbl-skills'); if (l9) l9.textContent = t.lblSkills;
+            const l10 = document.getElementById('lbl-languages'); if (l10) l10.textContent = t.lblLanguages;
+            const b1 = document.getElementById('btn-add-exp'); if (b1) b1.textContent = t.btnAddExp;
+            const b2 = document.getElementById('btn-add-edu'); if (b2) b2.textContent = t.btnAddEdu;
+            const b3 = document.getElementById('generate-btn'); if (b3) b3.textContent = t.btnGenerate;
+            const b4 = document.getElementById('btn-print'); if (b4) b4.textContent = t.btnPrint;
+            const c1 = document.getElementById('consent-label'); if (c1) c1.textContent = t.consentLabel;
+            const st = document.getElementById('status-text'); if (st) st.textContent = t.statusText;
+        }
+
 
         function handlePhotoChange(input) {
             const file = input.files && input.files[0];
@@ -569,7 +723,7 @@
             expCount++;
             const div = document.createElement('div');
             div.className = 'repeater-card'; div.id = 'exp-' + expCount;
-            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Position</label><input type="text" class="exp-title" placeholder="z.B. Projektleiter"></div><div class="field"><label>Firma & Ort</label><input type="text" class="exp-company" placeholder="z.B. Swiss Corp, Zürich"></div><div class="field"><label>Zeitraum</label><input type="text" class="exp-period" placeholder="2026 – 2027"></div><div class="field"><label>Aufgaben</label><input type="text" class="exp-desc" placeholder="Strategische Planung, Teamführung"></div></div>`;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Position</label><input type="text" class="exp-title" placeholder="Position"></div><div class="field"><label>Firma & Ort</label><input type="text" class="exp-company" placeholder="Firma & Ort"></div><div class="field"><label>Zeitraum</label><input type="text" class="exp-period" placeholder="Zeitraum"></div><div class="field"><label>Aufgaben</label><input type="text" class="exp-desc" placeholder="Aufgaben"></div></div>`;
             document.getElementById('experience-list').appendChild(div);
         }
 
@@ -577,18 +731,18 @@
             eduCount++;
             const div = document.createElement('div');
             div.className = 'repeater-card'; div.id = 'edu-' + eduCount;
-            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Abschluss</label><input type="text" class="edu-degree" placeholder="z.B. CAS / Eidg. Diplom"></div><div class="field"><label>Schule</label><input type="text" class="edu-inst" placeholder="z.B. ETH / Höhere Fachschule"></div><div class="field span-2"><label>Jahr</label><input type="text" class="edu-year" placeholder="2025 – 2026"></div></div>`;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Abschluss</label><input type="text" class="edu-degree" placeholder="Abschluss"></div><div class="field"><label>Schule</label><input type="text" class="edu-inst" placeholder="Schule"></div><div class="field span-2"><label>Jahr</label><input type="text" class="edu-year" placeholder="Jahr"></div></div>`;
             document.getElementById('education-list').appendChild(div);
         }
 
         function syncHeader() {
             applyLabels(selectedLang);
             const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value;
-            document.getElementById('doc-name').textContent = (fn || ln) ? `${fn} ${ln}` : 'Ardi Jabuqa';
+            document.getElementById('doc-name').textContent = (fn || ln) ? `${fn} ${ln}` : '';
             
-            const city = document.getElementById('city').value || '8636 Wald ZH';
-            const phone = document.getElementById('phone').value || '+41 79 123 45 67';
-            const email = document.getElementById('email').value || 'ardi@bluewin.ch';
+            const city = document.getElementById('city').value || '';
+            const phone = document.getElementById('phone').value || '';
+            const email = document.getElementById('email').value || '';
             document.getElementById('doc-contact').innerHTML = `${city}<br>${phone}<br>${email}`;
             document.getElementById('doc-permit').textContent = document.getElementById('permit').value;
             
