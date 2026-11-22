@@ -1,4 +1,4 @@
-﻿require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env'), override: true });
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -120,6 +120,7 @@ ${JSON.stringify(payload, null, 2)}`;
         })) : sourceEducations
     };
 }
+function generateSwissCVText(data) {
     let rawLang = data.outputLang || data.lang || data.language || 'German';
     let l = String(rawLang).toLowerCase().trim();
     
@@ -178,14 +179,6 @@ ${JSON.stringify(payload, null, 2)}`;
         sections += `\n        <h3 style="color: #d52b1e; font-size: 12px; border-bottom: 1px solid #d52b1e; padding-bottom: 3px; margin-top: 10px;">${t.profile}</h3>\n        <p style="margin: 5px 0 10px 0;">${escapeHtml(summary)}</p>\n`;
     }
 
-    if (skills || languages || permit) {
-        sections += `\n        <h3 style="color: #d52b1e; font-size: 12px; border-bottom: 1px solid #d52b1e; padding-bottom: 3px; margin-top: 10px;">${t.skills}</h3>\n        <p style="margin: 5px 0 10px 0;">`;
-        let parts = [];
-        if (skills) parts.push(`<b>Keywords:</b> ${escapeHtml(skills)}`);
-        if (languages) parts.push(`<b>${t.langLabel}:</b> ${escapeHtml(languages)}`);
-        if (permit) parts.push(`<b>${t.permLabel}:</b> ${escapeHtml(permit)}`);
-        sections += parts.join('<br>') + `</p>\n`;
-    }
 
     if (Array.isArray(data.experiences) && data.experiences.length > 0) {
         sections += `\n        <h3 style="color: #d52b1e; font-size: 12px; border-bottom: 1px solid #d52b1e; padding-bottom: 3px; margin-top: 10px;">${t.exp}</h3>\n`;
