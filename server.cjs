@@ -67,7 +67,19 @@ RULES:
 3. Preserve personal names, company names, institution names, dates, employment periods, qualification identifiers and contact details exactly.
 4. Never invent or upgrade experience, achievements, qualifications, certificates, language proficiency or seniority.
 5. Write one concise professional summary, normally 50-90 words when the source supports it. Never pad a short source to reach this length.
-6. Remove duplicated wording. Remove drafting instructions, template advice and variant labels from the final wording.
+  6. Remove duplicated wording and semantic duplicates.
+DEDUPLICATION EXAMPLE:
+Source summary:
+"Ich arbeite im Lager. Ich kontrolliere Waren. Meine Arbeit besteht darin, Waren zu kontrollieren."
+Correct output:
+"Ich arbeite im Lager. Ich kontrolliere Waren."
+Explanation: The third sentence repeats the second sentence in different words, so it must be removed.
+
+Source skills:
+"Verpackung, Warenkontrolle, Verpacken von Waren"
+Correct output:
+"Verpackung, Warenkontrolle"
+Explanation: "Verpacken von Waren" repeats "Verpackung", so it must be removed. If two sentences express the same meaning, keep only the clearest one. If two skills express the same competence, keep only the clearest and most professional wording. Do not merge unrelated facts. Remove drafting instructions, template advice and variant labels from the final wording.
 7. If the source contains alternative profiles or conditional qualifications, do not merge incompatible claims or turn hypothetical statements into facts. Omit conditional claims and place a brief request for clarification in "warnings".
 8. Return skills as concise items separated by commas. Preserve distinct factual skills; do not silently discard them to fit a page.
 9. Keep every experience and education entry in the original order. Do not merge entries or change their dates. Leave empty fields empty.
