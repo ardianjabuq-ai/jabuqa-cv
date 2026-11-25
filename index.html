@@ -276,8 +276,217 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+        :root {
+            --bg-app: #f4f5f7;
+            --bg-panel: #ffffff;
+            --border-subtle: #e2e8f0;
+            --swiss-red: var(--accent);
+            --swiss-red-hover: #b32216;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+        }
 
-/* ELITE EXECUTIVE A4 SHEET (2-Column Grid Layout) */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
+
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--swiss-red);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .brand-text-group { display: flex; flex-direction: column; }
+        .brand-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+        .brand-sub { font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; }
+
+        .lang-switcher {
+            display: flex;
+            background: #f1f5f9;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .lang-btn.active { background: var(--swiss-red); color: #fff; }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            flex: 1;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .editor-pane {
+            padding: 28px 36px;
+            border-right: 1px solid var(--border-subtle);
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .preview-pane {
+            background: #e2e8f0;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .block-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--swiss-red);
+            display: inline-block;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .span-2 { grid-column: span 2; }
+        .field { display: flex; flex-direction: column; gap: 5px; }
+
+        label { font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); }
+
+        input, select, textarea {
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 9px 11px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--swiss-red);
+            box-shadow: 0 0 0 2px rgba(213, 43, 30, 0.1);
+        }
+
+        textarea { resize: vertical; min-height: 75px; }
+
+        .niche-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .niche-item {
+            background: #fdfdfd;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 8px 6px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .niche-item.active { border-color: var(--swiss-red); background: #fff5f5; }
+        .niche-item-title { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); }
+
+        .repeater-card {
+            background: #fdfdfd;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .btn-small {
+            background: #f1f5f9;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-small:hover { background: #e2e8f0; }
+        .btn-remove { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #dc2626; font-size: 0.72rem; cursor: pointer; }
+
+        .btn-generate {
+            width: 100%;
+            background: var(--swiss-red);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+        }
+        .btn-generate:hover { background: var(--swiss-red-hover); }
+
+        .preview-toolbar {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .preview-status { font-size: 0.76rem; color: var(--text-secondary); font-weight: 500; }
+
+        /* ELITE EXECUTIVE A4 SHEET (2-Column Grid Layout) */
         .a4-sheet {
             width: 100%;
             max-width: 680px;
@@ -661,6 +870,26 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Print Clean -->
+<style>
+  @media print {
+    body > *:not(.workspace) { display: none !important; }
+
+    .a4-sidebar-content {
+      overflow-wrap: break-word !important;
+      word-break: normal !important;
+      hyphens: auto;
+    }
+
+    .a4-sidebar {
+      padding-right: 8mm !important;
+    }
+
+    .a4-sidebar-section {
+      margin-bottom: 16px !important;
+    }
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -930,6 +1159,32 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Print Clean v2 -->
+<style>
+  @media print {
+    .a4-grid-layout {
+      grid-template-columns: 32% 1fr !important;
+      gap: 18px !important;
+    }
+
+    .a4-sidebar {
+      padding-left: 0 !important;
+      padding-right: 6mm !important;
+    }
+
+    .a4-sidebar-content {
+      overflow-wrap: normal !important;
+      word-break: normal !important;
+      hyphens: none !important;
+      font-size: 0.76rem !important;
+      line-height: 1.45 !important;
+    }
+
+    .a4-sidebar-section {
+      margin-bottom: 14px !important;
+    }
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -1199,6 +1454,71 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Design v1 -->
+<style>
+  .a4-sheet {
+    font-family: Inter, -apple-system, sans-serif;
+    color: #111827;
+  }
+
+  .a4-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .a4-title-role {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #334155;
+  }
+
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -1468,6 +1788,52 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Sidebar v1 -->
+<style>
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+
+  .a4-sidebar-content strong {
+    color: #111827;
+  }
+
+  .a4-sidebar-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-sidebar-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-sidebar-section {
+    margin-bottom: 18px;
+  }
+
+  .a4-sidebar-section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -1737,6 +2103,55 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Main Sections v1 -->
+<style>
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
+
+  .a4-main-content li {
+    margin-bottom: 4px;
+  }
+
+  .a4-main-content strong {
+    color: #111827;
+  }
+
+  .a4-main-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-main-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-main-content section {
+    margin-bottom: 20px;
+  }
+
+  .a4-main-content section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -2006,6 +2421,103 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Global Polish v1 -->
+<style>
+  .a4-sheet {
+    background: #ffffff;
+    color: #111827;
+  }
+
+  .a4-header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+
+  .a4-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111827;
+  }
+
+  .a4-title-role {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
+
+  .a4-main-content li {
+    margin-bottom: 4px;
+  }
+
+  .a4-main-content strong {
+    color: #111827;
+  }
+
+  .a4-main-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-main-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-main-content section {
+    margin-bottom: 20px;
+  }
+
+  .a4-main-content section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -2275,6 +2787,104 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Final Polish v1 -->
+<style>
+  .a4-sheet {
+    font-family: Inter, -apple-system, sans-serif;
+    color: #111827;
+    line-height: 1.55;
+  }
+
+  .a4-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111827;
+  }
+
+  .a4-title-role {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .a4-header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
+
+  .a4-main-content li {
+    margin-bottom: 4px;
+  }
+
+  .a4-main-content strong {
+    color: #111827;
+  }
+
+  .a4-main-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-main-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-main-content section {
+    margin-bottom: 20px;
+  }
+
+  .a4-main-content section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -2544,6 +3154,104 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Final Verification v1 -->
+<style>
+  .a4-sheet {
+    font-family: Inter, -apple-system, sans-serif;
+    color: #111827;
+    line-height: 1.55;
+  }
+
+  .a4-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111827;
+  }
+
+  .a4-title-role {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .a4-header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
+
+  .a4-main-content li {
+    margin-bottom: 4px;
+  }
+
+  .a4-main-content strong {
+    color: #111827;
+  }
+
+  .a4-main-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-main-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-main-content section {
+    margin-bottom: 20px;
+  }
+
+  .a4-main-content section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -2813,6 +3521,104 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<!-- Swiss Quality Premium: Final Review v1 -->
+<style>
+  .a4-sheet {
+    font-family: Inter, -apple-system, sans-serif;
+    color: #111827;
+    line-height: 1.55;
+  }
+
+  .a4-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #111827;
+  }
+
+  .a4-title-role {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .a4-header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+
+  .a4-sidebar {
+    background: var(--sidebar-bg, #f8fafc);
+    border-right: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .a4-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111827;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .a4-sidebar-content {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+
+  .a4-main-content h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .a4-main-content p,
+  .a4-main-content li {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #1f2937;
+  }
+
+  .a4-main-content ul {
+    padding-left: 16px;
+  }
+
+  .a4-main-content li {
+    margin-bottom: 4px;
+  }
+
+  .a4-main-content strong {
+    color: #111827;
+  }
+
+  .a4-main-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .a4-main-content a:hover {
+    text-decoration: underline;
+  }
+
+  .a4-main-content section {
+    margin-bottom: 20px;
+  }
+
+  .a4-main-content section:last-child {
+    margin-bottom: 0;
+  }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -3082,6 +3888,11 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.swatch-active { outline: 2px solid #64748b; outline-offset: 2px; }
+.palette-reset { margin-left: 6px; padding: 2px 8px; font-size: 11px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 4px; cursor: pointer; color: #334155; }
+.palette-reset:hover { background: #f1f5f9; }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -3351,6 +4162,283 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>.swatch-active { outline: 2px solid #64748b !important; outline-offset: 2px !important; }
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style><style>
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
+.photo-shape-btn{font:400 13.333px Arial;padding:2px 6px;background:#efefef;border:1px solid #767676;border-radius:2px;color:#000;cursor:pointer}
+.photo-shape-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #ccc;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:50;min-width:140px;overflow:hidden}
+.photo-shape-menu button{display:block;width:100%;padding:8px 12px;border:none;background:#fff;text-align:left;font-size:13px;cursor:pointer}
+.photo-shape-menu button:hover{background:#f3f4f6}
+.photo-shape-menu.open{display:block}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -3620,6 +4708,10 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+#photoInput{display:inline-block;vertical-align:middle}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -3889,6 +4981,10 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.photo-input-row{justify-content:flex-start}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -4158,6 +5254,10 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.photo-input-row{justify-content:space-between}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -4427,6 +5527,9 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.photo-shape-wrap{margin-left:0}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -4696,6 +5799,11 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.photo-shape-wrap{cursor:pointer;transition:background .2s,border-color .2s}
+.photo-shape-wrap:hover{filter:brightness(1.05)}
+.photo-shape-wrap:active{filter:brightness(.95)}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
@@ -4965,1350 +6073,17 @@
     overflow-wrap: anywhere;
   }
 }
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
+</style>
+<style>
+.photo-shape-wrap{transition:all .25s ease}
+.photo-shape-wrap:hover{
+  background:#fdf8ee;
+  border:1px solid #c9a227;
+  box-shadow:0 4px 14px rgba(201,162,39,.25);
 }
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
-}
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
-}
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
-}
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
-}
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
+.photo-shape-wrap:active{
+  background:#f7efdc;
+  box-shadow:0 2px 8px rgba(201,162,39,.35);
 }
 
 /* RESPONSIVE DESIGN */
@@ -6579,274 +6354,18 @@
     overflow-wrap: anywhere;
   }
 }
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
+</style>
+<style>
+.photo-shape-btn{transition:all .2s ease}
+.photo-shape-btn:hover{
+  background:#fdf8ee;
+  border-color:#c9a227;
+  color:#1f2937;
+  box-shadow:0 3px 10px rgba(201,162,39,.25);
 }
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
+.photo-shape-btn:active{
+  background:#f7efdc;
+  box-shadow:0 2px 6px rgba(201,162,39,.35);
 }
 
 /* RESPONSIVE DESIGN */
@@ -7117,274 +6636,13 @@
     overflow-wrap: anywhere;
   }
 }
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
-}
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
+</style>
+<style>
+.photo-shape-menu button{transition:all .2s ease}
+.photo-shape-menu button:hover{
+  background:#fdf8ee;
+  color:#1f2937;
+  border-left:3px solid #c9a227;
 }
 
 /* RESPONSIVE DESIGN */
@@ -7655,274 +6913,18 @@
     overflow-wrap: anywhere;
   }
 }
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .topbar {
-    height: auto;
-    padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .editor-pane {
-    border-right: none;
-    padding: 20px 16px;
-  }
-
-  .preview-pane {
-    position: static;
-    height: auto;
-    padding: 16px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .niche-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .a4-sheet {
-    padding: 20px;
-  }
-
-  .a4-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .a4-sidebar {
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  #doc-photo {
-    float: none;
-    margin-left: 0;
-    margin-bottom: 12px;
-  }
+</style>
+<style>
+.photo-shape-btn{transition:all .2s ease}
+.photo-shape-btn:hover{
+  background:#c9a227;
+  border-color:#a8861c;
+  color:#fff;
+  box-shadow:0 3px 10px rgba(201,162,39,.35);
 }
-
-/* iPHONE FIX */
-@media (max-width: 480px) {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    padding: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 12px;
-  }
-
-  .block {
-    padding: 12px;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .a4-sheet {
-    padding: 14px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .a4-top-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #doc-photo {
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.2rem !important;
-  }
-
-  .a4-title-role {
-    font-size: 0.75rem !important;
-  }
-}
-
-/* SWISS FLAG LOGO */
-.brand-mark {
-  position: relative;
-  background: #d52b1e !important;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-}
-
-.brand-mark::before {
-  left: 50%;
-  top: 18%;
-  width: 18%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.brand-mark::after {
-  top: 50%;
-  left: 18%;
-  height: 18%;
-  width: 64%;
-  transform: translateY(-50%);
-}
-
-/* iPHONE 12 PRO FIX */
-@media (max-width: 480px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  .workspace,
-  .editor-pane,
-  .preview-pane,
-  .a4-sheet,
-  .a4-grid-layout,
-  .a4-sidebar,
-  .a4-main-content,
-  .block,
-  .field,
-  .grid-2,
-  .niche-row,
-  .repeater-card {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 12px;
-    height: auto;
-  }
-
-  .lang-switcher {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .editor-pane,
-  .preview-pane {
-    padding: 10px !important;
-  }
-
-  .block {
-    padding: 10px !important;
-  }
-
-  .grid-2,
-  .niche-row,
-  .a4-grid-layout {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .btn-generate,
-  .btn-small {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .preview-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .a4-sheet {
-    padding: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-  }
-
-  .a4-top-header {
-    display: block !important;
-  }
-
-  #doc-photo {
-    display: block !important;
-    float: none !important;
-    margin: 0 0 10px 0 !important;
-    width: 90px !important;
-    height: 120px !important;
-  }
-
-  .a4-name {
-    font-size: 1.15rem !important;
-    word-break: break-word;
-  }
-
-  .a4-title-role {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-  }
-
-  .a4-sidebar-content,
-  .a4-main-content {
-    font-size: 0.72rem !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
+.photo-shape-btn:active{
+  background:#a8861c;
+  color:#fff;
 }
 
 /* RESPONSIVE DESIGN */
@@ -8193,6 +7195,2682 @@
     overflow-wrap: anywhere;
   }
 }
+</style>
+<style>
+.photo-shape-menu button{transition:all .2s ease}
+.photo-shape-menu button:hover{
+  background:#fdf8ee;
+  color:#1f2937;
+  border-left:3px solid #c9a227;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-menu button:hover{
+  background:#c9a227 !important;
+  color:#fff !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-menu button:hover{
+  background:#334155 !important;
+  color:#fff !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#334155 !important;
+  border-color:#1e293b !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(51,65,85,.25);
+}
+.photo-shape-btn:active{
+  background:#1e293b !important;
+  color:#fff !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#64748b !important;
+  border-color:#475569 !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(100,116,139,.25);
+}
+.photo-shape-btn:active{
+  background:#475569 !important;
+  color:#fff !important;
+}
+.photo-shape-menu button:hover{
+  background:#64748b !important;
+  color:#fff !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#94a3b8 !important;
+  border-color:#7c8aa0 !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(148,163,184,.25);
+}
+.photo-shape-btn:active{
+  background:#7c8aa0 !important;
+  color:#fff !important;
+}
+.photo-shape-menu button:hover{
+  background:#94a3b8 !important;
+  color:#fff !important;
+}
+.photo-shape-wrap,
+.photo-shape-wrap:hover,
+.photo-shape-wrap:active{
+  background:#f6f8fa !important;
+  border:1px solid #d0d7de !important;
+  box-shadow:none !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+<style>
+.photo-shape-wrap img,
+.photo-shape-wrap .photo-preview,
+.photo-shape-wrap .photo-canvas{
+  aspect-ratio:1 / 1 !important;
+  object-fit:cover !important;
+  border-radius:50% !important;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .topbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .workspace {
+    display: block;
+  }
+
+  .editor-pane {
+    border-right: none;
+    padding: 20px 16px;
+  }
+
+  .preview-pane {
+    position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .niche-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .a4-sheet {
+    padding: 20px;
+  }
+
+  .a4-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .a4-sidebar {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #doc-photo {
+    float: none;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* iPHONE FIX */
+@media (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 12px;
+  }
+
+  .block {
+    padding: 12px;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .a4-sheet {
+    padding: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .a4-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #doc-photo {
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.2rem !important;
+  }
+
+  .a4-title-role {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* SWISS FLAG LOGO */
+.brand-mark {
+  position: relative;
+  background: #d52b1e !important;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: #ffffff;
+}
+
+.brand-mark::before {
+  left: 50%;
+  top: 18%;
+  width: 18%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.brand-mark::after {
+  top: 50%;
+  left: 18%;
+  height: 18%;
+  width: 64%;
+  transform: translateY(-50%);
+}
+
+/* iPHONE 12 PRO FIX */
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .editor-pane,
+  .preview-pane,
+  .a4-sheet,
+  .a4-grid-layout,
+  .a4-sidebar,
+  .a4-main-content,
+  .block,
+  .field,
+  .grid-2,
+  .niche-row,
+  .repeater-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    height: auto;
+  }
+
+  .lang-switcher {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .editor-pane,
+  .preview-pane {
+    padding: 10px !important;
+  }
+
+  .block {
+    padding: 10px !important;
+  }
+
+  .grid-2,
+  .niche-row,
+  .a4-grid-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .btn-generate,
+  .btn-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .a4-sheet {
+    padding: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .a4-top-header {
+    display: block !important;
+  }
+
+  #doc-photo {
+    display: block !important;
+    float: none !important;
+    margin: 0 0 10px 0 !important;
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .a4-name {
+    font-size: 1.15rem !important;
+    word-break: break-word;
+  }
+
+  .a4-title-role {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+  }
+
+  .a4-sidebar-content,
+  .a4-main-content {
+    font-size: 0.72rem !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">+</div>
+            <div class="brand-text-group">
+                <div class="brand-name" id="brand-name">SWISS CV STUDIO</div>
+                <div class="brand-sub" id="brand-sub">Executive Edition (2026–2027)</div>
+            </div>
+        </div>
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLanguage('German', this)">DE</button>
+            <button class="lang-btn" onclick="setLanguage('French', this)">FR</button>
+            <button class="lang-btn" onclick="setLanguage('Italian', this)">IT</button>
+            <button class="lang-btn" onclick="setLanguage('English', this)">EN</button>
+        </div>
+    </header>
+
+    <main class="workspace">
+        <section class="editor-pane">
+            <div class="block">
+                <div class="block-title" id="block-title-1">1. Sektor & Karrierelevel (2026-2027)</div>
+                <div class="niche-row">
+                    <div class="niche-item active" onclick="selectNiche('logistics', this)"><div class="niche-item-title" id="niche-logistics">Logistik / Bau</div></div>
+                    <div class="niche-item" onclick="selectNiche('gastro', this)"><div class="niche-item-title" id="niche-gastro">Gastro</div></div>
+                    <div class="niche-item" onclick="selectNiche('admin', this)"><div class="niche-item-title" id="niche-admin">Admin / KV</div></div>
+                    <div class="niche-item" onclick="selectNiche('it', this)"><div class="niche-item-title" id="niche-it">IT & Tech</div></div>
+                    <div class="niche-item" onclick="selectNiche('banking', this)"><div class="niche-item-title" id="niche-banking">Finance / Bank</div></div>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title" id="block-title-2">2. Personalien & Schweizer Bewilligung</div>
+                <div class="grid-2">
+                    <div class="field"><label id="lbl-firstName">Vorname</label><input type="text" id="firstName" placeholder="Vorname" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-lastName">Nachname</label><input type="text" id="lastName" placeholder="Nachname" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-email">E-Mail</label><input type="email" id="email" placeholder="E-Mail" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-phone">Telefon</label><input type="tel" id="phone" placeholder="Telefon" oninput="syncHeader()"></div>
+                    <div class="field"><label id="lbl-city">PLZ / Ort</label><input type="text" id="city" placeholder="PLZ / Ort" oninput="syncHeader()"></div>
+                    <div class="field">
+                        <label id="lbl-permit">Aufenthaltsstatus (Bewilligung)</label>
+                        <select id="permit" onchange="syncHeader()">
+                            <option value="Schweizer Bürger/in">Schweizer Bürger/in</option>
+                            <option value="Niederlassungsbewilligung C">Bewilligung C</option>
+                            <option value="Aufenthaltsbewilligung B">Bewilligung B</option>
+                            <option value="Grenzgängerbewilligung G">Grenzgängerbewilligung G</option>
+                            <option value="Schutzstatus S">Schutzstatus S</option>
+                        </select>
+<input type="color" id="accent-custom" value="#1e3a5f" style="display:none;margin-left:8px;width:42px;height:30px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;" title="Ngjyrë e personalizuar">
+
+                    </div>
+                    <div class="field span-2">
+                        <label id="lbl-photo">Foto (optional, JPEG/PNG, max. 5 MB)</label>
+                        <input type="file" id="photoInput" accept="image/jpeg,image/png" onchange="handlePhotoChange(this)">
+<div class="photo-shape-wrap">
+  <button type="button" class="photo-shape-btn" onclick="toggleShapeMenu(event)">Form auswählen</button>
+  <div class="photo-shape-menu" id="shapeMenu">
+    <button type="button" id="btn-photo-round" onclick="setPhotoShape('round')">Rund</button>
+    <button type="button" id="btn-photo-square" onclick="setPhotoShape('square')">Quadratisch</button>
+  </div>
+</div>
+</div>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title" id="block-title-3">3. Profil & Fokus 2026-2027</div>
+                <div class="grid-2">
+                    <div class="field span-2"><label id="lbl-summary">Kurzprofil</label><textarea id="summary" placeholder="Kurzprofil"></textarea></div>
+                    <div class="field"><label id="lbl-skills">Kernkompetenzen / Lizenzen</label><input type="text" id="skills" placeholder="Kernkompetenzen"></div>
+                    <div class="field"><label id="lbl-languages">Sprachen</label><input type="text" id="languages" placeholder="Sprachen"></div>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title" id="block-title-4">4. Berufserfahrung</div>
+                <div id="experience-list"></div>
+                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufügen</button>
+            </div>
+
+            <div class="block">
+                <div class="block-title" id="block-title-5">5. Ausbildung</div>
+                <div id="education-list"></div>
+                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufügen</button>
+            </div>
+
+            <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
+
+            <div id="consent-box" style="margin-top: 12px; padding: 10px; background: #fffbf0; border: 1px solid #d5a13e; border-radius: 4px; font-size: 0.75rem; color: #5a3d0b; display: none;">
+                <input type="checkbox" id="translation-consent" onchange="translationConsent = this.checked" style="margin-right: 8px; vertical-align: middle;">
+                <label id="consent-label" for="translation-consent" style="vertical-align: middle; cursor: pointer;">
+                    Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
+                </label>
+            </div>
+        </section>
+
+        <aside class="preview-pane">
+            <div class="preview-toolbar">
+                <div id="sidebar-bg-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
+  <button type="button" class="sidebar-swatch" data-color="#ffffff" title="Bardhë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#ffffff;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#f1f5f9" title="Gri e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#f1f5f9;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#e2e8f0" title="Gri" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#e2e8f0;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#e0f2fe" title="Blu e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#e0f2fe;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#1e3a5f" title="Blu navy" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#1e3a5f;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#dcfce7" title="Jeshile e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#dcfce7;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#fdf6e3" title="Bezhë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fdf6e3;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#fff7ed" title="Krem" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fff7ed;cursor:pointer;"></button>
+  <input type="color" id="sidebar-bg-custom" value="#f7f8fa" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;">
+<button type="button" id="sidebar-bg-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
+                <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
+<div id="accent-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
+  <button type="button" class="accent-swatch" data-color="#1b2a4a" title="Blu saphir" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#1b2a4a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#2b2f36" title="Antracit" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#2b2f36;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#1f3d2b" title="Jeshile forest" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#1f3d2b;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#5c1f27" title="Burgundy" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#5c1f27;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#4a2c1a" title="Kafe espresso" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#4a2c1a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#8a6a3b" title="Bronz" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#8a6a3b;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#4b5563" title="Gri çeliku" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#4b5563;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#17181a" title="E zezë karbon" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#17181a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+<input type="color" id="accent-custom-inline" value="#1b2a4a" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"><button type="button" id="accent-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
+            </div>
+            
+            <!-- ELITE TWO-COLUMN A4 SHEET -->
+            <div class="a4-sheet" id="a4-document">
+                <div class="a4-top-header">
+                    <div>
+                        <div class="a4-name" id="doc-name"></div>
+                        <div class="a4-title-role" id="doc-role">Senior Professional / Expert</div>
+                    </div>
+                    <img id="doc-photo" src="" style="display: none; width: 30mm; height: 40mm; object-fit: cover; border: 1px solid var(--accent); border-radius: 2px; margin-left: 12px;">
+                </div>
+
+                <div class="a4-grid-layout">
+                    <!-- SIDEBAR (Left Column) -->
+                    <div class="a4-sidebar">
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Kontakt</div>
+                            <div class="a4-sidebar-content" id="doc-contact">
+                            </div>
+                        </div>
+
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Status & Rechtliches</div>
+                            <div class="a4-sidebar-content" id="doc-permit">
+                            </div>
+                        </div>
+
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Sprachen</div>
+                            <div class="a4-sidebar-content" id="doc-lang-view">
+                                
+                            </div>
+                        </div>
+
+                        <div class="a4-sidebar-section">
+                            <div class="a4-sidebar-title">Expertise</div>
+                            <div class="a4-sidebar-content" id="doc-skills-view">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN CONTENT (Right Column) -->
+                    <div class="a4-main-content" id="doc-body">
+                        <h3 id="doc-heading-profile">Profil</h3>
+                        
+                        
+                        <h3 id="doc-heading-exp">Berufserfahrung</h3>
+                        
+
+                        <h3 id="doc-heading-edu">Ausbildung</h3>
+                        
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="btn-remove-photo" class="btn-small" onclick="removePhoto()" style="display: none; margin-top: 8px; align-self: flex-start;">Remove photo</button>
+        </aside>
+    </main>
+
+    <script>
+        let selectedLang = 'German', selectedNiche = 'logistics', expCount = 0, eduCount = 0, photoDataUrl = '', translationConsent = false;
+
+        function isGermanLang(lang) {
+            if (!lang) return false;
+            const l = String(lang).toLowerCase().trim();
+            return l === 'de' || l === 'ger' || l === 'german' || l.includes('deutsch');
+        }
+
+        const uiLabels = {
+            'German': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Executive Edition (2026–2027)',
+                section1: '1. Sektor & Karrierelevel (2026-2027)',
+                section2: '2. Personalien & Schweizer Bewilligung',
+                section3: '3. Profil & Fokus 2026-2027',
+                section4: '4. Berufserfahrung',
+                section5: '5. Ausbildung',
+                nicheLogistics: 'Logistik / Bau',
+                nicheGastro: 'Gastro',
+                nicheAdmin: 'Admin / KV',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Bank',
+                lblFirstName: 'Vorname',
+                lblLastName: 'Nachname',
+                lblEmail: 'E-Mail',
+                lblPhone: 'Telefon',
+                lblCity: 'PLZ / Ort',
+                lblPermit: 'Aufenthaltsstatus (Bewilligung)',
+                lblPhoto: 'Foto (optional, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Kurzprofil',
+                lblSkills: 'Kernkompetenzen / Lizenzen',
+                lblLanguages: 'Sprachen',
+                btnAddExp: '+ Position hinzufügen',
+                btnAddEdu: '+ Ausbildung hinzufügen',
+                btnGenerate: 'Schweizer Lebenslauf generieren',
+                btnPrint: 'PDF Drucken',
+                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
+                statusText: 'Vorschau (Executive 2026-2027)',
+                role: 'Senior Professional / Expert'
+            },
+            'English': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Executive Edition (2026–2027)',
+                section1: '1. Sector & Career Level (2026-2027)',
+                section2: '2. Personal Details & Swiss Permit',
+                section3: '3. Profile & Focus 2026-2027',
+                section4: '4. Professional Experience',
+                section5: '5. Education',
+                nicheLogistics: 'Logistics / Construction',
+                nicheGastro: 'Gastronomy',
+                nicheAdmin: 'Admin / Commercial',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Bank',
+                lblFirstName: 'First Name',
+                lblLastName: 'Last Name',
+                lblEmail: 'E-Mail',
+                lblPhone: 'Phone',
+                lblCity: 'ZIP / City',
+                lblPermit: 'Residence Status (Permit)',
+                lblPhoto: 'Photo (optional, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Short Profile',
+                lblSkills: 'Core Competencies / Licenses',
+                lblLanguages: 'Languages',
+                btnAddExp: '+ Add Position',
+                btnAddEdu: '+ Add Education',
+                btnGenerate: 'Generate Swiss CV',
+                btnPrint: 'Print PDF',
+                consentLabel: 'Yes, I agree that the CV text will be sent to Google Gemini for translation. API usage may incur charges.',
+                statusText: 'Preview (Executive 2026-2027)',
+                role: 'Senior Professional / Expert'
+            },
+            'French': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Édition Exécutive (2026–2027)',
+                section1: '1. Secteur & Niveau de carrière (2026-2027)',
+                section2: '2. Informations personnelles & Permis suisse',
+                section3: '3. Profil & Focus 2026-2027',
+                section4: '4. Expérience professionnelle',
+                section5: '5. Formation',
+                nicheLogistics: 'Logistique / Bâtiment',
+                nicheGastro: 'Restauration',
+                nicheAdmin: 'Administration / Commerce',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finance / Banque',
+                lblFirstName: 'Prénom',
+                lblLastName: 'Nom',
+                lblEmail: 'E-mail',
+                lblPhone: 'Téléphone',
+                lblCity: 'NPA / Ville',
+                lblPermit: 'Statut de séjour (Permis)',
+                lblPhoto: 'Photo (facultatif, JPEG/PNG, max. 5 Mo)',
+                lblSummary: 'Profil court',
+                lblSkills: 'Compétences clés / Licences',
+                lblLanguages: 'Langues',
+                btnAddExp: '+ Ajouter un poste',
+                btnAddEdu: '+ Ajouter une formation',
+                btnGenerate: 'Générer CV suisse',
+                btnPrint: 'Imprimer PDF',
+                consentLabel: "Oui, j'accepte que le texte du CV soit envoyé à Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coûts.",
+                statusText: 'Aperçu (Executive 2026-2027)',
+                role: 'Collaborateur Senior / Responsable'
+            },
+            'Italian': {
+                brandName: 'SWISS CV STUDIO',
+                brandSub: 'Edizione Esecutiva (2026–2027)',
+                section1: '1. Settore & Livello di carriera (2026-2027)',
+                section2: '2. Dati personali & Permesso svizzero',
+                section3: '3. Profilo & Focus 2026-2027',
+                section4: '4. Esperienza professionale',
+                section5: '5. Formazione',
+                nicheLogistics: 'Logistica / Edilizia',
+                nicheGastro: 'Ristorazione',
+                nicheAdmin: 'Amministrazione / Commercio',
+                nicheIT: 'IT & Tech',
+                nicheBanking: 'Finanza / Banca',
+                lblFirstName: 'Nome',
+                lblLastName: 'Cognome',
+                lblEmail: 'E-mail',
+                lblPhone: 'Telefono',
+                lblCity: 'CAP / Città',
+                lblPermit: 'Status soggiorno (Permesso)',
+                lblPhoto: 'Foto (facoltativo, JPEG/PNG, max. 5 MB)',
+                lblSummary: 'Profilo breve',
+                lblSkills: 'Competenze chiave / Licenze',
+                lblLanguages: 'Lingue',
+                btnAddExp: '+ Aggiungi posizione',
+                btnAddEdu: '+ Aggiungi formazione',
+                btnGenerate: 'Genera CV svizzero',
+                btnPrint: 'Stampa PDF',
+                consentLabel: "Sì, accetto che il testo del CV venga inviato a Google Gemini per la traduzione. L'utilizzo dell'API potrebbe comportare costi.",
+                statusText: 'Anteprima (Executive 2026-2027)',
+                role: 'Professionista Senior / Esperto'
+            }
+        };
+        const cvLabels = {
+            'German': { contact: 'Kontakt', permit: 'Status & Rechtliches', languages: 'Sprachen', expertise: 'Expertise', role: 'Senior Professional / Expert', profile: 'Profil', exp: 'Berufserfahrung', edu: 'Ausbildung' },
+            'English': { contact: 'Contact', permit: 'Status & Legal', languages: 'Languages', expertise: 'Core Competencies', role: 'Senior Professional / Expert', profile: 'Profile', exp: 'Professional Experience', edu: 'Education' },
+            'French': { contact: 'Contact', permit: 'Statut & Légal', languages: 'Langues', expertise: 'Compétences Clés', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'Expérience Professionnelle', edu: 'Formation' },
+            'Italian': { contact: 'Contatto', permit: 'Stato & Legale', languages: 'Lingue', expertise: 'Competenze', role: 'Professionista Senior / Esperto', profile: 'Profilo', exp: 'Esperienza Professionale', edu: 'Istruzione' }
+        };
+        function applyLabels(lang) {
+            const t = cvLabels[lang] || cvLabels['German'];
+            const titles = document.querySelectorAll('.a4-sidebar-title');
+            if (titles.length >= 4) {
+                titles[0].textContent = t.contact;
+                titles[1].textContent = t.permit;
+                titles[2].textContent = t.languages;
+                titles[3].textContent = t.expertise;
+            }
+            const role = document.getElementById('doc-role');
+            if (role) role.textContent = t.role;
+            const hProfile = document.getElementById('doc-heading-profile');
+            if (hProfile) hProfile.textContent = t.profile;
+            const hExp = document.getElementById('doc-heading-exp');
+            if (hExp) hExp.textContent = t.exp;
+            const hEdu = document.getElementById('doc-heading-edu');
+            if (hEdu) hEdu.textContent = t.edu;
+        }
+
+        function updatePhotoShapeLabels(lang) {
+  const map = {
+    German: ["Rund", "Quadratisch"],
+    English: ["Round", "Square"],
+    French: ["Rond", "Carré"],
+    Italian: ["Tondo", "Quadrato"]
+  };
+  const t = map[lang] || map.German;
+  const r = document.getElementById("btn-photo-round");
+  const s = document.getElementById("btn-photo-square");
+  if (r) r.textContent = t[0];
+  if (s) s.textContent = t[1];
+}
+function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); applyUILabels(selectedLang);
+  updatePhotoShapeLabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
+        function applyUILabels(lang) {
+            const t = uiLabels[lang] || uiLabels['German'];
+            const el = document.getElementById('brand-name'); if (el) el.textContent = t.brandName;
+            const el2 = document.getElementById('brand-sub'); if (el2) el2.textContent = t.brandSub;
+            const s1 = document.getElementById('block-title-1'); if (s1) s1.textContent = t.section1;
+            const s2 = document.getElementById('block-title-2'); if (s2) s2.textContent = t.section2;
+            const s3 = document.getElementById('block-title-3'); if (s3) s3.textContent = t.section3;
+            const s4 = document.getElementById('block-title-4'); if (s4) s4.textContent = t.section4;
+            const s5 = document.getElementById('block-title-5'); if (s5) s5.textContent = t.section5;
+            const n1 = document.getElementById('niche-logistics'); if (n1) n1.textContent = t.nicheLogistics;
+            const n2 = document.getElementById('niche-gastro'); if (n2) n2.textContent = t.nicheGastro;
+            const n3 = document.getElementById('niche-admin'); if (n3) n3.textContent = t.nicheAdmin;
+            const n4 = document.getElementById('niche-it'); if (n4) n4.textContent = t.nicheIT;
+            const n5 = document.getElementById('niche-banking'); if (n5) n5.textContent = t.nicheBanking;
+            const l1 = document.getElementById('lbl-firstName'); if (l1) l1.textContent = t.lblFirstName;
+            const l2 = document.getElementById('lbl-lastName'); if (l2) l2.textContent = t.lblLastName;
+            const l3 = document.getElementById('lbl-email'); if (l3) l3.textContent = t.lblEmail;
+            const l4 = document.getElementById('lbl-phone'); if (l4) l4.textContent = t.lblPhone;
+            const l5 = document.getElementById('lbl-city'); if (l5) l5.textContent = t.lblCity;
+            const l6 = document.getElementById('lbl-permit'); if (l6) l6.textContent = t.lblPermit;
+            const l7 = document.getElementById('lbl-photo'); if (l7) l7.textContent = t.lblPhoto;
+            const l8 = document.getElementById('lbl-summary'); if (l8) l8.textContent = t.lblSummary;
+            const l9 = document.getElementById('lbl-skills'); if (l9) l9.textContent = t.lblSkills;
+            const l10 = document.getElementById('lbl-languages'); if (l10) l10.textContent = t.lblLanguages;
+            const b1 = document.getElementById('btn-add-exp'); if (b1) b1.textContent = t.btnAddExp;
+            const b2 = document.getElementById('btn-add-edu'); if (b2) b2.textContent = t.btnAddEdu;
+            const b3 = document.getElementById('generate-btn'); if (b3) b3.textContent = t.btnGenerate;
+            const b4 = document.getElementById('btn-print'); if (b4) b4.textContent = t.btnPrint;
+            const c1 = document.getElementById('consent-label'); if (c1) c1.textContent = t.consentLabel;
+            const st = document.getElementById('status-text'); if (st) st.textContent = t.statusText;
+        }
+
+
+        function handlePhotoChange(input) {
+            const file = input.files && input.files[0];
+            if (!file) { photoDataUrl = ''; updatePhoto(); return; }
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                alert('Bitte nur JPEG- oder PNG-Dateien wählen.');
+                input.value = '';
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Die Datei ist zu gross (maximal 5 MB).');
+                input.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoDataUrl = e.target.result;
+                updatePhoto();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updatePhoto() {
+            const img = document.getElementById('doc-photo');
+            const btn = document.getElementById('btn-remove-photo');
+            if (photoDataUrl) {
+                img.src = photoDataUrl;
+                img.style.display = 'block';
+                if (btn) btn.style.display = 'inline-block';
+            } else {
+                img.src = '';
+                img.style.display = 'none';
+                if (btn) btn.style.display = 'none';
+            }
+        }
+
+        function removePhoto() {
+            photoDataUrl = '';
+            const input = document.getElementById('photoInput');
+            if (input) input.value = '';
+            updatePhoto();
+        }
+
+        function selectNiche(n, el) {
+            selectedNiche = n;
+            document.querySelectorAll('.niche-item').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            const role = document.getElementById('doc-role');
+            if (!role) return;
+            const roleMap = {
+                logistics: 'Lagermitarbeiter / Logistikmitarbeiter',
+                gastro: 'Gastronomie-Mitarbeiter',
+                admin: 'Kaufmännischer Mitarbeiter',
+                it: 'IT-Support / IT-Mitarbeiter',
+                banking: 'Finanzmitarbeiter / Bankmitarbeiter'
+            };
+            role.textContent = roleMap[n] || 'Senior Professional / Expert';
+        }
+        
+        function addExperience() {
+            expCount++;
+            const div = document.createElement('div');
+            div.className = 'repeater-card'; div.id = 'exp-' + expCount;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Position</label><input type="text" class="exp-title" placeholder="Position"></div><div class="field"><label>Firma & Ort</label><input type="text" class="exp-company" placeholder="Firma & Ort"></div><div class="field"><label>Zeitraum</label><input type="text" class="exp-period" placeholder="Zeitraum"></div><div class="field"><label>Aufgaben</label><input type="text" class="exp-desc" placeholder="Aufgaben"></div></div>`;
+            document.getElementById('experience-list').appendChild(div);
+        }
+
+        function addEducation() {
+            eduCount++;
+            const div = document.createElement('div');
+            div.className = 'repeater-card'; div.id = 'edu-' + eduCount;
+            div.innerHTML = `<button type="button" class="btn-remove" onclick="this.parentElement.remove()">X</button><div class="grid-2"><div class="field"><label>Abschluss</label><input type="text" class="edu-degree" placeholder="Abschluss"></div><div class="field"><label>Schule</label><input type="text" class="edu-inst" placeholder="Schule"></div><div class="field span-2"><label>Jahr</label><input type="text" class="edu-year" placeholder="Jahr"></div></div>`;
+            document.getElementById('education-list').appendChild(div);
+        }
+
+        function syncHeader() {
+            applyLabels(selectedLang);
+            const fn = document.getElementById('firstName').value, ln = document.getElementById('lastName').value;
+            document.getElementById('doc-name').textContent = (fn || ln) ? `${fn} ${ln}` : '';
+            
+            const city = document.getElementById('city').value || '';
+            const phone = document.getElementById('phone').value || '';
+            const email = document.getElementById('email').value || '';
+            document.getElementById('doc-contact').innerHTML = `${city}<br>${phone}<br>${email}`;
+            document.getElementById('doc-permit').textContent = document.getElementById('permit').value;
+            
+            const sk = document.getElementById('skills').value;
+            if (sk) document.getElementById('doc-skills-view').innerHTML = sk.split(',').join('<br>');
+            
+            const lg = document.getElementById('languages').value;
+            if (lg) document.getElementById('doc-lang-view').innerHTML = lg.split(',').join('<br>');
+            updatePhoto();
+        }
+
+        async function generateCV() {
+            syncHeader();
+            const btn = document.getElementById('generate-btn'), body = document.getElementById('doc-body');
+            btn.disabled = true; btn.textContent = 'Generiere Executive Dokument (2026-2027)...';
+            try {
+                const res = await fetch('/api/generate-cv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        outputLang: selectedLang, niche: selectedNiche, consent: translationConsent,
+                        firstName: document.getElementById('firstName').value,
+                        lastName: document.getElementById('lastName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        city: document.getElementById('city').value,
+                        permit: document.getElementById('permit').value,
+                        summary: document.getElementById('summary').value,
+                        skills: document.getElementById('skills').value,
+                        languages: document.getElementById('languages').value,
+                        experiences: Array.from(document.querySelectorAll('#experience-list .repeater-card')).map(c => ({
+                            title: c.querySelector('.exp-title').value,
+                            company: c.querySelector('.exp-company').value,
+                            period: c.querySelector('.exp-period').value,
+                            description: c.querySelector('.exp-desc').value
+                        })),
+                        educations: Array.from(document.querySelectorAll('#education-list .repeater-card')).map(c => ({
+                            degree: c.querySelector('.edu-degree').value,
+                            institution: c.querySelector('.edu-inst').value,
+                            year: c.querySelector('.edu-year').value
+                        }))
+                    })
+                });
+                if (!res.ok) {
+                    const errTxt = await res.text();
+                    throw new Error('Serverfehler: ' + errTxt);
+                }
+                const json = await res.json();
+                if (json.success) {
+                    body.innerHTML = json.html;
+                    
+                    
+                    // Update translated sidebar values without touching form inputs
+                    const roleMap2 = { logistics: 'Lagermitarbeiter / Logistikmitarbeiter', gastro: 'Gastronomie-Mitarbeiter', admin: 'Kaufmännischer Mitarbeiter', it: 'IT-Support / IT-Mitarbeiter', banking: 'Finanzmitarbeiter / Bankmitarbeiter' };
+                    const roleEl2 = document.getElementById('doc-role');
+                    if (roleEl2) roleEl2.textContent = roleMap2[selectedNiche] || 'Senior Professional / Expert';
+                    if (json.sidebar) {
+                        if (json.sidebar.languages) document.getElementById('doc-lang-view').innerHTML = json.sidebar.languages;
+                        if (json.sidebar.skills) document.getElementById('doc-skills-view').innerHTML = json.sidebar.skills;
+                    }
+                } else {
+                    throw new Error(json.error || 'Unbekannter Serverfehler');
+                }
+            } catch (err) {
+                const errEl = document.createElement('div');
+                errEl.style.color = 'red';
+                errEl.style.padding = '10px';
+                errEl.textContent = 'Übersetzungsfehler: ' + err.message + ' â€” Bitte versuchen Sie es erneut.';
+                body.appendChild(errEl);
+            }
+            finally { btn.disabled = false; btn.textContent = 'Schweizer Lebenslauf generieren'; }
+        }
+        addExperience(); addEducation(); applyLabels(selectedLang); const cb = document.getElementById('consent-box'); if (cb) cb.style.display = isGermanLang(selectedLang) ? 'none' : 'block';
+    </script>
+<script>
+document.getElementById('accent-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});
+document.getElementById('accent-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);});
+</script>
+<script>
+function matchSidebarPickerWidth(){const p=document.getElementById('sidebar-bg-picker'),a=document.getElementById('accent-picker');if(p&&a){p.style.width=a.offsetWidth+'px';}}window.addEventListener('load',matchSidebarPickerWidth);window.addEventListener('resize',matchSidebarPickerWidth);document.getElementById('sidebar-bg-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
+</script>
+<script>
+document.getElementById('sidebar-bg-palette').addEventListener('click',function(e){const b=e.target.closest('.sidebar-swatch');if(b){document.documentElement.style.setProperty('--sidebar-bg',b.dataset.color);document.getElementById('sidebar-bg-custom').value=b.dataset.color;}});
+document.getElementById('sidebar-bg-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
+</script>
+<script>
+document.getElementById('accent-palette').addEventListener('click',function(e){const b=e.target.closest('.accent-swatch');if(b){document.documentElement.style.setProperty('--accent',b.dataset.color);document.getElementById('accent-custom').value=b.dataset.color;document.getElementById('accent-custom-inline').value=b.dataset.color;}});
+</script>
+<script>document.getElementById('accent-custom-inline').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});</script><script>
+function markActive(palette, btn){palette.querySelectorAll('.sidebar-swatch,.accent-swatch').forEach(function(b){b.classList.remove('swatch-active');});if(btn){btn.classList.add('swatch-active');}}
+document.querySelectorAll('#sidebar-bg-palette,#accent-palette').forEach(function(p){p.addEventListener('click',function(e){const b=e.target.closest('.sidebar-swatch,.accent-swatch');if(b){markActive(p,b);}});});
+document.getElementById('sidebar-bg-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--sidebar-bg','#f7f8fa');document.getElementById('sidebar-bg-custom').value='#f7f8fa';markActive(document.getElementById('sidebar-bg-palette'),null);});
+document.getElementById('accent-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--accent','#1b2a4a');document.getElementById('accent-custom').value='#1b2a4a';document.getElementById('accent-custom-inline').value='#1b2a4a';markActive(document.getElementById('accent-palette'),null);});
+</script>
+<script>
+function toggleShapeMenu(e){e.stopPropagation();document.getElementById('shapeMenu').classList.toggle('open');}
+function setPhotoShape(shape){
+  var img=document.getElementById('doc-photo');
+  var menu=document.getElementById('shapeMenu');
+  if(menu){menu.classList.remove('open');}
+  if(!img||!photoDataUrl){return;}
+  var im=new Image();
+  im.onload=function(){
+    var w=im.width, h=im.height;
+    var cv=document.createElement('canvas');
+    if(shape==='round'){
+      var s=Math.min(w,h);
+      cv.width=s; cv.height=s;
+      var y=0;
+      cv.getContext('2d').drawImage(im,(w-s)/2,y,s,s,0,0,s,s);
+      img.src=cv.toDataURL('image/png');
+      img.style.width='40mm';
+      img.style.height='40mm';
+      img.style.borderRadius='50%';
+    } else {
+      var targetW=450, targetH=600;
+      var scale=Math.max(targetW/w,targetH/h);
+      var cw=Math.round(targetW/scale), ch=Math.round(targetH/scale);
+      var x=Math.max(0,(w-cw)/2);
+      var y=Math.max(0,(h-ch)*0.25);
+      cv.width=targetW; cv.height=targetH;
+      cv.getContext('2d').drawImage(im,x,y,cw,ch,0,0,targetW,targetH);
+      img.src=cv.toDataURL('image/png');
+      img.style.width='35mm';
+      img.style.height='45mm';
+      img.style.borderRadius='8px';
+    }
+    img.style.objectFit='cover';
+  };
+  im.src=photoDataUrl;
+}
+document.addEventListener('click',function(){var m=document.getElementById('shapeMenu');if(m){m.classList.remove('open');}});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('photoInput');
+  var wrap=document.querySelector('.photo-shape-wrap');
+  if(inp&&wrap&&!inp.parentNode.classList.contains('photo-grid-row')){
+    var row=document.createElement('div');
+    row.className='grid-2 photo-grid-row';
+    inp.parentNode.insertBefore(row,inp);
+    var left=document.createElement('div');
+    left.className='field';
+    var right=document.createElement('div');
+    right.className='field';
+    row.appendChild(left);
+    row.appendChild(right);
+    left.appendChild(inp);
+    right.appendChild(wrap);
+  }
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
