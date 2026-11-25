@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWISS CV STUDIO â€” Executive Architecture 2026-2027</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    :root { --accent: #1e3a5f; }
+    :root { --accent: #1e3a5f; --sidebar-bg: #f7f8fa; }
 <style>
         :root {
             --bg-app: #f4f5f7;
@@ -252,7 +252,7 @@
         }
 
         .a4-sidebar {
-            background: #f7f8fa;
+            background: var(--sidebar-bg, #f7f8fa);
             border-right: 1px solid #e2e8f0;
             padding-left: 3mm;
             padding-right: 12px;
@@ -1020,7 +1020,14 @@
 
         <aside class="preview-pane">
             <div class="preview-toolbar">
-                <span class="preview-status" id="status-text">Vorschau (Executive 2026-2027)</span>
+                <select id="sidebar-bg-picker" style="padding:4px;width:2.5cm;" title="Sfondi i kolonës">
+<option value="#f7f8fa">Gri e lehtë</option>
+<option value="#ffffff">Bardhë</option>
+<option value="#eef2f7">Gri blu e lehtë</option>
+<option value="#eef4fb">Blu shumë e lehtë</option>
+<option value="#fdf8ef">Krem</option>
+<option value="#eef7f1">Jeshile shumë e lehtë</option>
+</select>
                 <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
 <select id="accent-picker" style="margin-left:8px;padding:4px;">
 <option value="#1e3a5f">Blu e errët</option>
@@ -1447,8 +1454,23 @@
 document.getElementById('accent-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});
 document.getElementById('accent-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);});
 </script>
+<script>
+function matchSidebarPickerWidth(){const p=document.getElementById('sidebar-bg-picker'),a=document.getElementById('accent-picker');if(p&&a){p.style.width=a.offsetWidth+'px';}}window.addEventListener('load',matchSidebarPickerWidth);window.addEventListener('resize',matchSidebarPickerWidth);document.getElementById('sidebar-bg-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
