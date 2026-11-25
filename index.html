@@ -1147,8 +1147,8 @@
 <div class="photo-shape-wrap">
   <button type="button" class="photo-shape-btn" onclick="toggleShapeMenu(event)">Form auswählen</button>
   <div class="photo-shape-menu" id="shapeMenu">
-    <button type="button" onclick="setPhotoShape('round')">Rund</button>
-    <button type="button" onclick="setPhotoShape('square')">Quadratisch</button>
+    <button type="button" id="btn-photo-round" onclick="setPhotoShape('round')">Rund</button>
+    <button type="button" id="btn-photo-square" onclick="setPhotoShape('square')">Quadratisch</button>
   </div>
 </div>
 </div>
@@ -1429,7 +1429,21 @@
             if (hEdu) hEdu.textContent = t.edu;
         }
 
-        function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); applyUILabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
+        function updatePhotoShapeLabels(lang) {
+  const map = {
+    German: ["Rund", "Quadratisch"],
+    English: ["Round", "Square"],
+    French: ["Rond", "Carré"],
+    Italian: ["Tondo", "Quadrato"]
+  };
+  const t = map[lang] || map.German;
+  const r = document.getElementById("btn-photo-round");
+  const s = document.getElementById("btn-photo-square");
+  if (r) r.textContent = t[0];
+  if (s) s.textContent = t[1];
+}
+function setLanguage(l, b) { selectedLang = l; document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); applyLabels(selectedLang); applyUILabels(selectedLang);
+  updatePhotoShapeLabels(selectedLang); updatePhoto(); const consentBox = document.getElementById('consent-box'); if (consentBox) consentBox.style.display = isGermanLang(l) ? 'none' : 'block'; }
         function applyUILabels(lang) {
             const t = uiLabels[lang] || uiLabels['German'];
             const el = document.getElementById('brand-name'); if (el) el.textContent = t.brandName;
@@ -1699,6 +1713,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </body>
 </html>
+
 
 
 
