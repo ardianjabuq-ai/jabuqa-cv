@@ -1132,10 +1132,10 @@
                     <div class="field">
                         <label id="lbl-permit">Aufenthaltsstatus (Bewilligung)</label>
                         <select id="permit" onchange="syncHeader()">
-                            <option value="Schweizer BÃ¼rger/in">Schweizer BÃ¼rger/in</option>
+                            <option value="Schweizer Bürger/in">Schweizer Bürger/in</option>
                             <option value="Niederlassungsbewilligung C">Bewilligung C</option>
                             <option value="Aufenthaltsbewilligung B">Bewilligung B</option>
-                            <option value="GrenzgÃ¤ngerbewilligung G">GrenzgÃ¤ngerbewilligung G</option>
+                            <option value="Grenzgängerbewilligung G">Grenzgängerbewilligung G</option>
                             <option value="Schutzstatus S">Schutzstatus S</option>
                         </select>
 <input type="color" id="accent-custom" value="#1e3a5f" style="display:none;margin-left:8px;width:42px;height:30px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;" title="Ngjyrë e personalizuar">
@@ -1167,13 +1167,13 @@
             <div class="block">
                 <div class="block-title" id="block-title-4">4. Berufserfahrung</div>
                 <div id="experience-list"></div>
-                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufÃ¼gen</button>
+                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufügen</button>
             </div>
 
             <div class="block">
                 <div class="block-title" id="block-title-5">5. Ausbildung</div>
                 <div id="education-list"></div>
-                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufÃ¼gen</button>
+                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufügen</button>
             </div>
 
             <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
@@ -1181,7 +1181,7 @@
             <div id="consent-box" style="margin-top: 12px; padding: 10px; background: #fffbf0; border: 1px solid #d5a13e; border-radius: 4px; font-size: 0.75rem; color: #5a3d0b; display: none;">
                 <input type="checkbox" id="translation-consent" onchange="translationConsent = this.checked" style="margin-right: 8px; vertical-align: middle;">
                 <label id="consent-label" for="translation-consent" style="vertical-align: middle; cursor: pointer;">
-                    Ja, ich bin einverstanden, dass der CV-Text zur Ãœbersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
+                    Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
                 </label>
             </div>
         </section>
@@ -1302,11 +1302,11 @@
                 lblSummary: 'Kurzprofil',
                 lblSkills: 'Kernkompetenzen / Lizenzen',
                 lblLanguages: 'Sprachen',
-                btnAddExp: '+ Position hinzufÃ¼gen',
-                btnAddEdu: '+ Ausbildung hinzufÃ¼gen',
+                btnAddExp: '+ Position hinzufügen',
+                btnAddEdu: '+ Ausbildung hinzufügen',
                 btnGenerate: 'Schweizer Lebenslauf generieren',
                 btnPrint: 'PDF Drucken',
-                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Ãœbersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
+                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
                 statusText: 'Vorschau (Executive 2026-2027)',
                 role: 'Senior Professional / Expert'
             },
@@ -1343,33 +1343,33 @@
             },
             'French': {
                 brandName: 'SWISS CV STUDIO',
-                brandSub: 'Ã‰dition ExÃ©cutive (2026–2027)',
-                section1: '1. Secteur & Niveau de carriÃ¨re (2026-2027)',
+                brandSub: 'Ã‰dition Exécutive (2026–2027)',
+                section1: '1. Secteur & Niveau de carrière (2026-2027)',
                 section2: '2. Informations personnelles & Permis suisse',
                 section3: '3. Profil & Focus 2026-2027',
-                section4: '4. ExpÃ©rience professionnelle',
+                section4: '4. Expérience professionnelle',
                 section5: '5. Formation',
-                nicheLogistics: 'Logistique / BÃ¢timent',
+                nicheLogistics: 'Logistique / Bâtiment',
                 nicheGastro: 'Restauration',
                 nicheAdmin: 'Administration / Commerce',
                 nicheIT: 'IT & Tech',
                 nicheBanking: 'Finance / Banque',
-                lblFirstName: 'PrÃ©nom',
+                lblFirstName: 'Prénom',
                 lblLastName: 'Nom',
                 lblEmail: 'E-mail',
-                lblPhone: 'TÃ©lÃ©phone',
+                lblPhone: 'Téléphone',
                 lblCity: 'NPA / Ville',
-                lblPermit: 'Statut de sÃ©jour (Permis)',
+                lblPermit: 'Statut de séjour (Permis)',
                 lblPhoto: 'Photo (facultatif, JPEG/PNG, max. 5 Mo)',
                 lblSummary: 'Profil court',
-                lblSkills: 'CompÃ©tences clÃ©s / Licences',
+                lblSkills: 'Compétences clés / Licences',
                 lblLanguages: 'Langues',
                 btnAddExp: '+ Ajouter un poste',
                 btnAddEdu: '+ Ajouter une formation',
-                btnGenerate: 'GÃ©nÃ©rer CV suisse',
+                btnGenerate: 'Générer CV suisse',
                 btnPrint: 'Imprimer PDF',
-                consentLabel: "Oui, j'accepte que le texte du CV soit envoyÃ© Ã  Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coÃ»ts.",
-                statusText: 'AperÃ§u (Executive 2026-2027)',
+                consentLabel: "Oui, j'accepte que le texte du CV soit envoyé Ã  Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coÃ»ts.",
+                statusText: 'Aperçu (Executive 2026-2027)',
                 role: 'Collaborateur Senior / Responsable'
             },
             'Italian': {
@@ -1407,7 +1407,7 @@
         const cvLabels = {
             'German': { contact: 'Kontakt', permit: 'Status & Rechtliches', languages: 'Sprachen', expertise: 'Expertise', role: 'Senior Professional / Expert', profile: 'Profil', exp: 'Berufserfahrung', edu: 'Ausbildung' },
             'English': { contact: 'Contact', permit: 'Status & Legal', languages: 'Languages', expertise: 'Core Competencies', role: 'Senior Professional / Expert', profile: 'Profile', exp: 'Professional Experience', edu: 'Education' },
-            'French': { contact: 'Contact', permit: 'Statut & LÃ©gal', languages: 'Langues', expertise: 'CompÃ©tences ClÃ©s', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'ExpÃ©rience Professionnelle', edu: 'Formation' },
+            'French': { contact: 'Contact', permit: 'Statut & Légal', languages: 'Langues', expertise: 'Compétences Clés', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'Expérience Professionnelle', edu: 'Formation' },
             'Italian': { contact: 'Contatto', permit: 'Stato & Legale', languages: 'Lingue', expertise: 'Competenze', role: 'Professionista Senior / Esperto', profile: 'Profilo', exp: 'Esperienza Professionale', edu: 'Istruzione' }
         };
         function applyLabels(lang) {
@@ -1467,7 +1467,7 @@
             const file = input.files && input.files[0];
             if (!file) { photoDataUrl = ''; updatePhoto(); return; }
             if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-                alert('Bitte nur JPEG- oder PNG-Dateien wÃ¤hlen.');
+                alert('Bitte nur JPEG- oder PNG-Dateien wählen.');
                 input.value = '';
                 return;
             }
@@ -1514,7 +1514,7 @@
             const roleMap = {
                 logistics: 'Lagermitarbeiter / Logistikmitarbeiter',
                 gastro: 'Gastronomie-Mitarbeiter',
-                admin: 'KaufmÃ¤nnischer Mitarbeiter',
+                admin: 'Kaufmännischer Mitarbeiter',
                 it: 'IT-Support / IT-Mitarbeiter',
                 banking: 'Finanzmitarbeiter / Bankmitarbeiter'
             };
@@ -1598,7 +1598,7 @@
                     
                     
                     // Update translated sidebar values without touching form inputs
-                    const roleMap2 = { logistics: 'Lagermitarbeiter / Logistikmitarbeiter', gastro: 'Gastronomie-Mitarbeiter', admin: 'KaufmÃ¤nnischer Mitarbeiter', it: 'IT-Support / IT-Mitarbeiter', banking: 'Finanzmitarbeiter / Bankmitarbeiter' };
+                    const roleMap2 = { logistics: 'Lagermitarbeiter / Logistikmitarbeiter', gastro: 'Gastronomie-Mitarbeiter', admin: 'Kaufmännischer Mitarbeiter', it: 'IT-Support / IT-Mitarbeiter', banking: 'Finanzmitarbeiter / Bankmitarbeiter' };
                     const roleEl2 = document.getElementById('doc-role');
                     if (roleEl2) roleEl2.textContent = roleMap2[selectedNiche] || 'Senior Professional / Expert';
                     if (json.sidebar) {
@@ -1612,7 +1612,7 @@
                 const errEl = document.createElement('div');
                 errEl.style.color = 'red';
                 errEl.style.padding = '10px';
-                errEl.textContent = 'Ãœbersetzungsfehler: ' + err.message + ' â€” Bitte versuchen Sie es erneut.';
+                errEl.textContent = 'Übersetzungsfehler: ' + err.message + ' â€” Bitte versuchen Sie es erneut.';
                 body.appendChild(errEl);
             }
             finally { btn.disabled = false; btn.textContent = 'Schweizer Lebenslauf generieren'; }
@@ -1699,6 +1699,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </body>
 </html>
+
 
 
 
