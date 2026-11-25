@@ -929,9 +929,163 @@
   }
 </style>
 <style>
-.swatch-active { box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #64748b; }
+.swatch-active { outline: 2px solid #64748b; outline-offset: 2px; }
 .palette-reset { margin-left: 6px; padding: 2px 8px; font-size: 11px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 4px; cursor: pointer; color: #334155; }
 .palette-reset:hover { background: #f1f5f9; }
+</style>
+<style>.swatch-active { outline: 2px solid #64748b !important; outline-offset: 2px !important; }</style><style>
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
+.photo-shape-btn{font:400 13.333px Arial;padding:2px 6px;background:#efefef;border:1px solid #767676;border-radius:2px;color:#000;cursor:pointer}
+.photo-shape-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #ccc;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:50;min-width:140px;overflow:hidden}
+.photo-shape-menu button{display:block;width:100%;padding:8px 12px;border:none;background:#fff;text-align:left;font-size:13px;cursor:pointer}
+.photo-shape-menu button:hover{background:#f3f4f6}
+.photo-shape-menu.open{display:block}
+</style>
+<style>
+#photoInput{display:inline-block;vertical-align:middle}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
+</style>
+<style>
+.photo-input-row{justify-content:flex-start}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
+</style>
+<style>
+.photo-input-row{justify-content:space-between}
+.photo-shape-wrap{margin-left:auto;background:#f6f8fa;border:1px solid #d0d7de;border-radius:6px;padding:4px 8px;display:inline-block}
+</style>
+<style>
+.photo-shape-wrap{margin-left:0}
+</style>
+<style>
+.photo-shape-wrap{cursor:pointer;transition:background .2s,border-color .2s}
+.photo-shape-wrap:hover{filter:brightness(1.05)}
+.photo-shape-wrap:active{filter:brightness(.95)}
+</style>
+<style>
+.photo-shape-wrap{transition:all .25s ease}
+.photo-shape-wrap:hover{
+  background:#fdf8ee;
+  border:1px solid #c9a227;
+  box-shadow:0 4px 14px rgba(201,162,39,.25);
+}
+.photo-shape-wrap:active{
+  background:#f7efdc;
+  box-shadow:0 2px 8px rgba(201,162,39,.35);
+}
+</style>
+<style>
+.photo-shape-btn{transition:all .2s ease}
+.photo-shape-btn:hover{
+  background:#fdf8ee;
+  border-color:#c9a227;
+  color:#1f2937;
+  box-shadow:0 3px 10px rgba(201,162,39,.25);
+}
+.photo-shape-btn:active{
+  background:#f7efdc;
+  box-shadow:0 2px 6px rgba(201,162,39,.35);
+}
+</style>
+<style>
+.photo-shape-menu button{transition:all .2s ease}
+.photo-shape-menu button:hover{
+  background:#fdf8ee;
+  color:#1f2937;
+  border-left:3px solid #c9a227;
+}
+</style>
+<style>
+.photo-shape-btn{transition:all .2s ease}
+.photo-shape-btn:hover{
+  background:#c9a227;
+  border-color:#a8861c;
+  color:#fff;
+  box-shadow:0 3px 10px rgba(201,162,39,.35);
+}
+.photo-shape-btn:active{
+  background:#a8861c;
+  color:#fff;
+}
+</style>
+<style>
+.photo-shape-menu button{transition:all .2s ease}
+.photo-shape-menu button:hover{
+  background:#fdf8ee;
+  color:#1f2937;
+  border-left:3px solid #c9a227;
+}
+</style>
+<style>
+.photo-shape-menu button:hover{
+  background:#c9a227 !important;
+  color:#fff !important;
+}
+</style>
+<style>
+.photo-shape-menu button:hover{
+  background:#334155 !important;
+  color:#fff !important;
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#334155 !important;
+  border-color:#1e293b !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(51,65,85,.25);
+}
+.photo-shape-btn:active{
+  background:#1e293b !important;
+  color:#fff !important;
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#64748b !important;
+  border-color:#475569 !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(100,116,139,.25);
+}
+.photo-shape-btn:active{
+  background:#475569 !important;
+  color:#fff !important;
+}
+.photo-shape-menu button:hover{
+  background:#64748b !important;
+  color:#fff !important;
+}
+</style>
+<style>
+.photo-shape-btn:hover{
+  background:#94a3b8 !important;
+  border-color:#7c8aa0 !important;
+  color:#fff !important;
+  box-shadow:0 3px 10px rgba(148,163,184,.25);
+}
+.photo-shape-btn:active{
+  background:#7c8aa0 !important;
+  color:#fff !important;
+}
+.photo-shape-menu button:hover{
+  background:#94a3b8 !important;
+  color:#fff !important;
+}
+.photo-shape-wrap,
+.photo-shape-wrap:hover,
+.photo-shape-wrap:active{
+  background:#f6f8fa !important;
+  border:1px solid #d0d7de !important;
+  box-shadow:none !important;
+}
+</style>
+<style>
+.photo-shape-wrap img,
+.photo-shape-wrap .photo-preview,
+.photo-shape-wrap .photo-canvas{
+  aspect-ratio:1 / 1 !important;
+  object-fit:cover !important;
+  border-radius:50% !important;
+}
 </style>
 </head>
 <body>
@@ -988,7 +1142,14 @@
                     <div class="field span-2">
                         <label id="lbl-photo">Foto (optional, JPEG/PNG, max. 5 MB)</label>
                         <input type="file" id="photoInput" accept="image/jpeg,image/png" onchange="handlePhotoChange(this)">
-                    </div>
+<div class="photo-shape-wrap">
+  <button type="button" class="photo-shape-btn" onclick="toggleShapeMenu(event)">Form auswählen</button>
+  <div class="photo-shape-menu" id="shapeMenu">
+    <button type="button" onclick="setPhotoShape('round')">Rrumbullake</button>
+    <button type="button" onclick="setPhotoShape('square')">Katrore</button>
+  </div>
+</div>
+</div>
                 </div>
             </div>
 
@@ -1038,15 +1199,15 @@
 <button type="button" id="sidebar-bg-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
                 <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
 <div id="accent-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
-  <button type="button" class="accent-swatch" data-color="#1e3a5f" title="Blu navy" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#1e3a5f;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#0f172a" title="Blu e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#0f172a;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#0f766e" title="Jeshile e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#0f766e;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#166534" title="Jeshile" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#166534;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#7c2d12" title="Ngjyrë tulle" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#7c2d12;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#6d28d9" title="Vjollcë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#6d28d9;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#334155" title="Gri e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#334155;cursor:pointer;"></button>
-  <button type="button" class="accent-swatch" data-color="#111827" title="E zezë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#111827;cursor:pointer;"></button>
-<input type="color" id="accent-custom-inline" value="#1e3a5f" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"><button type="button" id="accent-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
+  <button type="button" class="accent-swatch" data-color="#1b2a4a" title="Blu saphir" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#1b2a4a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#2b2f36" title="Antracit" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#2b2f36;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#1f3d2b" title="Jeshile forest" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#1f3d2b;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#5c1f27" title="Burgundy" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#5c1f27;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#4a2c1a" title="Kafe espresso" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#4a2c1a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#8a6a3b" title="Bronz" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#8a6a3b;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#4b5563" title="Gri çeliku" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#4b5563;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+  <button type="button" class="accent-swatch" data-color="#17181a" title="E zezë karbon" style="width:14px;height:14px;border-radius:50%;border:1px solid #cbd5e1;background:#17181a;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);"></button>
+<input type="color" id="accent-custom-inline" value="#1b2a4a" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"><button type="button" id="accent-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
             </div>
             
             <!-- ELITE TWO-COLUMN A4 SHEET -->
@@ -1474,10 +1635,105 @@ document.getElementById('accent-palette').addEventListener('click',function(e){c
 function markActive(palette, btn){palette.querySelectorAll('.sidebar-swatch,.accent-swatch').forEach(function(b){b.classList.remove('swatch-active');});if(btn){btn.classList.add('swatch-active');}}
 document.querySelectorAll('#sidebar-bg-palette,#accent-palette').forEach(function(p){p.addEventListener('click',function(e){const b=e.target.closest('.sidebar-swatch,.accent-swatch');if(b){markActive(p,b);}});});
 document.getElementById('sidebar-bg-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--sidebar-bg','#f7f8fa');document.getElementById('sidebar-bg-custom').value='#f7f8fa';markActive(document.getElementById('sidebar-bg-palette'),null);});
-document.getElementById('accent-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--accent','#1e3a5f');document.getElementById('accent-custom').value='#1e3a5f';document.getElementById('accent-custom-inline').value='#1e3a5f';markActive(document.getElementById('accent-palette'),null);});
+document.getElementById('accent-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--accent','#1b2a4a');document.getElementById('accent-custom').value='#1b2a4a';document.getElementById('accent-custom-inline').value='#1b2a4a';markActive(document.getElementById('accent-palette'),null);});
+</script>
+<script>
+function toggleShapeMenu(e){e.stopPropagation();document.getElementById('shapeMenu').classList.toggle('open');}
+function setPhotoShape(shape){
+  var img=document.getElementById('doc-photo');
+  var menu=document.getElementById('shapeMenu');
+  if(menu){menu.classList.remove('open');}
+  if(!img||!photoDataUrl){return;}
+  var im=new Image();
+  im.onload=function(){
+    var w=im.width, h=im.height;
+    var cv=document.createElement('canvas');
+    if(shape==='round'){
+      var s=Math.min(w,h);
+      cv.width=s; cv.height=s;
+      var y=0;
+      cv.getContext('2d').drawImage(im,(w-s)/2,y,s,s,0,0,s,s);
+      img.src=cv.toDataURL('image/png');
+      img.style.width='40mm';
+      img.style.height='40mm';
+      img.style.borderRadius='50%';
+    } else {
+      var targetW=450, targetH=600;
+      var scale=Math.max(targetW/w,targetH/h);
+      var cw=Math.round(targetW/scale), ch=Math.round(targetH/scale);
+      var x=Math.max(0,(w-cw)/2);
+      var y=Math.max(0,(h-ch)*0.25);
+      cv.width=targetW; cv.height=targetH;
+      cv.getContext('2d').drawImage(im,x,y,cw,ch,0,0,targetW,targetH);
+      img.src=cv.toDataURL('image/png');
+      img.style.width='35mm';
+      img.style.height='45mm';
+      img.style.borderRadius='8px';
+    }
+    img.style.objectFit='cover';
+  };
+  im.src=photoDataUrl;
+}
+document.addEventListener('click',function(){var m=document.getElementById('shapeMenu');if(m){m.classList.remove('open');}});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('photoInput');
+  var wrap=document.querySelector('.photo-shape-wrap');
+  if(inp&&wrap&&!inp.parentNode.classList.contains('photo-grid-row')){
+    var row=document.createElement('div');
+    row.className='grid-2 photo-grid-row';
+    inp.parentNode.insertBefore(row,inp);
+    var left=document.createElement('div');
+    left.className='field';
+    var right=document.createElement('div');
+    right.className='field';
+    row.appendChild(left);
+    row.appendChild(right);
+    left.appendChild(inp);
+    right.appendChild(wrap);
+  }
+});
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
