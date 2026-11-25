@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWISS CV STUDIO — Executive Architecture 2026-2027</title>
+    <title>SWISS CV STUDIO â€” Executive Architecture 2026-2027</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+    :root { --accent: #1e3a5f; }
+<style>
         :root {
             --bg-app: #f4f5f7;
             --bg-panel: #ffffff;
             --border-subtle: #e2e8f0;
-            --swiss-red: #d52b1e;
+            --swiss-red: var(--accent);
             --swiss-red-hover: #b32216;
             --text-primary: #111827;
             --text-secondary: #4b5563;
@@ -325,8 +326,8 @@
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
             /* Photo: visible in print only when a photo is set; remove button hidden */
-            #doc-photo[src] { display: block !important; width: 30mm !important; height: 40mm !important; float: right !important; }
-            #doc-photo:not([src]) { display: none !important; }
+            #doc-photo[src]:not([src=""]) { display: block !important; width: 30mm !important; height: 40mm !important; float: right !important; }
+            #doc-photo:not([src]), #doc-photo[src=""] { display: none !important; }
             #btn-remove-photo { display: none !important; }
         }
     </style>
@@ -393,7 +394,7 @@
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #d52b1e;
+    color: var(--accent);
   }
 
   .a4-sidebar {
@@ -408,7 +409,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 8px;
   }
@@ -423,7 +424,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 16px;
@@ -455,7 +456,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 10px;
   }
@@ -471,7 +472,7 @@
   }
 
   .a4-sidebar-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -493,7 +494,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 18px;
@@ -520,7 +521,7 @@
   }
 
   .a4-main-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -544,7 +545,7 @@
   }
 
   .a4-header {
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 10px;
     margin-bottom: 18px;
   }
@@ -560,7 +561,7 @@
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #d52b1e;
+    color: var(--accent);
   }
 
   .a4-sidebar {
@@ -575,7 +576,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 10px;
   }
@@ -590,7 +591,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 18px;
@@ -617,7 +618,7 @@
   }
 
   .a4-main-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -652,11 +653,11 @@
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #d52b1e;
+    color: var(--accent);
   }
 
   .a4-header {
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 10px;
     margin-bottom: 18px;
   }
@@ -673,7 +674,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 10px;
   }
@@ -688,7 +689,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 18px;
@@ -715,7 +716,7 @@
   }
 
   .a4-main-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -750,11 +751,11 @@
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #d52b1e;
+    color: var(--accent);
   }
 
   .a4-header {
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 10px;
     margin-bottom: 18px;
   }
@@ -771,7 +772,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 10px;
   }
@@ -786,7 +787,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 18px;
@@ -813,7 +814,7 @@
   }
 
   .a4-main-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -848,11 +849,11 @@
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #d52b1e;
+    color: var(--accent);
   }
 
   .a4-header {
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 10px;
     margin-bottom: 18px;
   }
@@ -869,7 +870,7 @@
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #111827;
-    border-bottom: 2px solid #d52b1e;
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
     margin-bottom: 10px;
   }
@@ -884,7 +885,7 @@
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.06em;
-    color: #d52b1e;
+    color: var(--accent);
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 4px;
     margin-top: 18px;
@@ -911,7 +912,7 @@
   }
 
   .a4-main-content a {
-    color: #d52b1e;
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -935,7 +936,7 @@
             <div class="brand-mark">+</div>
             <div class="brand-text-group">
                 <div class="brand-name" id="brand-name">SWISS CV STUDIO</div>
-                <div class="brand-sub" id="brand-sub">Executive Edition (2026–2027)</div>
+                <div class="brand-sub" id="brand-sub">Executive Edition (2026â€“2027)</div>
             </div>
         </div>
         <div class="lang-switcher">
@@ -970,12 +971,14 @@
                     <div class="field">
                         <label id="lbl-permit">Aufenthaltsstatus (Bewilligung)</label>
                         <select id="permit" onchange="syncHeader()">
-                            <option value="Schweizer Bürger/in">Schweizer Bürger/in</option>
+                            <option value="Schweizer BÃ¼rger/in">Schweizer BÃ¼rger/in</option>
                             <option value="Niederlassungsbewilligung C">Bewilligung C</option>
                             <option value="Aufenthaltsbewilligung B">Bewilligung B</option>
-                            <option value="Grenzgängerbewilligung G">Grenzgängerbewilligung G</option>
+                            <option value="GrenzgÃ¤ngerbewilligung G">GrenzgÃ¤ngerbewilligung G</option>
                             <option value="Schutzstatus S">Schutzstatus S</option>
                         </select>
+<input type="color" id="accent-custom" value="#1e3a5f" style="margin-left:8px;width:42px;height:30px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;" title="Ngjyrë e personalizuar">
+
                     </div>
                     <div class="field span-2">
                         <label id="lbl-photo">Foto (optional, JPEG/PNG, max. 5 MB)</label>
@@ -996,13 +999,13 @@
             <div class="block">
                 <div class="block-title" id="block-title-4">4. Berufserfahrung</div>
                 <div id="experience-list"></div>
-                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufügen</button>
+                <button type="button" class="btn-small" id="btn-add-exp" onclick="addExperience()">+ Position hinzufÃ¼gen</button>
             </div>
 
             <div class="block">
                 <div class="block-title" id="block-title-5">5. Ausbildung</div>
                 <div id="education-list"></div>
-                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufügen</button>
+                <button type="button" class="btn-small" id="btn-add-edu" onclick="addEducation()">+ Ausbildung hinzufÃ¼gen</button>
             </div>
 
             <button class="btn-generate" id="generate-btn" onclick="generateCV()">Schweizer Lebenslauf generieren</button>
@@ -1010,7 +1013,7 @@
             <div id="consent-box" style="margin-top: 12px; padding: 10px; background: #fffbf0; border: 1px solid #d5a13e; border-radius: 4px; font-size: 0.75rem; color: #5a3d0b; display: none;">
                 <input type="checkbox" id="translation-consent" onchange="translationConsent = this.checked" style="margin-right: 8px; vertical-align: middle;">
                 <label id="consent-label" for="translation-consent" style="vertical-align: middle; cursor: pointer;">
-                    Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
+                    Ja, ich bin einverstanden, dass der CV-Text zur Ãœbersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.
                 </label>
             </div>
         </section>
@@ -1019,6 +1022,18 @@
             <div class="preview-toolbar">
                 <span class="preview-status" id="status-text">Vorschau (Executive 2026-2027)</span>
                 <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
+<select id="accent-picker" style="margin-left:8px;padding:4px;">
+<option value="#1e3a5f">Blu e errët</option>
+<option value="#1f2937">Gri e errët</option>
+<option value="#14532d">Jeshile e errët</option>
+<option value="#7f1d1d">Bordo</option>
+<option value="#0f766e">Kaltërt e errët</option>
+<option value="#3730a3">Vjollcë e errët</option>
+<option value="#92400e">Kafe e errët</option>
+<option value="#334155">Gri blu</option>
+<option value="#7c2d12">Ngjyrë tulle</option>
+<option value="#d52b1e">E kuqe</option>`n<option value="#000000">E zezë</option>
+</select>
             </div>
             
             <!-- ELITE TWO-COLUMN A4 SHEET -->
@@ -1028,7 +1043,7 @@
                         <div class="a4-name" id="doc-name"></div>
                         <div class="a4-title-role" id="doc-role">Senior Professional / Expert</div>
                     </div>
-                    <img id="doc-photo" src="" style="display: none; width: 30mm; height: 40mm; object-fit: cover; border: 1px solid #d52b1e; border-radius: 2px; margin-left: 12px;">
+                    <img id="doc-photo" src="" style="display: none; width: 30mm; height: 40mm; object-fit: cover; border: 1px solid var(--accent); border-radius: 2px; margin-left: 12px;">
                 </div>
 
                 <div class="a4-grid-layout">
@@ -1090,7 +1105,7 @@
         const uiLabels = {
             'German': {
                 brandName: 'SWISS CV STUDIO',
-                brandSub: 'Executive Edition (2026–2027)',
+                brandSub: 'Executive Edition (2026â€“2027)',
                 section1: '1. Sektor & Karrierelevel (2026-2027)',
                 section2: '2. Personalien & Schweizer Bewilligung',
                 section3: '3. Profil & Fokus 2026-2027',
@@ -1111,17 +1126,17 @@
                 lblSummary: 'Kurzprofil',
                 lblSkills: 'Kernkompetenzen / Lizenzen',
                 lblLanguages: 'Sprachen',
-                btnAddExp: '+ Position hinzufügen',
-                btnAddEdu: '+ Ausbildung hinzufügen',
+                btnAddExp: '+ Position hinzufÃ¼gen',
+                btnAddEdu: '+ Ausbildung hinzufÃ¼gen',
                 btnGenerate: 'Schweizer Lebenslauf generieren',
                 btnPrint: 'PDF Drucken',
-                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Übersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
+                consentLabel: 'Ja, ich bin einverstanden, dass der CV-Text zur Ãœbersetzung an Google Gemini gesendet wird. Die API-Nutzung kann Kosten verursachen.',
                 statusText: 'Vorschau (Executive 2026-2027)',
                 role: 'Senior Professional / Expert'
             },
             'English': {
                 brandName: 'SWISS CV STUDIO',
-                brandSub: 'Executive Edition (2026–2027)',
+                brandSub: 'Executive Edition (2026â€“2027)',
                 section1: '1. Sector & Career Level (2026-2027)',
                 section2: '2. Personal Details & Swiss Permit',
                 section3: '3. Profile & Focus 2026-2027',
@@ -1152,38 +1167,38 @@
             },
             'French': {
                 brandName: 'SWISS CV STUDIO',
-                brandSub: 'Édition Exécutive (2026–2027)',
-                section1: '1. Secteur & Niveau de carrière (2026-2027)',
+                brandSub: 'Ã‰dition ExÃ©cutive (2026â€“2027)',
+                section1: '1. Secteur & Niveau de carriÃ¨re (2026-2027)',
                 section2: '2. Informations personnelles & Permis suisse',
                 section3: '3. Profil & Focus 2026-2027',
-                section4: '4. Expérience professionnelle',
+                section4: '4. ExpÃ©rience professionnelle',
                 section5: '5. Formation',
-                nicheLogistics: 'Logistique / Bâtiment',
+                nicheLogistics: 'Logistique / BÃ¢timent',
                 nicheGastro: 'Restauration',
                 nicheAdmin: 'Administration / Commerce',
                 nicheIT: 'IT & Tech',
                 nicheBanking: 'Finance / Banque',
-                lblFirstName: 'Prénom',
+                lblFirstName: 'PrÃ©nom',
                 lblLastName: 'Nom',
                 lblEmail: 'E-mail',
-                lblPhone: 'Téléphone',
+                lblPhone: 'TÃ©lÃ©phone',
                 lblCity: 'NPA / Ville',
-                lblPermit: 'Statut de séjour (Permis)',
+                lblPermit: 'Statut de sÃ©jour (Permis)',
                 lblPhoto: 'Photo (facultatif, JPEG/PNG, max. 5 Mo)',
                 lblSummary: 'Profil court',
-                lblSkills: 'Compétences clés / Licences',
+                lblSkills: 'CompÃ©tences clÃ©s / Licences',
                 lblLanguages: 'Langues',
                 btnAddExp: '+ Ajouter un poste',
                 btnAddEdu: '+ Ajouter une formation',
-                btnGenerate: 'Générer CV suisse',
+                btnGenerate: 'GÃ©nÃ©rer CV suisse',
                 btnPrint: 'Imprimer PDF',
-                consentLabel: "Oui, j'accepte que le texte du CV soit envoyé à Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coûts.",
-                statusText: 'Aperçu (Executive 2026-2027)',
+                consentLabel: "Oui, j'accepte que le texte du CV soit envoyÃ© Ã  Google Gemini pour traduction. L'utilisation de l'API peut engendrer des coÃ»ts.",
+                statusText: 'AperÃ§u (Executive 2026-2027)',
                 role: 'Collaborateur Senior / Responsable'
             },
             'Italian': {
                 brandName: 'SWISS CV STUDIO',
-                brandSub: 'Edizione Esecutiva (2026–2027)',
+                brandSub: 'Edizione Esecutiva (2026â€“2027)',
                 section1: '1. Settore & Livello di carriera (2026-2027)',
                 section2: '2. Dati personali & Permesso svizzero',
                 section3: '3. Profilo & Focus 2026-2027',
@@ -1198,7 +1213,7 @@
                 lblLastName: 'Cognome',
                 lblEmail: 'E-mail',
                 lblPhone: 'Telefono',
-                lblCity: 'CAP / Città',
+                lblCity: 'CAP / CittÃ ',
                 lblPermit: 'Status soggiorno (Permesso)',
                 lblPhoto: 'Foto (facoltativo, JPEG/PNG, max. 5 MB)',
                 lblSummary: 'Profilo breve',
@@ -1208,7 +1223,7 @@
                 btnAddEdu: '+ Aggiungi formazione',
                 btnGenerate: 'Genera CV svizzero',
                 btnPrint: 'Stampa PDF',
-                consentLabel: "Sì, accetto che il testo del CV venga inviato a Google Gemini per la traduzione. L'utilizzo dell'API potrebbe comportare costi.",
+                consentLabel: "SÃ¬, accetto che il testo del CV venga inviato a Google Gemini per la traduzione. L'utilizzo dell'API potrebbe comportare costi.",
                 statusText: 'Anteprima (Executive 2026-2027)',
                 role: 'Professionista Senior / Esperto'
             }
@@ -1216,7 +1231,7 @@
         const cvLabels = {
             'German': { contact: 'Kontakt', permit: 'Status & Rechtliches', languages: 'Sprachen', expertise: 'Expertise', role: 'Senior Professional / Expert', profile: 'Profil', exp: 'Berufserfahrung', edu: 'Ausbildung' },
             'English': { contact: 'Contact', permit: 'Status & Legal', languages: 'Languages', expertise: 'Core Competencies', role: 'Senior Professional / Expert', profile: 'Profile', exp: 'Professional Experience', edu: 'Education' },
-            'French': { contact: 'Contact', permit: 'Statut & Légal', languages: 'Langues', expertise: 'Compétences Clés', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'Expérience Professionnelle', edu: 'Formation' },
+            'French': { contact: 'Contact', permit: 'Statut & LÃ©gal', languages: 'Langues', expertise: 'CompÃ©tences ClÃ©s', role: 'Collaborateur Senior / Responsable', profile: 'Profil', exp: 'ExpÃ©rience Professionnelle', edu: 'Formation' },
             'Italian': { contact: 'Contatto', permit: 'Stato & Legale', languages: 'Lingue', expertise: 'Competenze', role: 'Professionista Senior / Esperto', profile: 'Profilo', exp: 'Esperienza Professionale', edu: 'Istruzione' }
         };
         function applyLabels(lang) {
@@ -1276,7 +1291,7 @@
             const file = input.files && input.files[0];
             if (!file) { photoDataUrl = ''; updatePhoto(); return; }
             if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-                alert('Bitte nur JPEG- oder PNG-Dateien wählen.');
+                alert('Bitte nur JPEG- oder PNG-Dateien wÃ¤hlen.');
                 input.value = '';
                 return;
             }
@@ -1323,7 +1338,7 @@
             const roleMap = {
                 logistics: 'Lagermitarbeiter / Logistikmitarbeiter',
                 gastro: 'Gastronomie-Mitarbeiter',
-                admin: 'Kaufmännischer Mitarbeiter',
+                admin: 'KaufmÃ¤nnischer Mitarbeiter',
                 it: 'IT-Support / IT-Mitarbeiter',
                 banking: 'Finanzmitarbeiter / Bankmitarbeiter'
             };
@@ -1407,7 +1422,7 @@
                     
                     
                     // Update translated sidebar values without touching form inputs
-                    const roleMap2 = { logistics: 'Lagermitarbeiter / Logistikmitarbeiter', gastro: 'Gastronomie-Mitarbeiter', admin: 'Kaufmännischer Mitarbeiter', it: 'IT-Support / IT-Mitarbeiter', banking: 'Finanzmitarbeiter / Bankmitarbeiter' };
+                    const roleMap2 = { logistics: 'Lagermitarbeiter / Logistikmitarbeiter', gastro: 'Gastronomie-Mitarbeiter', admin: 'KaufmÃ¤nnischer Mitarbeiter', it: 'IT-Support / IT-Mitarbeiter', banking: 'Finanzmitarbeiter / Bankmitarbeiter' };
                     const roleEl2 = document.getElementById('doc-role');
                     if (roleEl2) roleEl2.textContent = roleMap2[selectedNiche] || 'Senior Professional / Expert';
                     if (json.sidebar) {
@@ -1421,15 +1436,27 @@
                 const errEl = document.createElement('div');
                 errEl.style.color = 'red';
                 errEl.style.padding = '10px';
-                errEl.textContent = 'Übersetzungsfehler: ' + err.message + ' — Bitte versuchen Sie es erneut.';
+                errEl.textContent = 'Ãœbersetzungsfehler: ' + err.message + ' â€” Bitte versuchen Sie es erneut.';
                 body.appendChild(errEl);
             }
             finally { btn.disabled = false; btn.textContent = 'Schweizer Lebenslauf generieren'; }
         }
         addExperience(); addEducation(); applyLabels(selectedLang); const cb = document.getElementById('consent-box'); if (cb) cb.style.display = isGermanLang(selectedLang) ? 'none' : 'block';
     </script>
+<script>
+document.getElementById('accent-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});
+document.getElementById('accent-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);});
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
