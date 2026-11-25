@@ -928,6 +928,11 @@
     margin-bottom: 0;
   }
 </style>
+<style>
+.swatch-active { box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #64748b; }
+.palette-reset { margin-left: 6px; padding: 2px 8px; font-size: 11px; border: 1px solid #cbd5e1; background: #ffffff; border-radius: 4px; cursor: pointer; color: #334155; }
+.palette-reset:hover { background: #f1f5f9; }
+</style>
 </head>
 <body>
 
@@ -1030,7 +1035,7 @@
   <button type="button" class="sidebar-swatch" data-color="#fdf6e3" title="Bezhë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fdf6e3;cursor:pointer;"></button>
   <button type="button" class="sidebar-swatch" data-color="#fff7ed" title="Krem" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fff7ed;cursor:pointer;"></button>
   <input type="color" id="sidebar-bg-custom" value="#f7f8fa" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;">
-</div>
+<button type="button" id="sidebar-bg-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
                 <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
 <div id="accent-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
   <button type="button" class="accent-swatch" data-color="#1e3a5f" title="Blu navy" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#1e3a5f;cursor:pointer;"></button>
@@ -1041,7 +1046,7 @@
   <button type="button" class="accent-swatch" data-color="#6d28d9" title="Vjollcë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#6d28d9;cursor:pointer;"></button>
   <button type="button" class="accent-swatch" data-color="#334155" title="Gri e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#334155;cursor:pointer;"></button>
   <button type="button" class="accent-swatch" data-color="#111827" title="E zezë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#111827;cursor:pointer;"></button>
-<input type="color" id="accent-custom-inline" value="#1e3a5f" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"></div>
+<input type="color" id="accent-custom-inline" value="#1e3a5f" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"><button type="button" id="accent-reset" class="palette-reset" title="Kthe ngjyrën fillestare">Reset</button></div>
             </div>
             
             <!-- ELITE TWO-COLUMN A4 SHEET -->
@@ -1465,8 +1470,15 @@ document.getElementById('sidebar-bg-custom').addEventListener('input',function(e
 <script>
 document.getElementById('accent-palette').addEventListener('click',function(e){const b=e.target.closest('.accent-swatch');if(b){document.documentElement.style.setProperty('--accent',b.dataset.color);document.getElementById('accent-custom').value=b.dataset.color;document.getElementById('accent-custom-inline').value=b.dataset.color;}});
 </script>
-<script>document.getElementById('accent-custom-inline').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});</script></body>
+<script>document.getElementById('accent-custom-inline').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});</script><script>
+function markActive(palette, btn){palette.querySelectorAll('.sidebar-swatch,.accent-swatch').forEach(function(b){b.classList.remove('swatch-active');});if(btn){btn.classList.add('swatch-active');}}
+document.querySelectorAll('#sidebar-bg-palette,#accent-palette').forEach(function(p){p.addEventListener('click',function(e){const b=e.target.closest('.sidebar-swatch,.accent-swatch');if(b){markActive(p,b);}});});
+document.getElementById('sidebar-bg-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--sidebar-bg','#f7f8fa');document.getElementById('sidebar-bg-custom').value='#f7f8fa';markActive(document.getElementById('sidebar-bg-palette'),null);});
+document.getElementById('accent-reset').addEventListener('click',function(){document.documentElement.style.setProperty('--accent','#1e3a5f');document.getElementById('accent-custom').value='#1e3a5f';document.getElementById('accent-custom-inline').value='#1e3a5f';markActive(document.getElementById('accent-palette'),null);});
+</script>
+</body>
 </html>
+
 
 
 
