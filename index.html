@@ -398,7 +398,7 @@
   }
 
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -445,7 +445,7 @@
 <!-- Swiss Quality Premium: Sidebar v1 -->
 <style>
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -565,7 +565,7 @@
   }
 
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -663,7 +663,7 @@
   }
 
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -761,7 +761,7 @@
   }
 
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -859,7 +859,7 @@
   }
 
   .a4-sidebar {
-    background: #f8fafc;
+    background: var(--sidebar-bg, #f8fafc);
     border-right: 1px solid #e5e7eb;
     padding-left: 0;
     padding-right: 10px;
@@ -1020,27 +1020,28 @@
 
         <aside class="preview-pane">
             <div class="preview-toolbar">
-                <select id="sidebar-bg-picker" style="padding:4px;width:2.5cm;" title="Sfondi i kolonës">
-<option value="#f7f8fa">Gri e lehtë</option>
-<option value="#ffffff">Bardhë</option>
-<option value="#eef2f7">Gri blu e lehtë</option>
-<option value="#eef4fb">Blu shumë e lehtë</option>
-<option value="#fdf8ef">Krem</option>
-<option value="#eef7f1">Jeshile shumë e lehtë</option>
-</select>
+                <div id="sidebar-bg-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
+  <button type="button" class="sidebar-swatch" data-color="#ffffff" title="Bardhë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#ffffff;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#f1f5f9" title="Gri e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#f1f5f9;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#e2e8f0" title="Gri" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#e2e8f0;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#e0f2fe" title="Blu e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#e0f2fe;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#1e3a5f" title="Blu navy" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#1e3a5f;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#dcfce7" title="Jeshile e lehtë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#dcfce7;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#fdf6e3" title="Bezhë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fdf6e3;cursor:pointer;"></button>
+  <button type="button" class="sidebar-swatch" data-color="#fff7ed" title="Krem" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#fff7ed;cursor:pointer;"></button>
+  <input type="color" id="sidebar-bg-custom" value="#f7f8fa" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;">
+</div>
                 <button type="button" class="btn-small" id="btn-print" onclick="window.print()">PDF Drucken</button>
-<select id="accent-picker" style="margin-left:8px;padding:4px;">
-<option value="#1e3a5f">Blu e errët</option>
-<option value="#1f2937">Gri e errët</option>
-<option value="#14532d">Jeshile e errët</option>
-<option value="#7f1d1d">Bordo</option>
-<option value="#0f766e">Kaltërt e errët</option>
-<option value="#3730a3">Vjollcë e errët</option>
-<option value="#92400e">Kafe e errët</option>
-<option value="#334155">Gri blu</option>
-<option value="#7c2d12">Ngjyrë tulle</option>
-<option value="#d52b1e">E kuqe</option>`n<option value="#000000">E zezë</option>
-</select>
+<div id="accent-palette" style="display:inline-flex;align-items:center;gap:4px;margin-left:8px;">
+  <button type="button" class="accent-swatch" data-color="#1e3a5f" title="Blu navy" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#1e3a5f;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#0f172a" title="Blu e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#0f172a;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#0f766e" title="Jeshile e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#0f766e;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#166534" title="Jeshile" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#166534;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#7c2d12" title="Ngjyrë tulle" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#7c2d12;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#6d28d9" title="Vjollcë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#6d28d9;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#334155" title="Gri e errët" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#334155;cursor:pointer;"></button>
+  <button type="button" class="accent-swatch" data-color="#111827" title="E zezë" style="width:12px;height:12px;border-radius:50%;border:1px solid #cbd5e1;background:#111827;cursor:pointer;"></button>
+<input type="color" id="accent-custom-inline" value="#1e3a5f" title="Ngjyrë e personalizuar" style="width:24px;height:20px;margin-left:6px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;"></div>
             </div>
             
             <!-- ELITE TWO-COLUMN A4 SHEET -->
@@ -1457,8 +1458,21 @@ document.getElementById('accent-custom').addEventListener('input',function(e){do
 <script>
 function matchSidebarPickerWidth(){const p=document.getElementById('sidebar-bg-picker'),a=document.getElementById('accent-picker');if(p&&a){p.style.width=a.offsetWidth+'px';}}window.addEventListener('load',matchSidebarPickerWidth);window.addEventListener('resize',matchSidebarPickerWidth);document.getElementById('sidebar-bg-picker').addEventListener('change',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
 </script>
-</body>
+<script>
+document.getElementById('sidebar-bg-palette').addEventListener('click',function(e){const b=e.target.closest('.sidebar-swatch');if(b){document.documentElement.style.setProperty('--sidebar-bg',b.dataset.color);document.getElementById('sidebar-bg-custom').value=b.dataset.color;}});
+document.getElementById('sidebar-bg-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
+</script>
+<script>
+document.getElementById('accent-palette').addEventListener('click',function(e){const b=e.target.closest('.accent-swatch');if(b){document.documentElement.style.setProperty('--accent',b.dataset.color);document.getElementById('accent-custom').value=b.dataset.color;}});
+</script>
+<script>document.getElementById('accent-custom-inline').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});</script></body>
 </html>
+
+
+
+
+
+
 
 
 
