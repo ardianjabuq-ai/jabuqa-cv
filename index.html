@@ -977,7 +977,7 @@
                             <option value="GrenzgÃ¤ngerbewilligung G">GrenzgÃ¤ngerbewilligung G</option>
                             <option value="Schutzstatus S">Schutzstatus S</option>
                         </select>
-<input type="color" id="accent-custom" value="#1e3a5f" style="margin-left:8px;width:42px;height:30px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;" title="Ngjyrë e personalizuar">
+<input type="color" id="accent-custom" value="#1e3a5f" style="display:none;margin-left:8px;width:42px;height:30px;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;" title="Ngjyrë e personalizuar">
 
                     </div>
                     <div class="field span-2">
@@ -1463,10 +1463,12 @@ document.getElementById('sidebar-bg-palette').addEventListener('click',function(
 document.getElementById('sidebar-bg-custom').addEventListener('input',function(e){document.documentElement.style.setProperty('--sidebar-bg',e.target.value);});
 </script>
 <script>
-document.getElementById('accent-palette').addEventListener('click',function(e){const b=e.target.closest('.accent-swatch');if(b){document.documentElement.style.setProperty('--accent',b.dataset.color);document.getElementById('accent-custom').value=b.dataset.color;}});
+document.getElementById('accent-palette').addEventListener('click',function(e){const b=e.target.closest('.accent-swatch');if(b){document.documentElement.style.setProperty('--accent',b.dataset.color);document.getElementById('accent-custom').value=b.dataset.color;document.getElementById('accent-custom-inline').value=b.dataset.color;}});
 </script>
 <script>document.getElementById('accent-custom-inline').addEventListener('input',function(e){document.documentElement.style.setProperty('--accent',e.target.value);document.getElementById('accent-custom').value=e.target.value;});</script></body>
 </html>
+
+
 
 
 
