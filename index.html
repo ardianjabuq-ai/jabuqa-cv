@@ -9784,9 +9784,13 @@ document.addEventListener('DOMContentLoaded',function(){
 <footer class="jabua-footer">
   <span class="jabua-signature">&copy; Crafted by Jabuqa.A 2026</span>
   <span class="jabua-social">
+    <span class="jabua-sep">&nbsp;&middot;&nbsp;</span>
     <span class="jabua-icon" title="LinkedIn">in</span>
+    <span class="jabua-sep">&nbsp;&middot;&nbsp;</span>
     <span class="jabua-icon" title="GitHub">GH</span>
+    <span class="jabua-sep">&nbsp;&middot;&nbsp;</span>
     <span class="jabua-icon" title="Email">&#9993;</span>
+    <span class="jabua-sep">&nbsp;&middot;&nbsp;</span>
     <span class="jabua-icon" title="Website">&#127760;</span>
   </span>
 </footer>
@@ -9892,8 +9896,57 @@ document.addEventListener('DOMContentLoaded',function(){
   word-break: normal !important;
 }
 </style>
+<style id="footer-presentation-fix">
+.jabua-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.jabua-footer .jabua-social {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.jabua-footer .jabua-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+</style>
+<style id="footer-spacing-force">
+.jabua-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+}
+
+.jabua-footer .jabua-signature {
+  margin-right: 14px !important;
+}
+
+.jabua-footer .jabua-social {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.jabua-footer .jabua-icon {
+  margin: 0 4px !important;
+  padding: 2px 4px !important;
+}
+</style>
 </body>
 </html>
+
+
+
 
 
 
